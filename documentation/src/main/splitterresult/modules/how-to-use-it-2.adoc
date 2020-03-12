@@ -1,0 +1,18 @@
+[id="how-to-use-it-2_{context}"]
+= How to use it
+
+The directory provider alias is _"infinispan"_, and to enable it for an index, the following property should be in the link:https://docs.jboss.org/hibernate/stable/search/reference/en-US/html_single/#configuration[Hibernate Search configuration]:
+
+[listing]
+----
+hibernate.search.MyIndex.directory_provider = infinispan
+----
+
+to enable it by default for all indexes:
+
+[listing]
+----
+hibernate.search.default.directory_provider = infinispan
+----
+
+The {brandname} cluster will start with a link:https://github.com/infinispan/infinispan/blob/master/lucene/directory-provider/src/main/resources/default-hibernatesearch-infinispan.xml[default configuration], see below how to override it.

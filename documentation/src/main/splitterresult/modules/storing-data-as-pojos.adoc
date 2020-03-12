@@ -1,0 +1,31 @@
+[id="storing-data-as-pojos_{context}"]
+= Storing Data as POJOs
+
+Storing unmarshalled Java objects in the server is not recommended. Doing so requires {brandname} to serialize data when remote clients read from the cache and then deserialize data when remote clients write to the cache.
+
+The following example configures the cache to store entries with the `application/x-java-object` media type:
+
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/encoding_java_object.xml[]
+----
+
+Hot Rod clients must use a supported marshaller when data is stored as POJOs in the cache, either the JBoss marshaller or the default Java serialization mechanism. You must also deploy the classes must be deployed in the server.
+
+REST clients must use a storage format that {brandname} can convert to and from Java objects, currently JSON or XML.
+
+[NOTE,textlabel="Note",name="note"]
+====
+Storing Java objects in the cache requires you to deploy entity classes to {brandname}. See link:#entities_deploy[Deploying Entity Classes].
+====
+
+Memcached clients must send and receive a serialized version of the stored POJO, which is a JBoss marshalled payload by default. However if you configure the client encoding in the appropriate Memcached connector, you change the storage format so that Memcached clients use a platform neutral format such as `JSON`.
+
+[table,tablepcwidth="100",rowcount="6",header-option="",colcount="2",cols="2*"]
+|===
+| REST clients | Yes
+| Java Hot Rod clients | Yes
+| Non-Java Hot Rod clients | No
+| Querying and Indexing | Yes. However, querying and indexing works with POJOs only if the entities are annotated.
+| Custom Java objects | Yes
+|===

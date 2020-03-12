@@ -1,0 +1,22 @@
+[id="project-admin_{context}"]
+= Project Admin
+
+Project Admins have a very limited role.
+Only Project Admins are allowed to push to upstream, and Project Admins _never_ write any code directly on the upstream repository.
+All Project Admins do is pull in and merge changes from contributors (even if the "contributor" happens to be themselves) into upstream, perform code reviews and either commit or reject such changes.
+
+[NOTE,textlabel="Note",name="note"]
+====
+All Contributors who are also Project Admins are encouraged to not merge their own changes, to ensure that all changes are reviewed by someone else.
+====
+
+This approach ensures {brandname} maintains quality on the main code source tree, and allows for important code reviews to take place again ensuring quality.
+Further, it ensures clean and easily traceable code history and makes sure that more than one person knows about the changes being performed.
+
+[id="handling-pull-requests_{context}"]
+== Handling pull requests
+:context: handling-pull-requests
+
+[id="cutting-releases_{context}"]
+== Cutting releases
+:context: cutting-releases

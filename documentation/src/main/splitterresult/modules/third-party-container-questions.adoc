@@ -1,0 +1,10 @@
+[id="third-party-container-questions_{context}"]
+= Third Party Container questions
+
+[id="can-i-use-brandname-on-google-app-engine-for-java_{context}"]
+== Can I use {brandname} on Google App Engine for Java?
+:context: can-i-use-brandname-on-google-app-engine-for-java
+
+[id="when-running-on-glassfish-or-apache-creating-a-cache-throws-an-exception-saying-unable-to-construct-a-globalcomponentregistry-what-is-it-wrong_{context}"]
+== When running on Glassfish or Apache, creating a cache throws an exception saying "Unable to construct a GlobalComponentRegistry", what is it wrong?
+:context: when-running-on-glassfish-or-apache-creating-a-cache-throws-an-exception-saying-unable-to-construct-a-globalcomponentregistry-what-is-it-wrong

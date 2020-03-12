@@ -1,0 +1,15 @@
+ifdef::context[:parent-context: {context}]
+[id="network-address-strategy_{context}"]
+= Network Address Strategy
+:context: network-address-strategy
+
+Selects networks based on IP address.
+
+[source,xml]
+----
+link:config_examples/server_network_inetaddress.xml[]
+----
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

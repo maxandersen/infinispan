@@ -1,0 +1,39 @@
+[id="tx_{context}"]
+= Reconciliation
+
+The transaction manager informs the system administrator on in-doubt transaction in a proprietary way.
+At this stage it is assumed that the system administrator knows transaction's XID (a byte array).
+
+A normal recovery flow is:
+
+* *STEP 1*: The system administrator connects to an {brandname} server through JMX, and lists the in doubt transactions.
+The image below demonstrates JConsole connecting to an {brandname} node that has an in doubt transaction.
+
+.Show in-doubt transactions
+[imagesdir="null",alt="showInDoubtTx",align="center",default-alt="showInDoubtTx",target="showInDoubtTx.png"]
+image::
+
+image::
+
+The status of each in-doubt transaction is displayed(in this example " _PREPARED_ ").
+There might be multiple elements in the status field, e.g. "PREPARED" and "COMMITTED" in the case the transaction committed on certain nodes but not on all of them.  
+
+* *STEP 2*: The system administrator visually maps the XID received from the transaction manager to an {brandname} internal id, represented as a number.
+This step is needed because the XID, a byte array, cannot conveniently be passed to the JMX tool (e.g. JConsole) and then re-assembled on {brandname}'s side.
+* *STEP 3*: The system administrator forces the transaction's commit/rollback through the corresponding jmx operation, based on the internal id.
+The image below is obtained by forcing the commit of the transaction based on its internal id.
+
+.Force commit
+[imagesdir="null",alt="forceCommit",align="center",default-alt="forceCommit",target="forceCommit.png"]
+image::
+
+image::
+
+[TIP,textlabel="Tip",name="tip"]
+====
+All JMX operations described above can be executed on any node, regardless of where the transaction originated.
+====
+
+[id="force-commitrollback-based-on-xid_{context}"]
+== Force commit/rollback based on XID
+:context: force-commitrollback-based-on-xid

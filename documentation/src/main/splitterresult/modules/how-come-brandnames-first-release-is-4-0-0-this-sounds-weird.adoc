@@ -1,0 +1,6 @@
+[id="how-come-brandnames-first-release-is-4-0-0-this-sounds-weird_{context}"]
+= How come {brandname}'s first release is 4.0.0?  This sounds weird!
+
+We didn't want to release {brandname} as a 1.0, as in all fairness it is not a virgin codebase.
+A lot of the code, designs and ideas in {brandname} are from JBoss Cache, and has been tried and tested, proven in high stress environments.
+{brandname} should thus be viewed as a mature and stable platform and not a new, experimental one.

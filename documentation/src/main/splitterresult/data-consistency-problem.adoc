@@ -1,0 +1,29 @@
+ifdef::context[:parent-context: {context}]
+[id="data-consistency-problem_{context}"]
+= Data Consistency Problem
+:context: data-consistency-problem
+
+Imagine you have two ATMs that connect using Hot Rod to a bank where an account's balance is stored.  Two closely followed operations to retrieve the latest balance could return 500 CHF (swiss francs) as shown below:
+
+.Concurrent readers
+[imagesdir="null",alt="server modules 6",align="center",default-alt="server modules 6",target="server_modules_6.png"]
+image::
+
+image::
+
+Next a customer connects to the first ATM and requests 400 CHF to be retrieved.  Based on the last value read, the ATM could calculate what the new balance is, which is 100 CHF, and request a put with this new value. Let's imagine now that around the same time another customer connects to the ATM and requests 200 CHF to be retrieved.  Let's assume that the ATM thinks it has the latest balance and based on its calculations it sets the new balance to 300 CHF:
+
+[imagesdir="null",alt="Concurrent updates",target="server_modules_7.png"]
+image::
+
+image::
+
+Obviously, this would be wrong.  Two concurrent updates have resulted in an incorrect account balance.  The second update should not have been allowed since the balance the second ATM had was incorrect. Even if the ATM would have retrieved the balance before calculating the new balance, someone could have updated between the new balance being retrieved and the update. Before finding out how to solve this issue in a client-server scenario with Hot Rod, let's look at how this is solved when {brandname} clients run in peer-to-peer mode where clients and {brandname} live within the same JVM.
+
+include::modules/embedded-mode-solution.adoc[leveloffset=+1]
+
+include::modules/client-server-solution.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

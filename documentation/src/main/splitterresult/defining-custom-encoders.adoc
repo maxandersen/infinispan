@@ -1,0 +1,36 @@
+ifdef::context[:parent-context: {context}]
+[id="defining-custom-encoders_{context}"]
+= Defining custom Encoders
+:context: defining-custom-encoders
+
+A custom encoder can be registered in the _EncoderRegistry_.
+
+[CAUTION,textlabel="Caution",name="caution"]
+====
+Ensure that the registration is done in every node of the cluster, before starting the caches.
+====
+
+Consider a custom encoder used to compress/decompress with gzip:
+
+[source,java]
+----
+link:code_examples/EncoderCustomGzip.java[]
+----
+
+It can be registered by:
+
+[source,java]
+----
+link:code_examples/EncoderCustomGzipRegister.java[]
+----
+
+And then be used to write and read data from a cache:
+
+[source,java]
+----
+link:code_examples/EncoderCustomExample.java[]
+----
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

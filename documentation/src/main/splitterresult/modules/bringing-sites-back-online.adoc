@@ -1,0 +1,14 @@
+[id="bringing-sites-back-online_{context}"]
+= Bringing Sites Back Online
+
+After taking sites offline, invoke the `bringSiteOnline(siteName)` operation via the following JMX MBeans to bring sites back online:
+
+* `XSiteAdmin` enables replication on caches across clusters in a remote site.
+* `GlobalXSiteAdminOperations` enables replication on cache containers across clusters in a remote site.
+
+The `bringSiteOnline(siteName)` operation enables replication only and does not do a full update. For this reason, when you bring sites back online, they only contain new entries. You should push transfer to sites after you bring them online to synchronize the most recent data.
+
+[TIP,textlabel="Tip",name="tip"]
+====
+Pushing state transfer brings sites back online. You can do that instead of invoking `bringSiteOnline(siteName)`.
+====

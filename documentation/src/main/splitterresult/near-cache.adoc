@@ -1,0 +1,12 @@
+ifdef::context[:parent-context: {context}]
+[id="near-cache_{context}"]
+= Near Cache
+:context: near-cache
+
+A technique for caching data in the client when communicating with a remote
+cache, for example, over the _Hot Rod_ protocol.  This technique helps
+minimize remote calls to retrieve data.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

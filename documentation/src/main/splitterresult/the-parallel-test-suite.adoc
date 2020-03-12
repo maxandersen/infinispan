@@ -1,0 +1,12 @@
+ifdef::context[:parent-context: {context}]
+[id="the-parallel-test-suite_{context}"]
+= The Parallel Test Suite
+:context: the-parallel-test-suite
+
+{brandname} runs its unit test suite in parallel; {brandname} tests are often IO rather than processor bound, so executing them in parallel offers significant speed up in executing the entire test suite.
+
+include::modules/tips-for-writing-and-debugging-parallel-tests.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

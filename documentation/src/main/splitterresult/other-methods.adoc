@@ -1,0 +1,21 @@
+ifdef::context[:parent-context: {context}]
+[id="other-methods_{context}"]
+= Other methods
+:context: other-methods
+
+.<a href="{javadocroot}/org/infinispan/manager/EmbeddedCacheManager.html#getTransport--">getTransport()</a>
+[]
+This method provides you access to the underlying Transport that is used to send
+messages to other nodes.  In most cases a user wouldn't ever need to go to
+this level, but if you want to get Transport specific information (in this
+case JGroups) you can use this mechanism.
+
+.<a href="{javadocroot}/org/infinispan/manager/EmbeddedCacheManager.html#getStats--">getStats()</a>
+[]
+The stats provided here are coalesced from all of the active caches in this manager.
+These stats can be useful to see if there is something wrong going on with your
+cluster overall.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

@@ -1,0 +1,31 @@
+[id="proto_{context}"]
+= .proto Files
+
+[NOTE,textlabel="Note",name="note"]
+====
+Protocol Buffers is a broad subject, we will not detail it here in great detail, so please consult the
+link:https://developers.google.com/protocol-buffers/docs/overview[Developer Guide] for an in-depth
+explanation of the encoding format and best practices.
+====
+
+Protocol Buffers, Protobuf for short, provide a platform independent encoding format that utilises .proto schema files to
+provide a structured representation of entities that can be easily evolved over time whilst maintaining backwards compatibility.
+
+Protobuf is all about structured data, so the first thing to do is to define the structure of your data. This is
+accomplished by declaring Protobuf message types in .proto files, as shown in the example below.
+
+.library.proto
+[id="book_{context}" source,proto,id="book_sample_proto"]
+----
+link:config_examples/library.proto[]
+----
+
+In this example _.proto_ file, we define an entity (message type in Protobuf speak) named _Book_, which is contained in the
+package _book_sample_. The _Book_ entity declares several fields of primitive types and a repeatable field (Protobuf's
+way of representing an array) named _authors_, which is the _Author_ message type also declared in _library.proto_.
+
+There are a few important notes we need to make about Protobuf messages:
+
+* Nesting of messages is possible, but the resulting structure is strictly a tree, never a graph
+* There is no concept of type inheritance
+* Collections are not supported but arrays can be easily emulated using repeated fields

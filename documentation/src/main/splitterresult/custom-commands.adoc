@@ -1,0 +1,32 @@
+ifdef::context[:parent-context: {context}]
+[id="custom-commands_{context}"]
+= Custom Commands
+:context: custom-commands
+
+{brandname} makes use of a link:http://en.wikipedia.org/wiki/Command_pattern[command/visitor pattern] to
+implement the various top-level methods you see on the public-facing API.
+
+While the core commands - and their corresponding visitors - are hard-coded as
+a part of {brandname}'s core module, module authors can extend and enhance {brandname}
+by creating new custom commands.
+
+As a module author (such as link:https://github.com/infinispan/infinispan/tree/master/query[infinispan-query], etc.) you can define your own commands.
+
+You do so by:
+
+[arabic]
+. Create a `META-INF/services/org.infinispan.commands.module.ModuleCommandExtensions` file and ensure this is packaged in your jar.
+. Implementing link:https://github.com/infinispan/infinispan/blob/master/core/src/main/java/org/infinispan/commands/module/ModuleCommandFactory.java[`ModuleCommandFactory`],
+link:https://github.com/infinispan/infinispan/blob/master/core/src/main/java/org/infinispan/commands/module/ModuleCommandInitializer.java[`ModuleCommandInitializer`] and
+link:https://github.com/infinispan/infinispan/blob/master/core/src/main/java/org/infinispan/commands/module/ModuleCommandExtensions.java[`ModuleCommandExtensions`]
+. Specifying the fully-qualified class name of the  link:https://github.com/infinispan/infinispan/blob/master/core/src/main/java/org/infinispan/commands/module/ModuleCommandExtensions.java[`ModuleCommandExtensions`]
+implementation in `META-INF/services/org.infinispan.commands.module.ModuleCommandExtensions`.
+. Implement your custom commands and visitors for these commands
+
+include::modules/an-example.adoc[leveloffset=+1]
+
+include::modules/preassigned-custom-command-id-ranges.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

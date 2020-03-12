@@ -1,0 +1,10 @@
+ifdef::context[:parent-context: {context}]
+[id="delete-hold-time-parameter_{context}"]
+= Delete Hold Time Parameter
+:context: delete-hold-time-parameter
+
+Memcached no longer honors the optional hold time parameter for the delete command. The {brandname} based Memcached server does not implement the feature.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

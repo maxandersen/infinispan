@@ -1,0 +1,32 @@
+ifdef::context[:parent-context: {context}]
+[id="listeners_{context}"]
+= Listeners and Notifications
+:context: listeners
+
+{brandname} offers a listener API, where clients can register for and get notified when events take place.  This annotation-driven API applies to 2 different levels: cache level events and cache manager level events.
+
+Events trigger a notification which is dispatched to listeners.   Listeners are simple link:http://en.wikipedia.org/wiki/Plain_Old_Java_Object[POJO] s annotated with link:{javadocroot}/org/infinispan/notifications/Listener.html[@Listener] and registered using the methods defined in the link:{javadocroot}/org/infinispan/notifications/Listenable.html[Listenable] interface.
+
+[NOTE,textlabel="Note",name="note"]
+====
+Both Cache and CacheManager implement Listenable, which means you can attach listeners to either a cache or a cache manager, to receive either cache-level or cache manager-level notifications.
+====
+
+For example, the following class defines a listener to print out some information every time a new entry is added to the cache, in a non blocking fashion:
+
+[source,java]
+----
+link:code_examples/ListenerPrintWhenAdded.java[]
+----
+
+For more comprehensive examples, please see the link:{javadocroot}/org/infinispan/notifications/Listener.html[Javadocs for @Listener].
+
+include::modules/cache-level-notifications.adoc[leveloffset=+1]
+
+include::modules/cache-manager-level-notifications.adoc[leveloffset=+1]
+
+include::modules/synchronicity-of-events.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

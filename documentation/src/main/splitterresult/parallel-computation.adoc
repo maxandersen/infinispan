@@ -1,0 +1,36 @@
+ifdef::context[:parent-context: {context}]
+[id="parallel-computation_{context}"]
+= Parallel Computation
+:context: parallel-computation
+
+Distributed streams by default try to parallelize as much as possible.  It is possible for the end user to control this and
+actually they always have to control one of the options.  There are 2 ways these streams are parallelized.
+
+*Local to each node*
+When a stream is created from the cache collection the end user can choose between invoking
+link:{jdkdocroot}/java/util/Collection.html#stream--[stream] or
+link:{jdkdocroot}/java/util/Collection.html#parallelStream--[parallelStream]
+method.  Depending on if the parallel stream was picked will enable multiple threading for
+each node locally.  Note that some operations like a rehash aware iterator and forEach operations
+will always use a sequential stream locally.  This could be enhanced at some point to allow for
+parallel streams locally.
+
+Users should be careful when using local parallelism as it requires having a large number of entries or operations
+that are computationally expensive to be faster. Also it should be noted that if a user uses a parallel
+stream with `forEach` that the action should not block as this would be executed on the common pool, which
+is normally reserved for computation operations.
+
+*Remote requests*
+When there are multiple nodes it may be desirable to control whether the remote requests are all processed
+at the same time concurrently or one at a time.  By default all terminal operations except the iterator
+perform concurrent requests.  The iterator, method to reduce overall memory pressure on the local node,
+only performs sequential requests which actually performs slightly better.
+
+If a user wishes to change this default however they can do so by invoking the
+link:{javadocroot}/org/infinispan/CacheStream.html#sequentialDistribution--[sequentialDistribution]
+or link:{javadocroot}/org/infinispan/CacheStream.html#parallelDistribution--[parallelDistribution]
+methods on the `CacheStream`.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

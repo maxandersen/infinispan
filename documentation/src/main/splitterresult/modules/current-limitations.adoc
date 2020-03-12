@@ -1,0 +1,8 @@
+[id="current-limitations_{context}"]
+= Current limitations
+
+Two partitions could start up isolated, and as long as they don't merge they
+can read and write inconsistent data. In the future, we will allow custom
+availability strategies (e.g. check that a certain node is part of the cluster,
+or check that an external machine is accessible) that could handle that
+situation as well.

@@ -1,0 +1,5 @@
+[id="handling-joinleave-nodes_{context}"]
+= Handling join/leave nodes
+
+The current implementation automatically handles the topology changes in producer or consumer site. Also, the cross-site
+state transfer can run in parallel with a local site state transfer.

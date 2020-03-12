@@ -1,0 +1,18 @@
+[id="batch-writing-in-sync-mode_{context}"]
+= Batch writing in SYNC mode
+
+By default, the link:#query_index_manager[Index Managers] work in sync mode, meaning when data is written to {brandname}, it will perform the indexing operations synchronously.
+This synchronicity guarantees indexes are always consistent with the data (and thus visible in searches), but can slowdown write operations since it will also perform a commit to the index.
+Committing is an extremely expensive operation in Lucene, and for that reason, multiple writes from different nodes can be automatically batched into a single commit to reduce
+the impact.
+
+So, when doing data loads to {brandname} with index enabled, try to use multiple threads to take advantage of this batching.
+
+If using multiple threads does not result in the required performance, an alternative is to load data with indexing temporarily disabled and run
+ a link:#query_massindexer[re-indexing] operation afterwards. This can be done writing data with the `SKIP_INDEXING` flag:
+
+[source,java]
+----
+cache.getAdvancedCache().withFlags(Flag.SKIP_INDEXING).put("key","value");
+
+----

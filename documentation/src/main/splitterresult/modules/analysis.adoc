@@ -1,0 +1,16 @@
+[id="analysis_{context}"]
+= Analysis
+
+Analysis is a process that converts input data into one or more terms that you can index and query.
+
+[id="default-analyzers_{context}"]
+== Default Analyzers
+:context: default-analyzers
+
+[id="using-analyzer-definitions_{context}"]
+== Using Analyzer Definitions
+:context: using-analyzer-definitions
+
+[id="creating-custom-analyzer-definitions_{context}"]
+== Creating Custom Analyzer Definitions
+:context: creating-custom-analyzer-definitions

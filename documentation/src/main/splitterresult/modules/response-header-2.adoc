@@ -1,0 +1,6 @@
+[id="response-header-2_{context}"]
+= Response Header
+
+A new response operation code has been added:
+
+* +0x20+ = query response

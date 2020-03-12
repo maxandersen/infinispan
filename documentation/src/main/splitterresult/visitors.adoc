@@ -1,0 +1,26 @@
+ifdef::context[:parent-context: {context}]
+[id="visitors_{context}"]
+= Visitors
+:context: visitors
+
+Commands are processed by the various Visitors.  The visitor interface,
+displayed below, exposes methods to visit each of the different types of
+commands in the system.  This gives us a type-safe mechanism for adding
+behaviour to a call. Commands are processed by `Visitor`s.  The visitor
+interface, displayed below, exposes methods to visit each of the different
+types of commands in the system.  This gives us a type-safe mechanism for
+adding behaviour to a call.
+
+[source,java]
+----
+link:code_examples/Visitor.java[]
+----
+
+An `AbstractVisitor` class in the `org.infinispan.commands` package is provided with
+no-op implementations of each of these methods.  Real implementations then only
+need override the visitor methods for the commands that interest them, allowing
+for very concise, readable and testable visitor implementations.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

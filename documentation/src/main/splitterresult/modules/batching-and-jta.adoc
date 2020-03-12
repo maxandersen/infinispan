@@ -1,0 +1,12 @@
+[id="batching-and-jta_{context}"]
+= Batching and JTA
+
+Behind the scenes, the batching functionality starts a JTA transaction, and all the invocations in that scope are associated with it.
+For this it uses a very simple (e.g. no recovery) internal `TransactionManager` implementation.
+With batching, you get:
+
+[arabic]
+. Locks you acquire during an invocation are held until the batch completes
+. Changes are all replicated around the cluster in a batch as part of the batch completion process. Reduces replication chatter for each update in the batch.
+. If synchronous replication or invalidation are used, a failure in replication/invalidation will cause the batch to roll back.
+. All the transaction related configurations apply for batching as well.

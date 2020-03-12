@@ -1,0 +1,5 @@
+[id="spelling_{context}"]
+= Spelling
+
+Ensure correct spelling in code, comments, Javadocs, etc. (use _American English_ spelling).
+It is recommended that you use a spellchecker plugin for your IDE.

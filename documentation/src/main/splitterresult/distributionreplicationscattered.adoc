@@ -1,0 +1,17 @@
+ifdef::context[:parent-context: {context}]
+[id="distributionreplicationscattered_{context}"]
+= Distribution/Replication/Scattered
+:context: distributionreplicationscattered
+
+This is where streams come into their stride.  When a stream operation is performed it will
+send the various intermediate and terminal operations to each node that has pertinent data.
+This allows processing the intermediate values on the nodes owning the data, and only sending
+the final results back to the originating nodes, improving performance.
+
+include::modules/rehash-aware.adoc[leveloffset=+1]
+
+include::modules/serialization.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

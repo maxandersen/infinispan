@@ -1,0 +1,23 @@
+[id="single-node-wildfly-application_{context}"]
+= Single-Node WildFly Application
+
+In WildFly, {brandname} is the default second level cache provider for JPA/Hibernate.
+This means that when using JPA in WildFly, region factory is already set to `infinispan`.
+{brandname}'s configuration is located in WildFly's `standalone.xml` file.
+It follows the same settings explained in link:#default_local_configuration_second_level[Default Local Configuration] section.
+
+[WARNING,textlabel="Warning",name="warning"]
+====
+When running in WildFly, do not set `hibernate.cache.infinispan.cfg`.
+The configuration of the caches comes from WildFly's configuration file.
+====
+
+Several aspects of the {brandname} second level cache provider can be configured directly in `persistence.xml`.
+This means that some of those tweaks do not require changing WildFly's `standalone.xml` file.
+You can find out more about these changes in the link:#configuration_properties[Configuration Properties] section.
+
+So, to enable Hibernate to use {brandname} as second-level cache, all you need to do is enable second-level cache.
+This is explained in detail in the introduction of this chapter.
+
+A simple tutorial showing how to use {brandname} as Hibernate cache provider in a WildFly application can be found
+link:https://github.com/infinispan/infinispan-simple-tutorials/tree/master/hibernate-cache/wildfly-local[here].

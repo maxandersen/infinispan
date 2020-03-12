@@ -1,0 +1,30 @@
+[id="pessimistic-transactional-cache_{context}"]
+= Pessimistic transactional cache
+
+From a lock acquisition perspective, pessimistic transactions obtain locks on keys at the time the key is written.
+
+[arabic]
+. A lock request is sent to the primary owner (can be an explicit lock request or an operation)
+. The primary owner tries to acquire the lock:
+[loweralpha]
+.. If it succeed, it sends back a positive reply;
+.. Otherwise, a negative reply is sent and the transaction is rollback.
+
+As an example:
+
+[source,java]
+----
+transactionManager.begin();
+cache.put(k1,v1); //k1 is locked.
+cache.remove(k2); //k2 is locked when this returns
+transactionManager.commit();
+----
+
+When `cache.put(k1,v1)` returns, `k1` is locked and no other transaction running anywhere in the cluster can write to it.
+Reading `k1` is still possible.
+The lock on `k1` is released when the transaction completes (commits or rollbacks).
+
+[NOTE,textlabel="Note",name="note"]
+====
+For conditional operations, the validation is performed in the originator.
+====

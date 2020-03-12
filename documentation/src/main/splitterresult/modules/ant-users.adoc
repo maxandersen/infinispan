@@ -1,0 +1,4 @@
+[id="ant-users_{context}"]
+= Ant users
+
+If you are using Ant, or another build system which doesn't provide declarative dependency management, then the {brandname} distribution zip contains a lib/ directory. Add the contents of this to the build classpath.

@@ -1,0 +1,10 @@
+[id="architecture-considerations_{context}"]
+= Architecture considerations
+
+The same limitations presented in the Lucene Directory apply here, meaning the index will be shared across several nodes and only one _IndexWriter_ can have the lock.
+
+One common strategy is to use Hibernate Search's JMS Master/Slave or JGroups backend together with the {brandname} directory provider: instead of sending updates directly to the index, they are sent to a JMS queue or JGroups channel and a single node applies all the changes on behalf of all other nodes.
+
+Refer to the link:https://docs.jboss.org/hibernate/stable/search/reference/en-US/html_single/[Hibernate Search documentation] for instructions on how to setup JMS or JGroups backends.
+
+link:integrations_hibernate_cache.adoc[]

@@ -1,0 +1,7 @@
+[id="consistency_{context}"]
+= Consistency
+
+The fact that a single owner is locked (as opposed to all owners being locked) does not break the following consistency guarantee:
+if key `K` is hashed to nodes `{A, B}` and transaction `TX1` acquires a lock for `K`, let's say on `A`.
+If another transaction, `TX2`, is started on `B` (or any other node) and `TX2` tries to lock `K` then it will fail with a timeout as the lock is already held by `TX1`.
+The reason for this is the that the lock for a key `K` is always, deterministically, acquired on the same node of the cluster, regardless of where the transaction originates.

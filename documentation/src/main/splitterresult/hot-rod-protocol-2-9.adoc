@@ -1,0 +1,200 @@
+ifdef::context[:parent-context: {context}]
+[id="hot-rod-protocol-2-9_{context}"]
+= Hot Rod Protocol 2.9
+:context: hot-rod-protocol-2-9
+
+.Infinispan versions
+[TIP,textlabel="Tip",name="tip"]
+====
+This version of the protocol is implemented since Infinispan 9.4
+====
+
+.Compatibility Mode removal
+[]
+The compatibility mode hint from the _Response status_ fields from the operations is not sent anymore. Consequently, the following statuses are removed:
+
+* `0x06`: Success status with compatibility mode.
+* `0x07`: Success status with return previous value and compatibility mode.
+* `0x08`: Not executed with return previous value and compatibility mode.
+
+To figure out what is the server's storage, the configured MediaType of keys and values are returned on the ping operation:
+
+Ping Response (0x18):
+
+[table,tablepcwidth="100",rowcount="5",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | same as before
+| Response status | 1 byte | same as before
+| Key Type | MediaType | Media Type of the key stored in the server
+| Value Type | MediaType | Media Type of the value stored in the server
+|===
+
+.New query format
+[]
+This version supports query requests and responses in JSON format. The format of the operations *0x1F* (Query Request) and *0x20* (Query Response) are not changed.
+
+To send JSON payloads, the "Value Format" field in the header should be _application/json_.
+
+Query Request (0x1F):
+
+[table,tablepcwidth="100",rowcount="4",header-option="",colcount="3",cols="3,^2,10a"]
+|===
+| Header | variable | Request header
+| Query Length | vInt | The length of the UTF-8 encoded query object.
+| Query | byte array | Byte array containing the JSON (UTF-8) encoded query object, having a length specified by the previous field. Example of payload:
+
+ {
+  "query":"From Entity where field1:'value1'",
+  "offset": 12,
+  "max-results": 1000,
+  "query-mode": "FETCH"
+ }
+
+Where:
+
+ query: the Ickle query String.
+ offset: the index of the first result to return.
+ max_results: the maximum number of results to return.
+ query_mode: the indexed query mode. Either FETCH or BROADCAST. FECTH is the default.
+|===
+
+Query Response (0x20):
+
+[table,tablepcwidth="100",rowcount="4",header-option="",colcount="3",cols="3,^2,10a"]
+|===
+| Header | variable | Response header
+| Response payload Length | vInt | The length of the UTF-8 encoded response object
+| Response payload | byte array | Byte array containing the JSON encoded response object, having a length specified by previous field. Example payload:
+
+ {
+   "total_results":801,
+   "hits":[
+      {
+         "hit":{
+            "field1":565,
+            "field2":"value2"
+         }
+      },
+      {
+         "hit":{
+            "field1":34,
+            "field2":"value22"
+         }
+      }
+   ]
+ }
+
+Where:
+
+ total_results: the total number of results of the query.
+ hits: an ARRAY of OBJECT representing the results.
+ hit: each OBJECT above contain another OBJECT in the "hit" field, containing the result of the query, in JSON format.
+|===
+
+Also, this version introduces 3 new operations for Hot Rod transactions:
+
+* Prepare Request V2:
+It adds new parameters to the request.
+The response stays the same.
+* Forget Transaction Request:
+Removes transaction information in the server.
+* Fetch In-Doubt Transactions Request:
+Fetches all in-doubt transactions's Xid.
+
+.Prepare Request V2
+[]
+Request (0x7D):
+
+[table,tablepcwidth="100",rowcount="17",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Request header
+| Xid | XID | The transaction ID (XID)
+| OnePhaseCommit | byte | When it is set to `1`, the server will use one-phase-commit if available (XA only)
+| Recoverable | byte | Set to `1` to allow recovery in this transactions
+| Timeout | long | The idle timeout in milliseconds.
+If the transaction isn't recoverable (`Recoverable=0`), the server rollbacks the transaction if it has
+been idle for this amount of time.
+| Number of keys | vInt | The number of keys
+| For each key (keys must be distinct)
+| Key Length | vInt | Length of key.
+Note that the size of a vInt can be up to 5 bytes which in theory can produce bigger numbers than `Integer.MAX_VALUE`.
+However, Java cannot create a single array that’s bigger than `Integer.MAX_VALUE`, hence the protocol is limiting vInt array lengths to `Integer.MAX_VALUE`.
+| Key | byte array | Byte array containing the key
+| Control Byte | Byte | A bit set with the following meaning: +
++0x01+ = `NOT_READ` +
++0x02+ = `NON_EXISTING` +
++0x04+ = `REMOVE_OPERATION` +
+Note that `NOT_READ` and `NON_EXISTING` can't be set at the same time.
+| Version Read | long | The version read. Only sent when `NOT_READ` and `NON_EXISTING` aren't present.
+| TimeUnits | Byte | Time units of lifespan (first 4 bits) and maxIdle (last 4 bits).
+Special units `DEFAULT` and `INFINITE` can be used for default server expiration and no expiration respectively.
+Possible values: +
++0x00+ = `SECONDS` +
++0x01+ = `MILLISECONDS` +
++0x02+ = `NANOSECONDS` +
++0x03+ = `MICROSECONDS` +
++0x04+ = `MINUTES` +
++0x05+ = `HOURS` +
++0x06+ = `DAYS` +
++0x07+ = `DEFAULT` +
++0x08+ = `INFINITE` +
+Only sent when `REMOVE_OPERATION` isn't set.
+| Lifespan | vLong | Duration which the entry is allowed to life.
+Only sent when time unit is not `DEFAULT` or `INFINITE` and `REMOVE_OPERATION` isn't set.
+| Max Idle | vLong | Duration that each entry can be idle before it's evicted from the cache.
+Only sent when time unit is not `DEFAULT` or `INFINITE` and `REMOVE_OPERATION` isn't set.
+| Value Length | vInt | Length of value.
+Only sent if `REMOVE_OPERATION` isn't set.
+| Value | byte-array | Value to be stored.
+Only sent if `REMOVE_OPERATION` isn't set.
+|===
+
+Response (0x7E)
+
+[table,tablepcwidth="100",rowcount="3",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Response header
+| XA return code | vInt | The XA code representing the prepare response. +
+Can be `XA_OK(0)`, `XA_RDONLY(3)` or any of the error codes (see `XaException`). +
+This field isn't present if the response state is different from `Successful`.
+|===
+
+.Forget Transaction
+[]
+Request (0x79)
+
+[table,tablepcwidth="100",rowcount="3",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Request header
+| Xid | XID | The transaction ID (XID)
+|===
+
+Response (0x7A)
+
+[table,tablepcwidth="100",rowcount="2",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Response header
+|===
+
+.Fetch in-doubt transactions
+[]
+Request (0x7B)
+
+[table,tablepcwidth="100",rowcount="2",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Request header
+|===
+
+Response (0x7C)
+
+[table,tablepcwidth="100",rowcount="5",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Response header
+| Number of Xid | vInt | The number of Xid in response
+| For each entry:
+| Xid | XID | The transaction ID (XID)
+|===
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

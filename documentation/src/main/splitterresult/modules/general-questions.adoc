@@ -1,0 +1,18 @@
+[id="general-questions_{context}"]
+= General questions
+
+[id="what-apis-does-brandname-offer_{context}"]
+== What APIs does {brandname} offer?
+:context: what-apis-does-brandname-offer
+
+[id="which-jvms-jdks-does-brandname-work-with_{context}"]
+== Which JVMs (JDKs) does {brandname} work with?
+:context: which-jvms-jdks-does-brandname-work-with
+
+[id="does-brandname-store-data-by-value-or-by-reference_{context}"]
+== Does {brandname} store data by value or by reference?
+:context: does-brandname-store-data-by-value-or-by-reference
+
+[id="can-i-use-brandname-with-groovy-what-about-jython-clojure-jruby-or-scala-etc_{context}"]
+== Can I use {brandname} with Groovy? What about Jython, Clojure, JRuby or Scala etc.?
+:context: can-i-use-brandname-with-groovy-what-about-jython-clojure-jruby-or-scala-etc

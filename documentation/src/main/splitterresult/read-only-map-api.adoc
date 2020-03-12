@@ -1,0 +1,30 @@
+ifdef::context[:parent-context: {context}]
+[id="read-only-map-api_{context}"]
+= Read-Only Map API
+:context: read-only-map-api
+
+Read-only operations have the advantage that no locks are acquired
+for the duration of the operation. Here's an example on how to the
+equivalent operation for
+link:{jdkdocroot}/java/util/Map.html#get-java.lang.Object-[Map.get(K)]:
+
+[source,java]
+----
+link:code_examples/ReadOnlyMap.java[]
+----
+
+Read-only map also exposes operations to retrieve multiple keys in one go:
+
+[source,java]
+----
+link:code_examples/ReadOnlyMapRetrieveKeys.java[]
+----
+
+Finally, read-only map also exposes methods to read all existing keys as well
+as entries, which include both key and value information.
+
+include::modules/read.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

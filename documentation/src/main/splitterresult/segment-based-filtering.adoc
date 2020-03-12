@@ -1,0 +1,23 @@
+ifdef::context[:parent-context: {context}]
+[id="segment-based-filtering_{context}"]
+= Segment based filtering
+:context: segment-based-filtering
+
+[NOTE,textlabel="Note",name="note"]
+====
+This is an advanced feature and should only be used with deep knowledge of {brandname} segment and hashing techniques.
+These segments based filtering can be useful if you need to segment data into separate invocations.
+This can be useful when integrating with other tools such as
+link:http://spark.apache.org/[Apache Spark].
+====
+
+This option is only supported for replicated and distributed caches.  This allows the user to operate upon
+a subset of data at a time as determined by the
+link:{javadocroot}/org/infinispan/distribution/ch/KeyPartitioner.html[KeyPartitioner].
+The segments can be filtered by invoking
+link:{javadocroot}/org/infinispan/CacheStream.html#filterKeySegments-java.util.Set-[filterKeySegments]
+method on the `CacheStream`.  This is applied after the key filter but before any intermediate operations are performed.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

@@ -1,0 +1,38 @@
+ifdef::context[:parent-context: {context}]
+[id="rest-hot-rod-and-memcached-interoperability-with-text-based-storage_{context}"]
+= REST, Hot Rod, and Memcached Interoperability with Text-Based Storage
+:context: rest-hot-rod-and-memcached-interoperability-with-text-based-storage
+
+You can configure key and values with a text-based storage format.
+
+For example, specify `text/plain; charset=UTF-8`, or any other character set, to set plain text as the media type. You can also specify a media type for other text-based formats such as JSON (`application/json`) or XML (`application/xml`) with an optional character set.
+
+The following example configures the cache to store entries with the `text/plain; charset=UTF-8` media type:
+
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/encoding_text_plain.xml[]
+----
+
+To handle the exchange of data in a text-based format, you must configure Hot Rod clients with the `org.infinispan.commons.marshall.StringMarshaller` marshaller.
+
+REST clients must also send the correct headers when writing and reading from the cache, as follows:
+
+* Write: `Content-Type: text/plain; charset=UTF-8`
+* Read: `Accept: text/plain; charset=UTF-8`
+
+Memcached clients do not require any configuration to handle text-based formats.
+
+[table,tablepcwidth="100",rowcount="7",header-option="",colcount="2",cols="2*"]
+|===
+| REST clients | Yes
+| Java Hot Rod clients | Yes
+| Memcached clients | Yes
+| Non-Java Hot Rod clients | No
+| Querying and Indexing | No
+| Custom Java objects | No
+|===
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

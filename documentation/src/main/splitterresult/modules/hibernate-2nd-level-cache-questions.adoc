@@ -1,0 +1,10 @@
+[id="hibernate-2nd-level-cache-questions_{context}"]
+= Hibernate 2nd Level Cache questions
+
+[id="can-i-use-brandname-as-a-remote-jpa-or-hibernate-second-level-cache_{context}"]
+== Can I use {brandname} as a remote JPA or Hibernate second level cache?
+:context: can-i-use-brandname-as-a-remote-jpa-or-hibernate-second-level-cache
+
+[id="what-are-the-pitfalls-of-not-using-a-non-jta-transaction-factory-such-as-jdbctransactionfactory-with-hibernate-when-brandname-is-used-as-2nd-level-cache-provider_{context}"]
+== What are the pitfalls of not using a non-JTA transaction factory such as JDBCTransactionFactory with Hibernate when {brandname} is used as 2nd level cache provider?
+:context: what-are-the-pitfalls-of-not-using-a-non-jta-transaction-factory-such-as-jdbctransactionfactory-with-hibernate-when-brandname-is-used-as-2nd-level-cache-provider

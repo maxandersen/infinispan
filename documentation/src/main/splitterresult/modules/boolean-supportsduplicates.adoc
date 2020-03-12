@@ -1,0 +1,6 @@
+[id="boolean-supportsduplicates_{context}"]
+= boolean supportsDuplicates()
+
+Asynchronous that returns true if the multimap cache supports duplicates. This means that the content of the multimap can be
+'a' -> ['1', '1', '2']. For now this method will always return false, as duplicates are not yet supported.
+The existence of a given value is determined by 'equals' and `hashcode' method's contract.

@@ -1,0 +1,37 @@
+ifdef::context[:parent-context: {context}]
+[id="event-marshalling_{context}"]
+= Event Marshalling
+:context: event-marshalling
+
+Hot Rod servers can store data in different formats, but in spite of that,
+Java Hot Rod client users can still develop `CacheEventConverter` or `CacheEventFilter`
+instances that work on typed objects. By default, filters and converter will use data as POJO
+(application/x-java-object) but it is possible to override the desired format by overriding the
+method `format()` from the filter/converter. If the format returns `null`, the filter/converter will receive
+data as it's stored.
+
+As indicated in the link:#hot_rod_marshalling_data[Marshalling Data] section, Hot Rod
+Java clients can be configured to use a different `org.infinispan.commons.marshall.Marshaller`
+instance. If doing this and deploying `CacheEventConverter` or `CacheEventFilter` instances,
+to be able to present filters/converter with Java Objects rather than marshalled content,
+the server needs to be able to convert between objects and the binary format produced
+by the marshaller.
+
+To deploy a Marshaller instance server-side, follow a similar method to the one
+used to deploy `CacheEventConverter` or `CacheEventFilter` instances:
+
+[arabic]
+. Create a JAR file with the converter implementation within it.
+. Create a `META-INF/services/org.infinispan.commons.marshall.Marshaller` file
+within the JAR file and within it, write the fully qualified class name of the
+marshaller class implementation.
+. Deploy the JAR file in the {brandname} Server.
+
+Note that the Marshaller could be deployed in either a separate jar, or in the
+same jar as the `CacheEventConverter` and/or `CacheEventFilter` instances.
+
+include::modules/protostream.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

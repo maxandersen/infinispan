@@ -1,0 +1,22 @@
+ifdef::context[:parent-context: {context}]
+[id="tips-on-enhancing-git_{context}"]
+= Tips on enhancing git
+:context: tips-on-enhancing-git
+
+include::modules/completions.adoc[leveloffset=+1]
+
+include::modules/terminal-colors.adoc[leveloffset=+1]
+
+include::modules/aliases.adoc[leveloffset=+1]
+
+include::modules/visual-history.adoc[leveloffset=+1]
+
+include::modules/visual-diff-and-merge-tools.adoc[leveloffset=+1]
+
+include::modules/choosing-an-editor.adoc[leveloffset=+1]
+
+include::modules/shell-prompt.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

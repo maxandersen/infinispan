@@ -1,0 +1,5 @@
+[id="transactional-caches_{context}"]
+= Transactional caches
+
+The transactional cache supports optimistic and pessimistic locking mode.
+Refer to Transaction Locking for more information.

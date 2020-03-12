@@ -1,0 +1,16 @@
+ifdef::context[:parent-context: {context}]
+[id="any-address-strategy_{context}"]
+= Any Address Strategy
+:context: any-address-strategy
+
+Selects the `INADDR_ANY` wildcard address. As a result
+{brandname} servers listen on all interfaces.
+
+[source,xml]
+----
+link:config_examples/server_network_anyaddress.xml[]
+----
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

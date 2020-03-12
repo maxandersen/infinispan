@@ -1,0 +1,14 @@
+ifdef::context[:parent-context: {context}]
+[id="what-is-brandname_{context}"]
+= What is {brandname} ?
+:context: what-is-brandname
+
+{brandname} is a distributed in-memory key/value data store with optional schema, available under the Apache License 2.0.
+It can be used both as an embedded Java library and as a language-independent service accessed remotely over a variety of
+protocols (Hot Rod, REST, Memcached and WebSockets). It offers advanced functionality such as transactions, events,
+querying and distributed processing as well as numerous integrations with frameworks such as the JCache API standard,
+CDI, Hibernate, WildFly, Spring Cache, Spring Session, Lucene, Spark and Hadoop.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

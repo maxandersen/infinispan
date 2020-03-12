@@ -1,0 +1,18 @@
+ifdef::context[:parent-context: {context}]
+[id="link-local-strategy_{context}"]
+= Link Local Strategy
+:context: link-local-strategy
+
+Selects a _link-local_ IP address.
+
+* *IPv4* the address block `169.254.0.0/16` (`169.254.0.0 – 169.254.255.255`) is reserved for link-local addressing.
+* *IPv6* the address block `fe80::/10` is reserved for link-local unicast addressing.
+
+[source,xml]
+----
+link:config_examples/server_network_inetaddress.xml[]
+----
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

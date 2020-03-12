@@ -1,0 +1,10 @@
+[id="embedded-mode-solution_{context}"]
+= Embedded-mode Solution
+
+If the ATM and the {brandname} instance storing the bank account lived in the same JVM, the ATM could use the link:{jdkdocroot}/java/util/concurrent/ConcurrentMap.html#replace-K-V-V-[conditional replace API] referred at the beginning of this article.  So, it could send the previous known value to verify whether it has changed since it was last read.  By doing so, the first operation could double check that the balance is still 500 CHF when it was to update to 100 CHF.  Now, when the second operation comes, the current balance would not be 500 CHF any more and hence the conditional replace call would fail, hence avoiding data consistency issues:
+
+.P2P solution
+[imagesdir="null",alt="server modules 8",align="center",default-alt="server modules 8",target="server_modules_8.png"]
+image::
+
+image::

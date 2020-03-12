@@ -1,0 +1,25 @@
+[id="enable_{context}"]
+= Indexing of Protobuf encoded entries
+
+After configuring the client as described in the previous section you can start configuring indexing for your caches on
+the server side. Activating indexing and the various indexing specific configurations is identical to embedded mode and
+is detailed in the link:#query_configuration_api[Querying {brandname}] chapter.
+
+There is however an extra configuration step involved. While in embedded mode the indexing metadata is obtained via Java
+reflection by analyzing the presence of various Hibernate Search annotations on the entry's class, this is obviously not
+possible if the entry is protobuf encoded.
+The server needs to obtain the relevant metadata from the same descriptor (.proto file) as the client.
+The descriptors are stored in a dedicated cache on the server named _'___protobuf_metadata'_. Both keys and values in
+this cache are plain strings. Registering a new schema is therefore as simple as performing a _put_ operation on this
+cache using the schema's name as key and the schema file itself as the value.
+Alternatively you can use the CLI (via the cache-container=*:register-proto-schemas() operation), the Management Console
+or the _ProtobufMetadataManager_ MBean via JMX.
+Be aware that, when security is enabled, access to the schema cache via the remote protocols requires
+that the user belongs to the pass:['___schema_manager'] role.
+
+[NOTE,textlabel="Note",name="note"]
+====
+Even if indexing is enabled for a cache no fields of Protobuf encoded entries will be indexed unless you use
+the _@Indexed_ and _@Field_ protobuf schema documentation annotations in order to specify what fields need to get
+indexed.
+====

@@ -1,0 +1,6 @@
+[id="iaascloud-infrastructure-questions_{context}"]
+= IaaS/Cloud Infrastructure questions
+
+[id="how-do-you-make-brandname-send-replication-traffic-over-a-specific-network-when-you-dont-know-the-ip-address_{context}"]
+== How do you make {brandname} send replication traffic over a specific network when you don&#8217;t know the IP address?
+:context: how-do-you-make-brandname-send-replication-traffic-over-a-specific-network-when-you-dont-know-the-ip-address

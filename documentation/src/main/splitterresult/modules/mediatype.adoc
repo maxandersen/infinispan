@@ -1,0 +1,27 @@
+[id="mediatype_{context}"]
+= Overriding the MediaType Programmatically
+
+It's possible to decorate the Cache with a different MediaType, allowing cache operations to be executed sending and receiving different data formats.
+
+Example:
+
+[source,java]
+----
+link:code_examples/EncodeMediaTypeOverride.java[]
+----
+
+Will return the value in JSON format:
+
+[source,json]
+----
+{
+   "_type":"org.infinispan.sample.Person",
+   "name":"John",
+   "surname":"Doe"
+}
+----
+
+[CAUTION,textlabel="Caution",name="caution"]
+====
+Most Transcoders are installed when server mode is used; when using library mode, an extra dependency, _org.infinispan:infinispan-server-core_ should be added to the project.
+====

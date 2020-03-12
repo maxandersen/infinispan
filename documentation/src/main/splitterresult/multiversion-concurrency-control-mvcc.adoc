@@ -1,0 +1,15 @@
+ifdef::context[:parent-context: {context}]
+[id="multiversion-concurrency-control-mvcc_{context}"]
+= Multiversion Concurrency Control (MVCC)
+:context: multiversion-concurrency-control-mvcc
+
+Multiversion concurrency control is a concurrency control method commonly used
+by database management systems to provide concurrent access to the database
+and in programming languages to implement transactional memory.
+
+.More resources
+* link:http://en.wikipedia.org/wiki/Multiversion_concurrency_control[Wikipedia]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

@@ -1,0 +1,5 @@
+[id="as-a-clustered-cache_{context}"]
+= As a clustered cache
+
+If your data doesn't fit in a single node, or you want to invalidate entries across multiple instances of your application,
+{brandname} can scale horizontally to several hundred nodes.

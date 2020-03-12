@@ -1,0 +1,9 @@
+[id="flags_{context}"]
+= Flags
+
+Flags are applied to regular cache methods to alter the behavior of certain methods.  For a list of all available flags, and their effects, see the link:{javadocroot}/org/infinispan/context/Flag.html[Flag] enumeration.  Flags are applied using link:{javadocroot}/org/infinispan/AdvancedCache.html#withFlags-org.infinispan.context.Flag...-[AdvancedCache.withFlags()] .  This builder method can be used to apply any number of flags to a cache invocation, for example:
+
+[source,java]
+----
+link:code_examples/AdvancedCacheWithFlags.java[]
+----

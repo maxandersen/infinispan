@@ -1,0 +1,12 @@
+[id="an-example_{context}"]
+= An Example
+
+Here is an example of an `META-INF/services/org.infinispan.commands.module.ModuleCommandExtensions` file, configured accordingly:
+
+.org.infinispan.commands.module.ModuleCommandExtensions
+[listing]
+----
+org.infinispan.query.QueryModuleCommandExtensions
+----
+
+For a full, working example of a sample module that makes use of custom commands and visitors, check out link:https://github.com/infinispan/infinispan-sample-module[{brandname} Sample Module] .

@@ -1,0 +1,22 @@
+[id="comments_{context}"]
+= Comments
+
+It is _extremely important_ that comments for each commit are clear and follow certain conventions.
+This allows for proper parsing of logs by git tools.
+Read link:http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html[this article] on how to format comments for git and adhere to them.
+Further to the recommendations in the article, the short summary of the commit message should be in the following format:
+
+....
+ISPN-XXX Subject line of the JIRA in question
+....
+
+This can optionally be followed by a detailed explanation of the commit.
+Why it was done, how much of it was completed, etc.
+You may wish to express this as a list, for example:
+
+* Add a unit test
+* Add more unit tests
+* Fix regressions
+* Solve major NP-Complete problems
+
+Make sure however to split separate concerns - especially if they are unrelated - in separate commits.

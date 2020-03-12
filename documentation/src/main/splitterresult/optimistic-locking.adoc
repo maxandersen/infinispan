@@ -1,0 +1,15 @@
+ifdef::context[:parent-context: {context}]
+[id="optimistic-locking_{context}"]
+= Optimistic locking
+:context: optimistic-locking
+
+Optimistic locking is a concurrency control method that assumes that multiple
+transactions can complete without affecting each other, and that therefore
+transactions can proceed without locking the data resources that they affect.
+Before committing, each transaction verifies that no other transaction has
+modified its data. If the check reveals conflicting modifications, the
+committing transaction rolls back.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

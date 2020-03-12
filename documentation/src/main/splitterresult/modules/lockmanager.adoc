@@ -1,0 +1,4 @@
+[id="lockmanager_{context}"]
+= LockManager
+
+Manager that handles locking keys when operations require them.

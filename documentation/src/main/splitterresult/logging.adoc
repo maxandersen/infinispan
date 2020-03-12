@@ -1,0 +1,88 @@
+ifdef::context[:parent-context: {context}]
+[id="logging_{context}"]
+= Logging
+:context: logging
+
+{brandname} follows the JBoss logging standards, which can be found link:https://community.jboss.org/wiki/LoggingStandards[here] .
+
+From {brandname} 5.0 onwards, {brandname} uses JBoss Logging to abstract over the logging backend.
+{brandname} supports localization of log message for categories of INFO or above as explained in link:http://community.jboss.org/docs/16738[the JBoss Logging guidelines] .
+As a developer, this means that for each INFO, WARN, ERROR and FATAL message your code emits, you need to modify the Log class in your module and add an explicit method for it with the right annotations.
+
+For example:
+
+[source,java]
+----
+
+@LogMessage(level = INFO)
+@Message(value = "An informative message: %s - %s", id = 600)
+void fiveTransactionsHaveCompleted(String param1, String param2);
+
+----
+
+And then, instead of calling `log.info(...)`, you call the method, for example `log.fiveTransactionsHaveCompleted(param1, param2)`.
+If what you're trying to log is an error or similar message and you want an exception to be logged as cause, simply use `@Cause` annotation:
+
+[source,java]
+----
+
+@LogMessage(level = ERROR)
+@Message(value = "An error message: %s", id = 600)
+void anErrorMessage(String param1, @Cause IllegalStateException e);
+
+----
+
+The last thing to figure out is which id to give to the message. Each module that logs something in production code that could be internationalized has been given an id range, and so the messages should use an available id in the range for the module where the log call resides. Here are the id range assignments per module:
+
+[table,tablepcwidth="100",rowcount="36",header-option="",colcount="2"]
+|===
+| core | 1 - 1000
+| tree | 2001 - 3000
+| bdbje cache store | 2001 - 3000
+| cassandra cache store | 3001 - 4000
+| hotrod client | 4001 - 5000
+| server core | 5001 - 6000
+| server hotrod | 6001 - 7000
+| cloud cache store | 7001 - 8000
+| jdbc cache store | 8001 - 9000
+| jdbm cache store | 9001 - 10000
+| remote cache store | 10001 - 11000
+| server memcached | 11001 - 12000
+| server rest | 12001 - 13000
+| server websocket | 13001 - 14000
+| query | 14001 - 14800
+| query-dsl | 14801 - 15000
+| lucene directory | 15001 - 16000
+| <no longer used> | 16001 - 17000
+| cdi integration | 17001 - 18000
+| hbase cache store | 18001 - 19000
+| cli interpreter | 19001 - 20000
+| cli client | 20001 - 21000
+| mongodb cache store | 21001 - 22000
+| rest cache store | 22001 - 23000
+| leveldb cache store | 23001 - 24000 [unused]
+| couchbase cache store | 24001 - 25000
+| redis cache store | 25001 - 26000
+| extended statistics | 25001 - 26000
+| infinispan directory provider | 26001 - 27000
+| tasks | 27001 - 27500
+| scripting | 27501 - 28000
+| remote query server | 28001 - 28500
+| object filter | 28501 - 29000
+| soft-index file store | 29001 - 29500
+| clustered counter | 29501 - 30000
+|===
+
+[NOTE,textlabel="Note",name="note"]
+====
+When editing the above table, remember to update the README-i18n.txt file in the project sources!
+====
+
+[NOTE,textlabel="Note",name="note"]
+====
+You will need to enable annotation processing in order to be able to compile {brandname} and have the logger implementation generated.
+====
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

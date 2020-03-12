@@ -1,0 +1,5 @@
+[id="list-counter-names_{context}"]
+= List counter names
+
+To list all the counters defined, the method `CounterManager.getCounterNames()` returns a collection of all counter
+names created cluster-wide.

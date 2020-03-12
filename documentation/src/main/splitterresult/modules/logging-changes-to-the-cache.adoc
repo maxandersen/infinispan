@@ -1,0 +1,12 @@
+[id="logging-changes-to-the-cache_{context}"]
+= Logging changes to the cache
+
+An easy way to see what is going on with your cache is to log mutated entries. An {brandname} listener is notified of any mutations:
+
+[source,java]
+----
+link:code_examples/ListenerLoggingListener.java[]
+----
+
+Listeners methods are declared using annotations, and receive a payload which contains metadata about the notification.
+Listeners are notified of any changes. Here, the listeners simply log any entries added, modified, or removed.

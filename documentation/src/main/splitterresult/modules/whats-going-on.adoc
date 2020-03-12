@@ -1,0 +1,17 @@
+[id="whats-going-on_{context}"]
+= What&#8217;s going on?
+
+The example allows you to start two or more nodes, each of which are started in a separate process.
+The node code is very simple, each node starts up, prints the local cache contents, registers a listener that logs
+any changes, and starts storing entries of the form `key-<counter> = <local address>-counter`.
+
+.State transfer
+[]
+{brandname} automatically replicates the cache contents from the existing members to joining members. This can be
+controlled in two ways:
+
+* If you don't want the `getCache()` call to block until the entire cache is transferred, you can configure
+`clustering.stateTransfer.awaitInitialTransfer = false`.
+Note that `cache.get(key)` will still return the correct value, even before the state transfer is finished.
+* If it's fast enough to re-create the cache entries from another source, you can disable state transfer completely,
+by configuring `clustering.stateTransfer.fetchInMemoryState = false`.

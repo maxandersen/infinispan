@@ -1,0 +1,25 @@
+ifdef::context[:parent-context: {context}]
+[id="documentation_{context}"]
+= Code Samples
+:context: documentation
+
+Include code samples in blocks such as the following:
+
+[listing]
+----
+  [source,java,options="nowrap"]
+  .MyClass.java
+  ----
+  //some Java code
+  ----
+----
+
+[TIP,textlabel="Tip",name="tip"]
+====
+Include code samples that demonstrate an idea. To share reusable blocks of code or configuration files, store them in GitHub
+as a link:https://gist.github.com/[gist] and linking to them.
+====
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

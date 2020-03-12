@@ -1,0 +1,9 @@
+[id="getting-brandname-from-maven_{context}"]
+= Getting {brandname} from Maven
+
+Add to your pom:
+
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:dependencies_maven/ispn_embedded.xml[]
+----

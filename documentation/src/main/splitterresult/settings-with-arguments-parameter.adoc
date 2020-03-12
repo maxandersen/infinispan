@@ -1,0 +1,10 @@
+ifdef::context[:parent-context: {context}]
+[id="settings-with-arguments-parameter_{context}"]
+= Settings with Arguments Parameter
+:context: settings-with-arguments-parameter
+
+Since the arguments that can be sent to the Memcached server are not documented, {brandname} Memcached server does not support passing any arguments to the stats command. If any parameters are passed, the {brandname} Memcached server will respond with a `CLIENT_ERROR` .
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

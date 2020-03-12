@@ -1,0 +1,28 @@
+ifdef::context[:parent-context: {context}]
+[id="encoding_{context}"]
+= MediaType
+:context: encoding
+
+A Cache can optionally be configured with a `org.infinispan.commons.dataconversion.MediaType` for keys and values. By describing the data format of the cache, {brandname} is able to convert data on the fly during cache operations.
+
+[NOTE,textlabel="Note",name="note"]
+====
+The MediaType configuration is more suitable when storing binary data. When using server mode, it's common to have a MediaType configured and clients such as REST or Hot Rod reading and writing in different formats.
+====
+
+The data conversion between MediaType formats are handled by instances of `org.infinispan.commons.dataconversion.Transcoder`
+
+[source,java]
+----
+link:code_examples/Transcoder.java[]
+----
+
+include::modules/configuration.adoc[leveloffset=+1]
+
+include::modules/mediatype.adoc[leveloffset=+1]
+
+include::modules/transcoders-and-encoders.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

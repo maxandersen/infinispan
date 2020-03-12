@@ -1,0 +1,6 @@
+[id="the-lockmanager_{context}"]
+= The LockManager
+
+The `LockManager` is a component that is responsible for locking an entry for writing.
+The `LockManager` makes use of a `LockContainer` to locate/hold/create locks.
+`LockContainers` come in two broad flavours, with support for lock striping and with support for one lock per entry.

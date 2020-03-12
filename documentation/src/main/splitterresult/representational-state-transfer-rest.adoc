@@ -1,0 +1,17 @@
+ifdef::context[:parent-context: {context}]
+[id="representational-state-transfer-rest_{context}"]
+= Representational State Transfer (ReST)
+:context: representational-state-transfer-rest
+
+ReST is a software architectural style that promotes accessing resources via a
+uniform generic interface. HTTP is an implementation of this architecture, and
+generally when ReST is mentioned, it refers to ReST over HTTP protocol. When
+HTTP is used, the uniform generic interface for accessing resources is formed
+of GET, PUT, POST, DELETE and HEAD operations.
+
+{brandname}'s ReST server offers a ReSTful API based on these HTTP methods, and
+ allow data to be stored, retrieved and deleted.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

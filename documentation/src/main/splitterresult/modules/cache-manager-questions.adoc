@@ -1,0 +1,18 @@
+[id="cache-manager-questions_{context}"]
+= Cache Manager questions
+
+[id="can-i-create-caches-using-different-cache-modes-using-the-same-cache-manager_{context}"]
+== Can I create caches using different cache modes using the same cache manager?
+:context: can-i-create-caches-using-different-cache-modes-using-the-same-cache-manager
+
+[id="can-transactions-span-different-cache-instances-from-the-same-cache-manager_{context}"]
+== Can transactions span different Cache instances from the same cache manager?
+:context: can-transactions-span-different-cache-instances-from-the-same-cache-manager
+
+[id="how-does-multi-tenancy-work_{context}"]
+== How does multi-tenancy work?
+:context: how-does-multi-tenancy-work
+
+[id="brandname-allows-me-to-create-several-caches-from-a-single-cachemanager-are-there-any-reasons-to-create-separate-cachemanagers_{context}"]
+== {brandname} allows me to create several Caches from a single CacheManager.  Are there any reasons to create separate CacheManagers?
+:context: brandname-allows-me-to-create-several-caches-from-a-single-cachemanager-are-there-any-reasons-to-create-separate-cachemanagers

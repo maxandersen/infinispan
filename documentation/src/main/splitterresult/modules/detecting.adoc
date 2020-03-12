@@ -1,0 +1,8 @@
+[id="detecting_{context}"]
+= Detecting Conflicts
+
+Conflicts are detected by retrieving each of the stored values for a given key. The conflict manager retrieves the value stored
+from each of the key's write owners defined by the current consistent hash. The .equals method of the stored values is
+then used to determine whether all values are equal. If all values are equal then no conflicts exist for the key, otherwise
+a conflict has occurred. Note that null values are returned if no entry exists on a given node, therefore we deem a conflict
+to have occurred if both a null and non-null value exists for a given key.

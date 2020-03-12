@@ -1,0 +1,14 @@
+ifdef::context[:parent-context: {context}]
+[id="concepts_{context}"]
+= Concepts
+:context: concepts
+
+include::modules/proto.adoc[leveloffset=+1]
+
+include::modules/marshallers.adoc[leveloffset=+1]
+
+include::modules/protostream.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

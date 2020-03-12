@@ -1,0 +1,12 @@
+ifdef::context[:parent-context: {context}]
+[id="repositories_{context}"]
+= Repositories
+:context: repositories
+
+{brandname} uses link:http://github.com/infinispan/infinispan[] as its canonical repository, and this repository contains the stable code on master as well as the maintenance branches for previous minor versions (e.g., 5.0.x, 4.2.x, 4.1.x, etc)
+
+Typically, only _Project Admins_ would be able to push to this repository while all else may clone or fork the repository.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

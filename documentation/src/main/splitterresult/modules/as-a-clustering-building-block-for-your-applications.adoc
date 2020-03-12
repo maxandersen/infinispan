@@ -1,0 +1,5 @@
+[id="as-a-clustering-building-block-for-your-applications_{context}"]
+= As a clustering building block for your applications
+
+If you need to make your application cluster-aware, integrate {brandname} and get access to features like topology change
+notifications, cluster communication and clustered execution.

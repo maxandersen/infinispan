@@ -1,0 +1,4 @@
+[id="relay2-configuration-file_{context}"]
+= RELAY2 configuration file
+
+The RELAY2 configuration file is linked from the jgroups.xml (see attached link:https://gist.github.com/maniksurtani/8c7238dae7921d2c883e[relay2.xml]). It defines the sites seen by this cluster and also the JGroups configuration file that is used by RELAY2 in order to communicate with the remote sites.

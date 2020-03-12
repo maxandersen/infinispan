@@ -1,0 +1,91 @@
+ifdef::context[:parent-context: {context}]
+[id="sample-deployment_{context}"]
+= Sample deployment
+:context: sample-deployment
+
+The diagram below depicts a possible setup of replicated sites, followed by a description of individual elements present in the deployment. Options are then explained at large in future paragraphs. Comments on the diagram above:
+
+[imagesdir="null",alt="Cross-site datacenters",target="xdc.png"]
+image::
+
+image::
+
+* there are 3 sites: LON, NYC and SFO.
+* in each site there is a running {brandname} cluster with a (potentially) different number of physical nodes: 3 nodes in LON, 4 nodes in NYC and 3 nodes in SFO
+* the "users" cache is active in LON, NYC and SFO. Updates on the "users" cache in any of these sites gets replicated to the other sites as well
+* it is possible to use different replication mechanisms between sites. E.g. One can configure SFO to backup data synchronously to NYC and asynchronously to LON
+* the "users" cache can have a different configuration from one site to the other. E.g. it might be configured as distributed with numOwners=2 in the LON site, REPL in the NYC site and distributed with numOwners=1 in the SFO site
+* JGroups is used for both inter-site and intra-site communication. link:http://www.jgroups.org/manual-3.x/html/user-advanced.html#Relay2Advanced[RELAY2] is used for inter-site communication
+* "orders" is a site local to LON, i.e. updates to the data in "orders" don't get replicated to the remote sites The following sections discuss specific aspects of cross site replication into more detail. The foundation of the cross-site replication functionality is RELAY2 so it highly recommended to read JGroups' link:http://www.jgroups.org/manual-3.x/html/user-advanced.html#Relay2Advanced[RELAY2] documentation before moving on into cross-site. Configuration
+
+The cross-site replication configuration spreads over the following files:
+
+[arabic]
+. the backup policy for each individual cache is defined in the {brandname} .xml configuration file (link:https://gist.github.com/maniksurtani/cdd5420af764c907e342[infinispan.xml])
+. cluster's JGroups xml configuration file: link:http://www.jgroups.org/manual-3.x/html/user-advanced.html#Relay2Advanced[RELAY2] protocol needs to be added to the JGroups protocol stack (link:https://gist.github.com/maniksurtani/409fe5ece5fe4bcf679f[jgroups.xml])
+. RELAY2 configuration file: RELAY2 has an own configuration file ( link:https://gist.github.com/maniksurtani/8c7238dae7921d2c883e[relay2.xml] )
+. the JGroups channel that is used by RELAY2 has its own configuration file (link:https://gist.github.com/maniksurtani/cbc1a297a367b1176feb[jgroups-relay2.xml]) {brandname} XML configuration file
+
+The local site is defined in the the global configuration section. The local is the site where the node using this configuration file resides (in the example above local site is "LON").
+
+.infinispan.xml
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/transport_site.xml[]
+----
+
+The same setup can be achieved programmatically:
+
+[source,java]
+----
+link:code_examples/LocalSite.java[]
+----
+
+The names of the site (case sensitive) should match the name of a site as defined within JGroups' RELAY2 protocol configuration file. Besides the global configuration, each cache specifies its backup policy in the "site" element:
+
+.infinispan.xml
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/backup_sites.xml[]
+----
+
+The "users" cache backups its data to the "NYC" and "SFO" sites. Even though the "LON" appears as a backup site, it has the "enabled" attribute set to _false_ so it will be ignored . For each site backup, the following configuration attributes can be specified:
+
+* _strategy_ - the strategy used for backing up data, either "SYNC" or "ASYNC". Defaults to "ASYNC".
+* _failure-policy_ - Decides what the system would do in case of failure during backup. Possible values are:
+** _IGNORE_ - allow the local operation/transaction to succeed
+** _WARN_ - same as IGNORE but also logs a warning message. Default.
+** _FAIL_ - only in effect if "strategy" is "SYNC" - fails local cluster operation/transaction by throwing an exception to the user
+** _CUSTOM_ - user provided, see "failurePolicyClass" below
+* failurePolicyClass - If the 'failure-policy' is set to 'CUSTOM' then this attribute is required and should contain the fully qualified name of a class implementing org.infinispan.xsite.CustomFailurePolicy
+* timeout - The timeout(milliseconds) to be used when backing up data remotely. Defaults to 10000 (10 seconds)
+
+The same setup can be achieved programatically:
+
+[source,java]
+----
+link:code_examples/BackupSites.java[]
+----
+
+The "users" cache above doesn't know on which cache on the remote sites its data is being replicated. By default the remote site writes the backup data to a cache having the same name as the originator, i.e. "users". This behaviour can be overridden with an "backupFor" element. For example the following configuration in SFO makes the "usersLONBackup" cache act as the backup cache for the "users" cache defined above in the LON site:
+
+.infinispan.xml
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/backupfor.xml[]
+----
+
+The same setup can be achieved programatically:
+
+[source,java]
+----
+link:code_examples/BackupFor.java[]
+----
+
+include::modules/local-clusters-jgroups-xml-configuration.adoc[leveloffset=+1]
+
+include::modules/relay2-configuration-file.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

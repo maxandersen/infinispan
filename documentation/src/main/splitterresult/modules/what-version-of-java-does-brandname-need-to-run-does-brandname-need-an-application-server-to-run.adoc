@@ -1,0 +1,5 @@
+[id="what-version-of-java-does-brandname-need-to-run-does-brandname-need-an-application-server-to-run_{context}"]
+= What version of Java does {brandname} need to run? Does {brandname} need an application server to run?
+
+All that is needed is a Java 8 compatible JVM.
+An application server is _not_ a requirement.

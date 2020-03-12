@@ -1,0 +1,63 @@
+[id="tips-for-writing-and-debugging-parallel-tests_{context}"]
+= Tips for writing and debugging parallel tests
+
+There are a number of constraints and best practices that need to be followed in order to ensure correctness and keep the execution time to a minimum.
+If you follow these guidelines you will find your tests are more reliable:
+
+* _Each test class is run in a single thread_
+There is no need to synchronize unit test's fixture, as test methods will be run in sequence.
+However, multiple test classes are executed in parallel.
+* _Each test class must have an unique test name_
+As a convention, the name of the test should be the fully qualified class name of the test class with the `org.infinispan` prefix removed.
+For example, given a test class `org.infinispan.mypackage.MyTest` the name of the test should be `mypackage.MyTest`.
+This convention guarantees a unique name.
+
+.MyTest.java
+[source,java]
+----
+package org.infinispan.mypackage;
+@Test (testName = "mypackage.MyTest")
+public class MyTest { ... }
+
+----
+
+* Use `TestCacheManagerFactory.createXyzCacheManager` and *never* create managers using `new DefaultCacheManager()`.
+This ensures that there are no conflicts on resources e.g. a cluster created by one test won't interfere with a cluster created by another test.
+* Where possible, extend `SingleCacheManagerTestorMultipleCacheManagersTest`.
+Tests inheriting from these template method classes will only create a cache/cluster once for all the test methods, rather than before each method.
+This helps keep the execution time down.
+* *Never* rely on `Thread.sleep()`. When running in heavily threaded environments this will most often not work.
+For example, if using ASYNC_REPL , don't use a `sleep(someValue)` and expect the data will be replicated to another cache instance after this delay has elapsed.
+Instead, use a ReplicationListener (look up javadocs for more information on this class).
+Generally speaking, if you expect something will happen and you don't have a guarantee when, a good approach is to try that expectation in a loop, several times, with an generous (5-10secs) timeout. For example:
+
+[source,java]
+----
+while (Systet.currentTimeMillis() - startTime < timeout) {
+   if (conditionMeet()) break;
+   Thread.sleep(50);
+}
+
+----
+
+* `Thread.sleep(10)` may not work in certain OS/JRE combos (e.g. Windows XP/Sun JRE 1.5).
+Use values grater than 10 for these statements, e.g. 50. Otherwise, a `System.currentTimeMillis()` might return same value when called before and after such a sleep statement.
+* For each cache that is create with `TestCacheManagerFactory.createXyzCacheManager()` the test harness will allocate a unique JMX domain name which can be obtained through `CacheManager.getJmxDomain()`.
+This ensures that no JMX collisions will takes place between any tests executed in parallel.
+If you want to enforce a JMX domain name, this can be done by using one of the `TestCacheManagerFactory.createCacheManagerEnforceJmxDomain` methods.
+These methods must be used with care, and you are responsible for ensuring no domain name collisions happen when the parallel suite is executed.
+* Use obscure words. Insert uncommon or obscure words into the cache that has been generated with a random word generator.
+In a multi-threaded environment like {brandname}'s testsuite, grepping for these words can greatly help the debugging process.
+You may find link:http://watchout4snakes.com/creativitytools/RandomWord/RandomWordPlus.aspx[this random word generator] useful.
+* Use the test method name as the key. Grab the test method and use it as part of the cached key.
+You can dynamically grab the test method using code like this:
++
+....
+Thread.currentThread().getStackTrace()(1).getMethodName()
+....
+
+[TIP,textlabel="Tip",name="tip"]
+====
+Even though we've tried to reduce them to a minimum, intermittent failures might still appear from time to time.
+If you see such failures _in existing code_ please report them in the issue tracker.
+====

@@ -1,0 +1,25 @@
+[id="protostream_{context}"]
+= ProtoStream (Default)
+
+The default marshaller for {brandname} is link:#protostream[ProtoStream], which marshalls data as link:https://developers.google.com/protocol-buffers[Protocol Buffers].
+This is a platform independent format that utilises schemas to provide a structured representation of your Java objects
+that can evolve over time but also maintain backwards compatibility".
+
+{brandname} directly integrates with the ProtoStream library by allowing users to configure implementations of the ProtoStream
+SerializationContextInitializer interface. These implementations are then used to initialise the various SerializationContexts used by
+{brandname} for marshalling, allowing custom user objects to be marshalled for storage and cluster communication.
+More details on how to generate/implement your own SerializationContextInitailizers can be found link:#protostream_usage[here].
+
+SerializationContextInitailizers can be configured as follows:
+
+.Programmatic procedure
+[source,java]
+----
+link:code_examples/ProtoStreamMarshaller.java[]
+----
+
+.Declarative procedure
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/protostream_marshaller.xml[]
+----

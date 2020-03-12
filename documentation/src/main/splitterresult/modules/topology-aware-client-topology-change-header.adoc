@@ -1,0 +1,24 @@
+[id="topology-aware-client-topology-change-header_{context}"]
+= Topology-Aware Client Topology Change Header
+
+This is what topology-aware clients receive as response header when a
+topology change is sent back:
+
+[table,tablepcwidth="100",rowcount="11",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Response header with topology change marker | variable | See previous section.
+| Topology Id | vInt | Topology ID
+| Num servers in topology | vInt | Number of Hot Rod servers running within the cluster.
+This could be a subset of the entire cluster if only a fraction of those
+nodes are running Hot Rod servers.
+| m1: Host/IP length | vInt | Length of hostname or IP address of individual cluster member that Hot Rod
+client can use to access it. Using variable length here allows for covering
+for hostnames, IPv4 and IPv6 addresses.
+| m1: Host/IP address | string | String containing hostname or IP address of individual cluster member
+that Hot Rod client can use to access it.
+| m1: Port | 2 bytes (Unsigned Short) | Port that Hot Rod clients can use to communicate with this cluster member.
+| m2: Host/IP length | vInt | 
+| m2: Host/IP address | string | 
+| m2: Port | 2 bytes (Unsigned Short) | 
+| ...etc |  | 
+|===

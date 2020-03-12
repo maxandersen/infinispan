@@ -1,0 +1,38 @@
+ifdef::context[:parent-context: {context}]
+[id="componentregistry_{context}"]
+= ComponentRegistry
+:context: componentregistry
+
+A registry where the various managers above and components are created and
+stored for use in the cache.  All of the other managers and crucial components
+are accessible through the registry.
+
+The registry itself is a lightweight dependency injection framework, allowing
+components and managers to reference and initialise one another.  Here is an
+example of a component declaring a dependency on a DataContainer and a
+Configuration, and a DataContainerFactory declaring its ability to construct
+DataContainers on the fly.
+
+[source,java]
+----
+link:code_examples/InjectDependencies.java[]
+----
+
+Components registered with the ComponentRegistry may also have a lifecycle, and
+methods annotated with @Start or @Stop will be invoked before and after they
+are used by the component registry.
+
+[source,java]
+----
+link:code_examples/StartStop.java[]
+----
+
+In the example above, the optional priority parameter to @Stop is used to
+indicate the order in which the component is stopped, in relation to other
+components.  This follows a Unix Sys-V style ordering, where smaller priority
+methods are called before higher priority ones.  The default priority, if not
+specified, is 10.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

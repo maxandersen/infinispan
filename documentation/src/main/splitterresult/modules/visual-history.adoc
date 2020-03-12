@@ -1,0 +1,7 @@
+[id="visual-history_{context}"]
+= Visual History
+
+Git ships with gitk, a GUI that visually represents a log.
+If you use Mac OS X, link:http://gitx.frim.nl/[GitX] is a good alternative.
+Try typing gitk or gitx in a git project directory.
+For Linux users, there are lots of alternatives: _gitk_ , _gitg_ , _giggle_, ... up to _egit_ for Eclipse.

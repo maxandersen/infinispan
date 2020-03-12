@@ -1,0 +1,15 @@
+[id="a-remote-query-example_{context}"]
+= A remote query example
+
+In this example, we will show you how to configure the client to utilise the example <<protostream_usage,LibraryInitializerImpl>>,
+put some data in the cache and then try to search for it. Note, the following example assumes that <<enable_indexing,Indexing has been enabled>>
+by registering the required .proto files with the `___protobuf_metadata` cache.
+
+[source,java]
+----
+link:code_examples/RemoteQuery.java[]
+----
+
+The key part of creating a query is obtaining the _QueryFactory_ for the remote cache using the
+_org.infinispan.client.hotrod.Search.getQueryFactory()_ method. Once you have this creating the query is similar to
+embedded mode which is covered in link:#query_dsl[this] section.

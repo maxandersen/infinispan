@@ -1,0 +1,50 @@
+ifdef::context[:parent-context: {context}]
+[id="clusteredlockmanager-interface_{context}"]
+= ClusteredLockManager Interface
+:context: clusteredlockmanager-interface
+
+The `ClusteredLockManager` interface, *marked as experimental*, is the entry point to define, retrieve and remove a lock.
+It automatically listen to the creation of `EmbeddedCacheManager` and proceeds with the registration  of an
+instance of it per `EmbeddedCacheManager`.
+It starts the internal caches needed to store the lock state.
+
+Retrieving the `ClusteredLockManager` is as simple as invoking the `EmbeddedClusteredLockManagerFactory.from(EmbeddedCacheManager)`
+as shown in the example below:
+
+[source,java]
+----
+link:code_examples/RetrieveClusteredLockManager.java[]
+----
+
+[source,java]
+----
+link:code_examples/ClusteredLockManager.java[]
+----
+
+* `defineLock` :
+Defines a lock with the specified name and the default `ClusteredLockConfiguration`. It does not overwrite
+existing configurations.
+* `defineLock(String name, ClusteredLockConfiguration configuration)` :
+Defines a lock with the specified name and `ClusteredLockConfiguration`. It does not overwrite existing
+configurations.
+* `ClusteredLock get(String name)` :
+Get’s a `ClusteredLock` by it’s name. A call of `defineLock` must be done at least once in the cluster.
+See link:#clustered_lock_ownership[ownership] level section to understand the implications of `get` method call.
+
+Currently, the only ownership level supported is *NODE*.
+
+* `ClusteredLockConfiguration getConfiguration(String name)` :
+
+Returns the configuration of a `ClusteredLock`, if such exists.
+
+* `boolean isDefined(String name)` :
+Checks if a lock is already defined.
+* `CompletableFuture<Boolean> remove(String name)` :
+Removes a `ClusteredLock` if such exists.
+* `CompletableFuture<Boolean> forceRelease(String name)` :
+Releases - or unlocks - a `ClusteredLock`, if such exists, no matter who is holding it at a given time.
+Calling this method may cause concurrency issues and has to be used in *exceptional situations*.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

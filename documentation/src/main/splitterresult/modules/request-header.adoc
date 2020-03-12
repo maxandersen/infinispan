@@ -1,0 +1,77 @@
+[id="request-header_{context}"]
+= Request Header
+
+The header for a request is composed of:
+
+.Request header
+[table,tablepcwidth="100",rowcount="12",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Magic | 1 byte | +0xA0+ = request
+| Message ID | vLong | ID of the message that will be copied
+back in the response. This allows for Hot Rod clients to implement the
+protocol in an asynchronous way.
+| Version | 1 byte | Hot Rod server version.
+In this particular case, this is +10+
+| Opcode | 1 byte | Request operation code: +
++0x01+ = put (since 1.0) +
++0x03+ = get (since 1.0) +
++0x05+ = putIfAbsent (since 1.0) +
++0x07+ = replace (since 1.0) +
++0x09+ = replaceIfUnmodified (since 1.0) +
++0x0B+ = remove (since 1.0) +
++0x0D+ = removeIfUnmodified (since 1.0) +
++0x0F+ = containsKey (since 1.0) +
++0x11+ = getWithVersion (since 1.0) +
++0x13+ = clear (since 1.0) +
++0x15+ = stats (since 1.0) +
++0x17+ = ping (since 1.0) +
++0x19+ = bulkGet (since 1.2) +
++0x1B+ = getWithMetadata (since 1.2) +
++0x1D+ = bulkGetKeys (since 1.2) +
++0x1F+ = query (since 1.3) +
++0x21+ = authMechList (since 2.0) +
++0x23+ = auth (since 2.0) +
++0x25+ = addClientListener (since 2.0) +
++0x27+ = removeClientListener (since 2.0) +
++0x29+ = size (since 2.0) +
++0x2B+ = exec (since 2.1) +
++0x2D+ = putAll (since 2.1) +
++0x2F+ = getAll (since 2.1) +
++0x31+ = iterationStart (since 2.3) +
++0x33+ = iterationNext (since 2.3) +
++0x35+ = iterationEnd (since 2.3) +
++0x37+ = getStream (since 2.6) +
++0x39+ = putStream (since 2.6) +
+| Cache Name Length | vInt | Length of cache name. If the passed
+length is +0+ (followed by no cache name), the operation will interact with
+the default cache.
+| Cache Name | string | Name of cache on which to operate.
+This name must match the name of predefined cache in the Infinispan
+configuration file.
+| Flags | vInt | A variable length number representing
+flags passed to the system. Each flags is represented by a bit. Note that
+since this field is sent as variable length, the most significant bit in a
+byte is used to determine whether more bytes need to be read, hence this bit
+does not represent any flag. Using this model allows for flags to be combined
+in a short space. Here are the current values for each flag: +
++0x0001+ = force return previous value
+| Client Intelligence | 1 byte | This byte hints the server on the client capabilities: +
++0x01+ = basic client, interested in neither cluster nor hash information +
++0x02+ = topology-aware client, interested in cluster information +
++0x03+ = hash-distribution-aware client, that is interested in both cluster and hash information +
+| Topology Id | vInt | This field represents the last known
+view in the client. Basic clients will only send 0 in this field.
+When topology-aware or hash-distribution-aware clients will send 0 until they
+have received a reply from the server with the current view id.
+Afterwards, they should send that view id until they receive a new view id
+in a response.
+| Transaction Type | 1 byte | This is a 1 byte field, containing one
+of the following well-known supported transaction types (For this version of
+the protocol, the only supported transaction type is 0): +
++0+ = Non-transactional call, or client does not support transactions.
+The subsequent TX_ID field will be omitted. +
++1+ = X/Open XA transaction ID (XID). This is a well-known, fixed-size format.
+| Transaction Id | byte array | The byte array uniquely identifying the
+transaction associated to this call. Its length is determined by the
+transaction type. If transaction type is 0, no transaction id will be present.
+|===

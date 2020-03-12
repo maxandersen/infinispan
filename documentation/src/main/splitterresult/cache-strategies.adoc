@@ -1,0 +1,48 @@
+ifdef::context[:parent-context: {context}]
+[id="cache-strategies_{context}"]
+= Cache Strategies
+:context: cache-strategies
+
+{brandname} cache provider supports all Hibernate cache strategies:
+`transactional`, `read-write`, `nonstrict-read-write` and `read-only`.
+
+Integrations with Hibernate 4.x required _transactional invalidation caches_ and in integrations with Hibernate &le; 5.2 _transactional invalidation caches_ are supported (in JTA environment). However for all 5.x versions _non-transactional caches_ are preferred. With Hibernate 5.3 the support for transactional caches has been dropped completely, and both `read-write` and `transactional` use the same implementation. {brandname} provides the same consistency guarantees for both `transactional` and `read-write` strategies, use of transactions is considered an implementation detail.
+
+In integrations with Hibernate 5.2 or lower the actual setting of cache concurrency mode (`read-write` vs. `transactional`) is not honored on invalidation caches, the appropriate strategy is selected based on the cache configuration (_non-transactional_ vs. _transactional_).
+
+Support for _replicated/distributed_ caches for `read-write` and `read-only` strategies has been added during 5.x development and this requires exclusively _non-transactional configuration_.
+Also eviction should not be used in this configuration as it can lead to consistency issues. Expiration (with reasonably long max-idle times) can be used.
+
+`Nonstrict-read-write` strategy is supported on _non-transactional distributed/replicated_ caches, but the eviction should be turned off as well. In addition to that, the entities must use versioning. This means that this strategy cannot be used for caching natural IDs (which are never versioned). This mode mildly relaxes the consistency - between DB commit and end of transaction commit a stale read may occur in another transaction.
+However this strategy uses less RPCs and can be more performant than the other ones.
+
+`Read-only` mode is supported in all configurations mentioned above but use of this mode currently does not bring any performance gains.
+
+The available combinations are summarized in table below:
+
+.Cache concurrency strategy/cache mode compatibility table
+[id="caching_{context}" table,tablepcwidth="100",rowcount="6",header-option="",colcount="4",id="caching_provider_infinispan_compatibility_table"]
+|===
+| transactional | &le; 5.2 transactional | invalidation | yes
+| transactional | &ge; 5.3 non-transactional | invalidation | yes
+| read-write | non-transactional | invalidation | yes
+| read-write | non-transactional | distributed/replicated | no
+| nonstrict-read-write | non-transactional | distributed/replicated | no
+|===
+
+Changing caches to behave different to the default behaviour explained in previous section is explained in the link:#configuration_properties[Configuration Properties] section.
+
+[IMPORTANT,textlabel="Important",name="important"]
+====
+Use of transactional caches is possible only in JTA environment. Hibernate supports JDBC-only transactions but {brandname} transactional caches do not integrate with these. Therefore, in non-JTA environment the only option is to use `read-write`, `nonstrict-read-write` or `read-only` on non-transactional cache. Configuring the cache as transactional in non-JTA can lead to undefined behaviour.
+====
+
+.Stale read with <code>nonstrict-read-write</code> strategy
+[id="caching_{context}" source,java,indent="0",id="caching_provider_infinispan_stale_read_example"]
+----
+link:code_examples/StaleReadExample.java[]
+----
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

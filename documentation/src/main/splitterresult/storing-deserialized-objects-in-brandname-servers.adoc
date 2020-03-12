@@ -1,0 +1,15 @@
+ifdef::context[:parent-context: {context}]
+[id="storing-deserialized-objects-in-brandname-servers_{context}"]
+= Storing Deserialized Objects in {brandname} Servers
+:context: storing-deserialized-objects-in-brandname-servers
+
+If you configure {brandname} caches to use the `application/x-java-object`
+MediaType as the storage format (storing POJOs instead of binary content), you
+must put class files for all custom objects on the classpath for {brandname}
+servers.
+
+* Add JAR files that contain custom classes and/or service provider implementations for marshaller implementations in the `server/lib` directory of your {brandname} servers.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

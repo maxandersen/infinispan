@@ -1,0 +1,21 @@
+ifdef::context[:parent-context: {context}]
+[id="data-versioning_{context}"]
+= Data Versioning
+:context: data-versioning
+
+{brandname} supports two forms of data versioning: simple and external.
+The simple versioning is used in transactional caches for write skew check.
+
+The external versioning is used to encapsulate an external source of data versioning within {brandname}, such as when using {brandname} with Hibernate which in turn gets its data version information directly from a database.
+
+In this scheme, a mechanism to pass in the version becomes necessary, and overloaded versions of `put()` and `putForExternalRead()` will be provided in `AdvancedCache` to take in an external data version.
+This is then stored on the `InvocationContext` and applied to the entry at commit time.
+
+[NOTE,textlabel="Note",name="note"]
+====
+Write skew checks cannot and will not be performed in the case of external data versioning.
+====
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

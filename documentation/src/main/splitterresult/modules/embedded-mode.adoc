@@ -1,0 +1,7 @@
+[id="embedded-mode_{context}"]
+= Embedded mode
+
+[source,java]
+----
+link:code_examples/MultiMapCacheEmbedded.java[]
+----

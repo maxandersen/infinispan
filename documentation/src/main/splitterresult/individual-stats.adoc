@@ -1,0 +1,26 @@
+ifdef::context[:parent-context: {context}]
+[id="individual-stats_{context}"]
+= Individual Stats
+:context: individual-stats
+
+There are differences in the nature of the original memcached implementation, which is C/C\+\+ based, and the {brandname} implementation which is Java based. There are some general purpose statistics that are not supported. For these unsupported stats, {brandname} Memcached server always returns 0.
+
+.Unsupported statistics
+* pid
+* pointer_size
+* rusage_user
+* rusage_system
+* bytes
+* curr_connections
+* total_connections
+* connection_structures
+* auth_cmds
+* auth_errors
+* limit_maxbytes
+* threads
+* conn_yields
+* reclaimed
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

@@ -1,0 +1,30 @@
+[id="cache-mode-questions_{context}"]
+= Cache Mode questions
+
+[id="what-is-the-difference-between-a-replicated-cache-and-a-distributed-cache_{context}"]
+== What is the difference between a replicated cache and a distributed cache?
+:context: what-is-the-difference-between-a-replicated-cache-and-a-distributed-cache
+
+[id="does-dist-support-both-synchronous-and-asynchronous-communications_{context}"]
+== Does DIST support both synchronous and asynchronous communications?
+:context: does-dist-support-both-synchronous-and-asynchronous-communications
+
+[id="i-notice-that-when-using-dist-the-cache-does-a-remote-get-before-a-write-command-why-is-this_{context}"]
+== I notice that when using DIST, the cache does a remote get before a write command. Why is this?
+:context: i-notice-that-when-using-dist-the-cache-does-a-remote-get-before-a-write-command-why-is-this
+
+[id="i-use-a-clustered-cache-i-want-the-guarantees-of-synchronous-replication-with-the-parallelism-of-asynchronous-replication-what-can-i-do_{context}"]
+== I use a clustered cache. I want the guarantees of synchronous replication with the parallelism of asynchronous replication. What can I do?
+:context: i-use-a-clustered-cache-i-want-the-guarantees-of-synchronous-replication-with-the-parallelism-of-asynchronous-replication-what-can-i-do
+
+[id="what-is-the-l1-cache_{context}"]
+== What is the L1 cache?
+:context: what-is-the-l1-cache
+
+[id="what-consistency-guarantees-do-i-have-with-different-asynchronous-processing-settings_{context}"]
+== What consistency guarantees do I have with different Asynchronous processing settings ?
+:context: what-consistency-guarantees-do-i-have-with-different-asynchronous-processing-settings
+
+[id="grouping-api-vs-key-affinity-service_{context}"]
+== Grouping API vs Key Affinity Service
+:context: grouping-api-vs-key-affinity-service

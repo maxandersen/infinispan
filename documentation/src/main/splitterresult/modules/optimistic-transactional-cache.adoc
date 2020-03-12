@@ -1,0 +1,28 @@
+[id="optimistic-transactional-cache_{context}"]
+= Optimistic transactional cache
+
+With optimistic transactions locks are being acquired at transaction prepare time and are only being held up to the point the transaction commits (or rollbacks).
+This is different from the 5.0 default locking model where local locks are being acquire on writes and cluster locks are being acquired during prepare time.
+
+[arabic]
+. The prepare is sent to all the owners.
+. The primary owners try to acquire the locks needed:
+[loweralpha]
+.. If locking succeeds, it performs the write skew check.
+.. If the write skew check succeeds (or is disabled), send a positive reply.
+.. Otherwise, a negative reply is sent and the transaction is rolled back.
+
+As an example:
+
+[source,java]
+----
+transactionManager.begin();
+cache.put(k1,v1);
+cache.remove(k2);
+transactionManager.commit(); //at prepare time, K1 and K2 is locked until committed/rolled back.
+----
+
+[NOTE,textlabel="Note",name="note"]
+====
+For conditional commands, the validation still happens on the originator.
+====

@@ -1,0 +1,12 @@
+[id="security_{context}"]
+= Embedded Permissions
+
+Access to a cache manager or a cache is controlled by using a list of required permissions. Permissions are concerned with the type of action that is performed on one of the above entities and not with the type of data being manipulated. Some of these permissions can be narrowed to specifically named entities, where applicable (e.g. a named cache). Depending on the type of entity, there are different types of permission available:
+
+[id="security_{context}" id="security_embedded_cache_mgr_permissions"]
+== Cache Manager permissions
+:context: security_embedded_cache_mgr_permissions
+
+[id="security_{context}" id="security_embedded_cache_permissions"]
+== Cache permissions
+:context: security_embedded_cache_permissions

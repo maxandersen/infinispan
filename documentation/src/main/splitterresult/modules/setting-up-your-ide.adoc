@@ -1,0 +1,13 @@
+[id="setting-up-your-ide_{context}"]
+= Setting up your IDE
+
+Maven supports generating IDE configuration files for easy setup of a project.
+This is tested on Eclipse, IntelliJ IDEA and Netbeans.
+
+[id="eclipse_{context}"]
+== Eclipse
+:context: eclipse
+
+[id="intellij-idea_{context}"]
+== IntelliJ IDEA
+:context: intellij-idea

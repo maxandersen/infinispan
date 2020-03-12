@@ -1,0 +1,12 @@
+ifdef::context[:parent-context: {context}]
+[id="commons_{context}"]
+= Commons
+:context: commons
+
+The `infinispan-commons` module contains utility classes which can be reused across other modules.
+Classes in infinispan-commons should be self-contained and not pull in any dependencies (apart from the existing `jboss-logging` and `infinispan-api`).
+They should also make no reference to configuration aspects specific to a particular environment.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

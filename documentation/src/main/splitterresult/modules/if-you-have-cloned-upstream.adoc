@@ -1,0 +1,22 @@
+[id="if-you-have-cloned-upstream_{context}"]
+= If you have cloned upstream
+
+If you have a clone of the upstream, you may want to update it from time to time. Running:
+
+....
+$ git fetch origin
+$ git fetch origin --tags
+....
+
+will often do the trick. You could then pull the specific branches you would need to update:
+
+....
+$ git checkout master
+$ git pull origin master
+$ git checkout 4.2.x
+$ git pull origin 4.2.x
+....
+
+[id="updating-topic-branches_{context}"]
+== Updating topic branches
+:context: updating-topic-branches

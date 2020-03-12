@@ -1,0 +1,16 @@
+ifdef::context[:parent-context: {context}]
+[id="installation_{context}"]
+= Installation
+:context: installation
+
+In order to start using the clustered locks, you needs to add the dependency in your Maven `pom.xml` file:
+
+.pom.xml
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:dependencies_maven/clustered_locks.xml[]
+----
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

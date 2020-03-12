@@ -1,0 +1,5 @@
+[id="visual-diff-and-merge-tools_{context}"]
+= Visual diff and merge tools
+
+There are several options available, including link:http://kdiff3.sourceforge.net/[KDiff3], link:http://meld.sourceforge.net/[meld] and Perforce's link:http://www.perforce.com/perforce/products/merge.html[P4Merge] which are all either open source or available for free.
+See link:http://progit.org/book/ch7-1.html[this link] on setting these up (section under _External Merge and Diff Tools_)

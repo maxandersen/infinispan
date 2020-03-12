@@ -1,0 +1,17 @@
+ifdef::context[:parent-context: {context}]
+[id="adding-custom-interceptors-programatically_{context}"]
+= Adding custom interceptors programatically
+:context: adding-custom-interceptors-programatically
+
+In order to do that one needs to obtain a reference to the link:{javadocroot}/org/infinispan/AdvancedCache.html[AdvancedCache] . This can be done as follows:
+
+[source,java]
+----
+link:code_examples/CustomInterceptors.java[]
+----
+
+Then one of the _addInterceptor()_ methods should be used to add the actual interceptor. For further documentation refer to link:{javadocroot}/org/infinispan/AdvancedCache.html[AdvancedCache] javadoc.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

@@ -1,0 +1,12 @@
+ifdef::context[:parent-context: {context}]
+[id="extending-the-configuration-builders-and-parsers_{context}"]
+= Extending the configuration builders and parsers
+:context: extending-the-configuration-builders-and-parsers
+
+If your custom module requires configuration, it is possible to enhance {brandname}'s configuration builders and
+parsers. Look at the link:https://github.com/infinispan/infinispan/blob/master/core/src/test/java/org/infinispan/configuration/module[custom module tests]
+for a detail example on how to implement this.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

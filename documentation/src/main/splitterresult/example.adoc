@@ -1,0 +1,17 @@
+ifdef::context[:parent-context: {context}]
+[id="example_{context}"]
+= Example
+:context: example
+
+The code below takes a cache and returns a map with all the cache entries whose values contain the string "JBoss"
+
+[source,java]
+----
+Map<Object, String> jbossValues = cache.entrySet().stream()
+              .filter(e -> e.getValue().contains("JBoss"))
+              .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+----
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

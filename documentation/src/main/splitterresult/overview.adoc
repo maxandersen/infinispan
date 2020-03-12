@@ -1,0 +1,30 @@
+ifdef::context[:parent-context: {context}]
+[id="overview_{context}"]
+= Overview
+:context: overview
+
+{brandname} supports indexing and searching of Java Pojo(s) or objects encoded via link:https://developers.google.com/protocol-buffers/[Protocol Buffers]
+stored in the grid using powerful search APIs which complement its main Map-like API.
+
+Querying is possible both in link:#query_library[library] and link:#query_remote[client/server mode] (for Java, C#, Node.js and other clients), and {brandname} can index data
+using link:http://lucene.apache.org/[Apache Lucene], offering an efficient link:https://en.wikipedia.org/wiki/Full-text_search[full-text]
+capable search engine in order to cover a wide range of data retrieval use cases.
+
+Indexing configuration relies on a schema definition, and for that {brandname} can use annotated Java classes when in library mode,
+and protobuf schemas for remote clients written in other languages. By standardizing on protobuf, {brandname} allows full interoperability
+between Java and non-Java clients.
+
+Apart from indexed queries, {brandname} can run queries over non-indexed data (link:#query_indexless[indexless queries]) and over partially indexed data (link:#query_hybrid[hybrid queries]).
+
+In terms of Search APIs, {brandname} has its own query language called _link:#query_ickle[Ickle]_, which is string-based and adds support for full-text
+querying. The link:#query_dsl[Query DSL] can be used for both embedded and remote java clients when full-text is not required; for Java embedded clients
+{brandname} offers the link:#query_hibernatesearch[Hibernate Search Query API] which supports running Lucene queries in the grid, apart from advanced search capabilities
+like Faceted and Spatial search.
+
+Finally, {brandname} has support for link:#query_continuous[Continuous Queries], which works in a reverse manner to the other APIs: instead of creating, executing a query
+and obtain results, it allows a client to register queries that will be evaluated continuously as data in the cluster changes, generating notifications
+whenever the changed data matches the queries.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

@@ -1,0 +1,34 @@
+ifdef::context[:parent-context: {context}]
+[id="configuring-a-replicated-data-grid_{context}"]
+= Configuring a replicated data-grid
+:context: configuring-a-replicated-data-grid
+
+In replicated mode, {brandname} will store every entry on every node in the grid. This offers high durability and
+availability of data, but means the storage capacity is limited by the available heap space on the node with least
+memory.
+The cache should be configured to work in replication mode (either synchronous or asynchronous), and can otherwise be
+configured as normal. For example, if you want to configure the cache programmatically:
+
+[source,java]
+----
+link:code_examples/ConfigReplicatedCache.java[]
+----
+
+You can configure an identical cache using XML:
+
+.infinispan-replication.xml
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/config_cache_replicated.xml[]
+----
+
+along with
+
+[source,java]
+----
+link:code_examples/ConfigEmbeddedCacheManagerReplication.java[]
+----
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

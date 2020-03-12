@@ -1,0 +1,49 @@
+ifdef::context[:parent-context: {context}]
+[id="java-and-non-java-client-interoperability-with-protobuf_{context}"]
+= Java and Non-Java Client Interoperability with Protobuf
+:context: java-and-non-java-client-interoperability-with-protobuf
+
+Storing data in the cache as Protobuf encoded entries provides a platform independent configuration that enables Java and Non-Java clients to access and query the cache from any endpoint.
+
+If indexing is configured for the cache, {brandname} automatically stores keys and values with the `application/x-protostream` media type.
+
+If indexing is not configured for the cache, you can configure it to store entries with the `application/x-protostream` media type as follows:
+
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/encoding_protostream.xml[]
+----
+
+{brandname} converts between `application/x-protostream` and `application/json`, which allows REST clients to read and write JSON formatted data. However REST clients must send the correct headers, as follows:
+
+Read Header::
+
+[source,http,nowrap-option=""]
+----
+Read: Accept: application/json
+----
+
+Write Header::
+
+[source,http,nowrap-option=""]
+----
+Write: Content-Type: application/json
+----
+
+[IMPORTANT,textlabel="Important",name="important"]
+====
+The `application/x-protostream` media type uses Protobuf encoding, which requires you to register a Protocol Buffers schema definition that describes the entities and marshallers that the clients use.
+====
+
+[table,tablepcwidth="100",rowcount="6",header-option="",colcount="2",cols="2*"]
+|===
+| REST clients | Yes
+| Java Hot Rod clients | Yes
+| Non-Java Hot Rod clients | Yes
+| Querying and Indexing | Yes
+| Custom Java objects | Yes
+|===
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

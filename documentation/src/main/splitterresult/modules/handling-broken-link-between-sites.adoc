@@ -1,0 +1,8 @@
+[id="handling-broken-link-between-sites_{context}"]
+= Handling broken link between sites
+
+A System Administrator action is needed if the link between the producer and consumer site is broken during the
+cross-site state transfer (data consistency is not ensured in consumer site). The producer site retries for a while
+before giving up. Then, it gets back to normal state. However, the consumer site is not able to get back to normal state
+and, here, an action from System Administrator is need. The System Administrator should use the operation
++cancelReceiveState(String siteName)+ to bring the consumer site to normal state.

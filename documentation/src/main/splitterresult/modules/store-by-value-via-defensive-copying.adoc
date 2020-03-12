@@ -1,0 +1,20 @@
+[id="store-by-value-via-defensive-copying_{context}"]
+= Store-by-value via defensive copying
+
+The configuration `storeAsBinary` offers the possibility to enable defensive copying, which allows for store-by-value like behaviour.
+
+{brandname} marshalls objects the moment they're stored, hence changes made to object references are not stored in the cache, not even for local caches. This provides store-by-value like behaviour. Enabling `storeAsBinary` can be achieved:
+
+.Programmatic procedure
+[source,java]
+----
+link:code_examples/StoreAsBinary.java[]
+----
+
+.Declarative procedure
+* Via XML at the Cache level, either under `<*-cache />` or `<default />` elements:
+
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/store_as_binary.xml[]
+----

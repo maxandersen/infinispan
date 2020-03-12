@@ -1,0 +1,131 @@
+ifdef::context[:parent-context: {context}]
+[id="filtering-events_{context}"]
+= Filtering Events
+:context: filtering-events
+
+In order to avoid inundating clients with events, users can provide filtering
+functionality to limit the number of events fired by the server for a
+particular client listener. To enable filtering, a cache event filter factory
+needs to be created that produces filter instances:
+
+[source,java]
+----
+import org.infinispan.notifications.cachelistener.filter.CacheEventFilterFactory;
+import org.infinispan.filter.NamedFactory;
+
+@NamedFactory(name = "static-filter")
+class StaticCacheEventFilterFactory implements CacheEventFilterFactory {
+   @Override
+   public CacheEventFilterFactory<Integer, String> getFilter(Object[] params) {
+      return new StaticCacheEventFilter();
+   }
+}
+
+// Serializable, Externalizable or marshallable with Infinispan Externalizers
+// needed when running in a cluster
+class StaticCacheEventFilter implements CacheEventFilter<Integer, String>, Serializable {
+   @Override
+   public boolean accept(Integer key, String oldValue, Metadata oldMetadata,
+         String newValue, Metadata newMetadata, EventType eventType) {
+      if (key.equals(1)) // static key
+         return true;
+
+      return false;
+   }
+}
+----
+
+The cache event filter factory instance defined above creates filter instances
+which statically filter out all entries except the one whose key is `1`.
+
+To be able to register a listener with this cache event filter factory,
+the factory has to be given a unique name, and the Hot Rod server needs to be
+plugged with the name and the cache event filter factory instance. Plugging the
+{brandname} Server with a custom filter involves the following steps:
+
+[arabic]
+. Create a JAR file with the filter implementation within it.
+. Optional: If the cache uses custom key/value classes, these must be
+included in the JAR so that the callbacks can be executed with the correctly
+unmarshalled key and/or value instances. If the client listener has `useRawData`
+enabled, this is not necessary since the callback key/value instances will be
+provided in binary format.
+. Create a `META-INF/services/org.infinispan.notifications.cachelistener.filter.CacheEventFilterFactory` file
+within the JAR file and within it, write the fully qualified class name of the
+filter class implementation.
+. Deploy the JAR file in the {brandname} Server.
+
+On top of that, the client listener needs to be linked with this cache event
+filter factory by adding the factory's name to the @ClientListener annotation:
+
+[source,java]
+----
+@ClientListener(filterFactoryName = "static-filter")
+public class EventPrintListener { ... }
+----
+
+And, register the listener with the server:
+
+[source,java]
+----
+RemoteCache<?, ?> cache = ...
+cache.addClientListener(new EventPrintListener());
+----
+
+Dynamic filter instances that filter based on parameters provided when the
+listener is registered are also possible. Filters use the parameters received
+by the filter factories to enable this option. For example:
+
+[source,java]
+----
+import org.infinispan.notifications.cachelistener.filter.CacheEventFilterFactory;
+import org.infinispan.notifications.cachelistener.filter.CacheEventFilter;
+
+class DynamicCacheEventFilterFactory implements CacheEventFilterFactory {
+   @Override
+   public CacheEventFilter<Integer, String> getFilter(Object[] params) {
+      return new DynamicCacheEventFilter(params);
+   }
+}
+
+// Serializable, Externalizable or marshallable with Infinispan Externalizers
+// needed when running in a cluster
+class DynamicCacheEventFilter implements CacheEventFilter<Integer, String>, Serializable {
+   final Object[] params;
+
+   DynamicCacheEventFilter(Object[] params) {
+      this.params = params;
+   }
+
+   @Override
+   public boolean accept(Integer key, String oldValue, Metadata oldMetadata,
+         String newValue, Metadata newMetadata, EventType eventType) {
+      if (key.equals(params[0])) // dynamic key
+         return true;
+
+      return false;
+   }
+}
+----
+
+The dynamic parameters required to do the filtering are provided when the
+listener is registered:
+
+[source,java]
+----
+RemoteCache<?, ?> cache = ...
+cache.addClientListener(new EventPrintListener(), new Object[]{1}, null);
+----
+
+[WARNING,textlabel="Warning",name="warning"]
+====
+Filter instances have to marshallable when they are deployed in a
+cluster so that the filtering can happen right where the event is generated,
+even if the even is generated in a different node to where the listener is
+registered. To make them marshallable, either make them extend `Serializable`,
+`Externalizable`, or provide a custom `Externalizer` for them.
+====
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

@@ -1,0 +1,25 @@
+ifdef::context[:parent-context: {context}]
+[id="clustering-jcache-instances_{context}"]
+= Clustering JCache instances
+:context: clustering-jcache-instances
+
+{brandname} JCache implementation goes beyond the specification in order to
+provide the possibility to cluster caches using the standard API. Given a
+{brandname} configuration file configured to replicate caches like this:
+
+.infinispan.xml
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/jcache_clustering.xml[]
+----
+
+You can create a cluster of caches using this code:
+
+[source,java]
+----
+link:code_examples/JCacheClustering.java[]
+----
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

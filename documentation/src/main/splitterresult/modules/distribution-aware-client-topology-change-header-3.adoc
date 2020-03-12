@@ -1,0 +1,43 @@
+[id="distribution-aware-client-topology-change-header-3_{context}"]
+= Distribution-Aware Client Topology Change Header
+
+In Infinispan 5.2, virtual nodes based consistent hashing was abandoned and
+instead segment based consistent hash was implemented. In order to satisfy
+the ability for Hot Rod clients to find data as reliably as possible,
+Infinispan has been transforming the segment based consistent hash to fit
+Hot Rod 1.x protocol.  Starting with version 2.0, a brand new
+distribution-aware topology change header has been implemented which suppors
+ segment based consistent hashing suitably and provides 100% data location
+ guarantees.
+
+[table,tablepcwidth="100",rowcount="16",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Response header with topology change marker | variable | 
+| Topology Id | vInt | Topology ID
+| Num servers in topology | vInt | Number of Infinispan Hot Rod servers running within the cluster.
+This could be a subset of the entire cluster if only a fraction of those
+nodes are running Hot Rod servers.
+| m1: Host/IP length | vInt | Length of hostname or IP address of individual cluster member that Hot Rod
+client can use to access it. Using variable length here allows for covering
+for hostnames, IPv4 and IPv6 addresses.
+| m1: Host/IP address | string | String containing hostname or IP address of individual cluster member
+that Hot Rod client can use to access it.
+| m1: Port | 2 bytes (Unsigned Short) | Port that Hot Rod clients can use to communicat with this cluster member.
+| m2: Host/IP length | vInt | 
+| m2: Host/IP address | string | 
+| m2: Port | 2 bytes (Unsigned Short) | 
+| ... | ... | 
+| Hash Function Version | 1 byte | Hash function version, pointing to a specific hash function in use.
+See link:#hot_rod_hash_functions[Hot Rod hash functions] for details.
+| Num segments in topology | vInt | Total number of segments in the topology
+| Number of owners in segment | 1 byte | This can be either 0, 1 or 2 owners.
+| First owner's index | vInt | Given the list of all nodes, the position of this owner in this list.
+This is only present if number of owners for this segment is 1 or 2.
+| Second owner's index | vInt | Given the list of all nodes, the position of this owner in this list.
+This is only present if number of owners for this segment is 2.
+|===
+
+Given this information, Hot Rod clients should be able to recalculate all
+the hash segments and be able to find out which nodes are owners for each
+segment. Even though there could be more than 2 owners per segment, Hot Rod
+protocol limits the number of owners to send for efficiency reasons.

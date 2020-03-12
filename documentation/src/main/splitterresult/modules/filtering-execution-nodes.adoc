@@ -1,0 +1,29 @@
+[id="filtering-execution-nodes_{context}"]
+= Filtering execution nodes
+
+It is possible to limit on which nodes the command will be ran. For example you may
+want to only run a computation on machines in the same rack. Or you may want to perform an operation
+once in the local site and again on a different site. A cluster executor can limit what nodes it sends
+requests to at the scope of same or different machine, rack or site level.
+
+.SameRack.java
+[source,java]
+----
+link:code_examples/SameRack.java[]
+----
+
+To use this topology base filtering you must enable topology aware consistent hashing through Server Hinting.
+
+You can also filter using a predicate based on the `Address` of the node. This can also
+be optionally combined with topology based filtering in the previous code snippet.
+
+We also allow the target node to be chosen by any means using a `Predicate` that
+will filter out which nodes can be considered for execution. Note this can also be combined
+with Topology filtering at the same time to allow even more fine control of where you code
+is executed within the cluster.
+
+.Predicate.java
+[source,java]
+----
+link:code_examples/Predicate.java[]
+----

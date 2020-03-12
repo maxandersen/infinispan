@@ -1,0 +1,19 @@
+ifdef::context[:parent-context: {context}]
+[id="the-advancedcache-interface_{context}"]
+= The AdvancedCache interface
+:context: the-advancedcache-interface
+
+In addition to the simple Cache interface, {brandname} offers an link:{javadocroot}/org/infinispan/AdvancedCache.html[AdvancedCache] interface, geared towards extension authors.  The AdvancedCache offers the ability to inject custom interceptors, access certain internal components and to apply flags to alter the default behavior of certain cache methods.  The following code snippet depicts how an AdvancedCache can be obtained:
+
+[source,java]
+----
+link:code_examples/GetAdvancedCache.java[]
+----
+
+include::modules/flags.adoc[leveloffset=+1]
+
+include::modules/custom-interceptors.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

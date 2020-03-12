@@ -1,0 +1,46 @@
+ifdef::context[:parent-context: {context}]
+[id="use-a-custom-cache_{context}"]
+= Use a custom cache
+:context: use-a-custom-cache
+
+Each cache in {brandname} can offer a different set of features (for example transaction support, different replication modes or support for eviction), and you may want to use different caches for different classes of data in your application. To get a custom cache, you need to register it with the manager first:
+
+.CustomCacheQuickstart.java
+[source,java,nowrap-option=""]
+----
+link:code_examples/QuickstartCustomCache.java[]
+----
+
+The example above uses {brandname}'s fluent configuration, which offers the ability to configure your cache programmatically. However, should you prefer to use XML, then you may. We can create an identical cache to the one created with a programmatic configuration:
+
+To run using maven:
+
+[source,bash,nowrap-option=""]
+----
+$ mvn compile exec:java -Dexec.mainClass="org.infinispan.quickstart.embeddedcache.CustomCacheQuickstart"
+----
+
+.infinispan.xml
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/infinispan_custom_cache.xml[]
+----
+
+We then need to load the configuration file, and use the programmatically defined cache:
+
+.XmlConfiguredCacheQuickstart.java
+[source,java,nowrap-option=""]
+----
+link:code_examples/ConfigLoadCustomCache.java[]
+----
+
+To run using maven:
+
+[source,bash,nowrap-option=""]
+----
+$ mvn compile exec:java -Dexec.mainClass="org.infinispan.quickstart.embeddedcache.XmlConfiguredCacheQuickstart"
+----
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

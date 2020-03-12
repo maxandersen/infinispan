@@ -1,0 +1,16 @@
+ifdef::context[:parent-context: {context}]
+[id="download-the-quickstarts_{context}"]
+= Download the quickstarts
+:context: download-the-quickstarts
+
+The quickstarts are in GitHub, in link:https://github.com/infinispan/infinispan-quickstart[].
+
+Clone this repository using:
+
+....
+$ git clone https://github.com/infinispan/infinispan-quickstart
+....
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

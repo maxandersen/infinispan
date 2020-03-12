@@ -1,0 +1,14 @@
+ifdef::context[:parent-context: {context}]
+[id="prerequisites_{context}"]
+= Prerequisites
+:context: prerequisites
+
+This document assumes some working knowledge of git.
+We recommend Scott Chacon's excellent link:http://progit.org/[Pro Git] as a valuable piece of background reading.
+The book is released under the Creative Commons license and can be downloaded in electronic form for free.
+At very least, we recommend that you read link:http://progit.org/book/ch2-0.html[Chapter 2],
+link:http://progit.org/book/ch3-0.html[Chapter 3] and link:http://progit.org/book/ch5-0.html[Chapter 5] of _Pro Git_ before proceeding.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

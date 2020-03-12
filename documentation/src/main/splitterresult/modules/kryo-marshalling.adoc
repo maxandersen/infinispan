@@ -1,0 +1,27 @@
+[id="kryo-marshalling_{context}"]
+= Kryo Marshalling
+
+{brandname} provides a marshalling implementation that uses Kryo libraries.
+
+Register custom Kryo schemas for object marshalling as follows:
+
+[arabic]
+. Implement a service provider for the `SerializerRegistryService.java` interface.
+. Place all serializer registrations in the `register(Kryo)` method; where serializers are registered with the supplied `Kryo` object using the Kryo API, for example:
++
+[listing]
+----
+kryo.register(ExampleObject.class, new ExampleObjectSerializer())
+----
+. Specify the full path of implementing classes in your deployment JAR file within:
++
+[listing]
+----
+META-INF/services/org/infinispan/marshaller/kryo/SerializerRegistryService
+----
+
+{brandname} provides a link:http://central.maven.org/maven2/org/infinispan/infinispan-marshaller-kryo-bundle/{infinispanversion}/infinispan-marshaller-kryo-bundle-{infinispanversion}.jar[Kryo Bundle] that includes all runtime class files for the Kryo marshalling implementation. Download the JAR and add it to the `server/lib` directory of your {brandname} servers.
+
+.Reference
+[]
+link:https://github.com/EsotericSoftware/kryo[Kryo on GitHub]

@@ -1,0 +1,18 @@
+[id="locking-and-transaction-questions_{context}"]
+= Locking and Transaction questions
+
+[id="does-brandname-support-distributed-eager-locking_{context}"]
+== Does {brandname} support distributed eager locking?
+:context: does-brandname-support-distributed-eager-locking
+
+[id="how-does-brandname-support-explicit-eager-locking_{context}"]
+== How does {brandname} support explicit eager locking?
+:context: how-does-brandname-support-explicit-eager-locking
+
+[id="what-isolation-levels-does-brandname-support_{context}"]
+== What isolation levels does {brandname} support?
+:context: what-isolation-levels-does-brandname-support
+
+[id="when-using-atomikos-transaction-manager-distributed-caches-are-not-distributing-data-what-is-the-problem_{context}"]
+== When using Atomikos transaction manager, distributed caches are not distributing data, what is the problem?
+:context: when-using-atomikos-transaction-manager-distributed-caches-are-not-distributing-data-what-is-the-problem

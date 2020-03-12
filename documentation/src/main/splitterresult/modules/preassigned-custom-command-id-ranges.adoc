@@ -1,0 +1,13 @@
+[id="preassigned-custom-command-id-ranges_{context}"]
+= Preassigned Custom Command Id Ranges
+
+This is the list of `Command` identifiers that are used by {brandname} based modules or frameworks.
+{brandname} users should avoid using ids within these ranges. (RANGES to be finalised yet!)
+Being this a single byte, ranges can't be too large.
+
+[table,tablepcwidth="100",rowcount="3",colcount="2"]
+|===
+| {brandname} Query: | 100 - 119
+| Hibernate Search: | 120 - 139
+| Hot Rod Server: | 140 - 141
+|===

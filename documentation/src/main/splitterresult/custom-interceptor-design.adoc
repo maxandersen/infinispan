@@ -1,0 +1,14 @@
+ifdef::context[:parent-context: {context}]
+[id="custom-interceptor-design_{context}"]
+= Custom interceptor design
+:context: custom-interceptor-design
+
+When writing a custom interceptor, you need to abide by the following rules.
+
+* Custom interceptors must extend link:{javadocroot}/org/infinispan/interceptors/base/BaseCustomInterceptor.html[BaseCustomInterceptor]
+* Custom interceptors must declare a public, empty constructor to enable construction.
+* Custom interceptors will have setters for any property defined through property tags used in the XML configuration.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

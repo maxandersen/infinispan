@@ -1,0 +1,39 @@
+ifdef::context[:parent-context: {context}]
+[id="security_{context}"]
+= Cluster security
+:context: security
+
+JGroups can be configured so that nodes need to authenticate each other when joining / merging. The authentication uses SASL and is setup by adding the +SASL+ protocol to your JGroups XML configuration above the GMS protocol, as follows:
+
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/security_cluster.xml[]
+----
+
+In the above example, the SASL mech will be +DIGEST-MD5+. Each node will need to declare the user and password it will use when joining the cluster. The behaviour of a node differs depending on whether it is the coordinator or any other node. The coordinator acts as the SASL server, whereas joining/merging nodes act as SASL clients. Therefore two different CallbackHandlers are required, the +server_callback_handler_class+ will be used by the coordinator, and the +client_callback_handler_class+ will be used by the other nodes.
+The +SASL+ protocol in JGroups is only concerned with the authentication process. If you wish to implement node authorization, you can do so within the server callback handler, by throwing an Exception. The following example shows how this can be done:
+
+[source,java]
+----
+public class AuthorizingServerCallbackHandler implements CallbackHandler {
+
+    @Override
+    public void handle(Callback[] callbacks) throws IOException, UnsupportedCallbackException {
+        for (Callback callback : callbacks) {
+            ...
+            if (callback instanceof AuthorizeCallback) {
+                AuthorizeCallback acb = (AuthorizeCallback) callback;
+                UserProfile user = UserManager.loadUser(acb.getAuthenticationID());
+                if (!user.hasRole("myclusterrole")) {
+                    throw new SecurityException("Unauthorized node " +user);
+                }
+            }
+            ...
+        }
+    }
+}
+----
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

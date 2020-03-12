@@ -1,0 +1,44 @@
+ifdef::context[:parent-context: {context}]
+[id="technical-questions_{context}"]
+= Technical questions
+:context: technical-questions
+
+include::modules/general-questions.adoc[leveloffset=+1]
+
+include::modules/cache-loader-and-cache-store-questions.adoc[leveloffset=+1]
+
+include::modules/locking-and-transaction-questions.adoc[leveloffset=+1]
+
+include::modules/eviction-and-expiration-questions.adoc[leveloffset=+1]
+
+include::modules/cache-manager-questions.adoc[leveloffset=+1]
+
+include::modules/cache-mode-questions.adoc[leveloffset=+1]
+
+include::modules/listener-questions.adoc[leveloffset=+1]
+
+include::modules/iaascloud-infrastructure-questions.adoc[leveloffset=+1]
+
+include::modules/demo-questions.adoc[leveloffset=+1]
+
+include::modules/third-party-container-questions.adoc[leveloffset=+1]
+
+include::modules/marshalling-and-unmarshalling.adoc[leveloffset=+1]
+
+include::modules/tuning-questions.adoc[leveloffset=+1]
+
+include::modules/jndi-questions.adoc[leveloffset=+1]
+
+include::modules/hibernate-2nd-level-cache-questions.adoc[leveloffset=+1]
+
+include::modules/cache-server-questions.adoc[leveloffset=+1]
+
+include::modules/debugging-questions.adoc[leveloffset=+1]
+
+include::modules/clustering-transport-questions.adoc[leveloffset=+1]
+
+include::modules/security-questions.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

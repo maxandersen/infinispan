@@ -1,0 +1,31 @@
+ifdef::context[:parent-context: {context}]
+[id="statistics_{context}"]
+= Statistics
+:context: statistics
+
+Query link:http://docs.jboss.org/hibernate/search/5.7/api/org/hibernate/search/stat/Statistics.html[_Statistics_]
+can be obtained from the _SearchManager_, as demonstrated in the following code snippet.
+
+[source,java]
+----
+SearchManager searchManager = Search.getSearchManager(cache);
+org.hibernate.search.stat.Statistics statistics = searchManager.getStatistics();
+----
+
+[TIP,textlabel="Tip",name="tip"]
+====
+This data is also available via JMX through the link:https://docs.jboss.org/hibernate/stable/search/reference/en-US/html_single/#_statisticsinfombean[Hibernate Search StatisticsInfoMBean]
+registered under the name `org.infinispan:type=Query,manager="{name-of-cache-manager}",cache="{name-of-cache}",component=Statistics`.
+Please note this MBean is always registered by {brandname} but the statistics are collected only if statistics collection is enabled at cache level.
+====
+
+[WARNING,textlabel="Warning",name="warning"]
+====
+Hibernate Search has its own configuration properties `hibernate.search.jmx_enabled` and `hibernate.search.generate_statistics`
+for JMX statistics as explained link:https://docs.jboss.org/hibernate/stable/search/reference/en-US/html_single/#search-monitoring[here].
+Using them with {brandname} Query is forbidden as it will only lead to duplicated MBeans and unpredictable results.
+====
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

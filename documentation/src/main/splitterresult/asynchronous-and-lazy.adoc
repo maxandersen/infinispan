@@ -1,0 +1,28 @@
+ifdef::context[:parent-context: {context}]
+[id="asynchronous-and-lazy_{context}"]
+= Asynchronous and Lazy
+:context: asynchronous-and-lazy
+
+Being an asynchronous API, all methods that return a single result,
+return a CompletableFuture which wraps the result, so you can use the
+resources of your system more efficiently by having the possibility to
+receive callbacks when the
+link:{jdkdocroot}/java/util/concurrent/CompletableFuture.html[`CompletableFuture`]
+has completed, or you can chain or compose them with other CompletableFuture.
+
+For those operations that return multiple results, the API returns
+instances of a
+link:{javadocroot}/org/infinispan/commons/api/functional/Traversable.html[`​Traversable`]
+interface which offers a lazy pull-style
+API for working with multiple results.
+link:{javadocroot}/org/infinispan/commons/api/functional/Traversable.html[`​Traversable`]
+,​ being a lazy pull-style API, can still be asynchronous underneath
+since the user can decide to work on the traversable at a later stage,
+and the
+link:{javadocroot}/org/infinispan/commons/api/functional/Traversable.html[`​Traversable`]
+implementation itself can decide when to compute
+those results.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

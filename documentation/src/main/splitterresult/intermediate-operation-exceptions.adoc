@@ -1,0 +1,30 @@
+ifdef::context[:parent-context: {context}]
+[id="intermediate-operation-exceptions_{context}"]
+= Intermediate operation exceptions
+:context: intermediate-operation-exceptions
+
+There are some intermediate operations that have special exceptions, these are
+link:{jdkdocroot}/java/util/stream/Stream.html#skip-long-[skip],
+link:{jdkdocroot}/java/util/stream/Stream.html#peek-java.util.function.Consumer-[peek],
+sorted link:{jdkdocroot}/java/util/stream/Stream.html#sorted-java.util.Comparator-[1]
+link:{jdkdocroot}/java/util/stream/Stream.html#sorted--[2].
+& link:{jdkdocroot}/java/util/stream/Stream.html#distinct--[distinct].
+All of these methods have some sort of artificial iterator implanted in the stream
+processing to guarantee correctness, they are documented as below.  Note this means
+these operations may cause possibly severe performance degradation.
+
+Skip:: An artificial iterator is implanted up to the intermediate skip operation.
+Then results are brought locally so it can skip the appropriate amount of elements.
+Sorted:: WARNING: This operation requires having all entries in memory on the local node.
+An artificial iterator is implanted up to the intermediate sorted operation.
+All results are sorted locally.  There are possible plans to have a distributed sort which
+returns batches of elements, but this is not yet implemented.
+Distinct:: WARNING: This operation requires having all or nearly all entries in memory on the local node.
+Distinct is performed on each remote node and then an artificial iterator returns those distinct values.
+Then finally all of those results have a distinct operation performed upon them.
+
+The rest of the intermediate operations are fully distributed as one would expect.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

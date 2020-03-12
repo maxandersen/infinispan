@@ -1,0 +1,40 @@
+[id="write-listeners_{context}"]
+= Write Listeners
+
+link:{javadocroot}/org/infinispan/commons/api/functional/Listeners.WriteListeners.html[Write listeners]
+enable user to register listeners for any cache entry write events
+that happen in either a read-write or write-only functional map.
+
+Listeners for write events cannot distinguish between cache entry
+created and cache entry modify/update events because they don't have
+access to the previous value. All they know is that a new non-null
+entry has been written.
+
+However, write event listeners can distinguish between entry removals
+and cache entry create/modify-update events because they can query
+what the new entry's value via
+link:{javadocroot}/org/infinispan/commons/api/functional/EntryView.ReadEntryView.html#find--[`ReadEntryView.find()`]
+method.
+
+Adding a write listener is done via the WriteListeners interface
+which is accessible via both
+link:{javadocroot}/org/infinispan/commons/api/functional/FunctionalMap.ReadWriteMap.html#listeners--[`ReadWriteMap.listeners()`]
+and
+link:{javadocroot}/org/infinispan/commons/api/functional/FunctionalMap.WriteOnlyMap.html#listeners--[`WriteOnlyMap.listeners()`]
+ method.
+
+A write listener implementation can be defined either passing a function
+to
+link:{javadocroot}/org/infinispan/commons/api/functional/Listeners.WriteListeners.html#onWrite-java.util.function.Consumer-[`onWrite(Consumer<ReadEntryView<K, V>>)`]
+method, or passing a
+WriteListener implementation to
+link:{javadocroot}/org/infinispan/commons/api/functional/Listeners.WriteListeners.html#add-org.infinispan.commons.api.functional.Listeners.WriteListeners.WriteListener-[`add(WriteListener<K, V>)`]
+method.
+Either way, all these methods return an
+link:{jdkdocroot}/java/lang/AutoCloseable.html[AutoCloseable]
+instance that can be used to de-register the function listener:
+
+[source,java]
+----
+link:code_examples/WriteOnlyMapWriteListener.java[]
+----

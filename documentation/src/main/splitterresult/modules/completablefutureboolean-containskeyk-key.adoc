@@ -1,0 +1,4 @@
+[id="completablefutureboolean-containskeyk-key_{context}"]
+= CompletableFuture&lt;Boolean&gt; containsKey(K key)
+
+Asynchronous that returns true if this multimap contains the key.

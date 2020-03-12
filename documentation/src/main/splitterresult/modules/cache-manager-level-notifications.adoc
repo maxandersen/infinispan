@@ -1,0 +1,6 @@
+[id="cache-manager-level-notifications_{context}"]
+= Cache manager-level notifications
+
+Cache manager-level events occur on a cache manager.  These too are global and  cluster-wide, but involve events that affect all caches created by a single cache manager.  Examples of cache manager-level events are nodes joining or leaving a cluster, or caches starting or stopping.
+
+Please see the link:{javadocroot}/org/infinispan/notifications/cachemanagerlistener/annotation/package-summary.html[Javadocs  on the org.infinispan.notifications.cachemanagerlistener.annotation package] for a comprehensive list of all cache manager-level notifications,  and their respective method-level annotations.

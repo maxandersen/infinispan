@@ -1,0 +1,14 @@
+[id="listener-questions_{context}"]
+= Listener questions
+
+[id="in-a-cache-entry-modified-listener-can-the-modified-value-be-retrieved-via-cache-get-when-isprefalse_{context}"]
+== In a cache entry modified listener, can the modified value be retrieved via Cache.get() when isPre=false?
+:context: in-a-cache-entry-modified-listener-can-the-modified-value-be-retrieved-via-cache-get-when-isprefalse
+
+[id="when-annotating-a-method-with-cacheentrycreated-how-do-i-retrieve-the-value-of-the-cache-entry-added_{context}"]
+== When annotating a method with CacheEntryCreated, how do I retrieve the value of the cache entry added?
+:context: when-annotating-a-method-with-cacheentrycreated-how-do-i-retrieve-the-value-of-the-cache-entry-added
+
+[id="what-is-the-difference-between-classes-in-org-infinispan-notifications-cachelistener-filter-vs-org-infinispan-filter_{context}"]
+== What is the difference between classes in <code>org.infinispan.notifications.cachelistener.filter</code> vs <code>org.infinispan.filter</code>?
+:context: what-is-the-difference-between-classes-in-org-infinispan-notifications-cachelistener-filter-vs-org-infinispan-filter

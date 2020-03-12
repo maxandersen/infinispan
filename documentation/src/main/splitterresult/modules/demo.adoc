@@ -1,0 +1,6 @@
+[id="demo_{context}"]
+= Demo
+
+There is a simple command-line demo of its capabilities distributed with {brandname} under demos/lucene-directory; make sure you grab the "Binaries, server and demos" package from download page, which contains all demos.
+
+Start several instances, then try adding text in one instance and searching for it on the other. The configuration is not tuned at all, but should work out-of-the box without any changes. If your network interface has multicast enabled, it will cluster across the local network with other instances of the demo.

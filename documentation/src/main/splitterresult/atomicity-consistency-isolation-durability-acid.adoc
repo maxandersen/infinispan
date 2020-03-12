@@ -1,0 +1,19 @@
+ifdef::context[:parent-context: {context}]
+[id="atomicity-consistency-isolation-durability-acid_{context}"]
+= Atomicity, Consistency, Isolation, Durability (ACID)
+:context: atomicity-consistency-isolation-durability-acid
+
+According to link:http://en.wikipedia.org/wiki/ACID[Wikipedia], ACID (Atomicity,
+Consistency, Isolation, Durability) is a set of properties that guarantee
+that database transactions are processed reliably. In the context of databases,
+ a single logical operation on the data is called a transaction. For example, a
+ transfer of funds from one bank account to another, even involving multiple
+changes such as debiting one account and crediting another, is a single
+transaction.
+
+.More resources
+* link:http://en.wikipedia.org/wiki/ACID[Wikipedia]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

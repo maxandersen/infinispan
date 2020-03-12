@@ -1,0 +1,18 @@
+[id="documentation_{context}"]
+= Including Images
+
+Insert images using the `image::` or `image:` directive.
+
+* Example 1: Image title in title case (which automatically appends a Figure #).
++
+[listing]
+----
+.Image Title
+image::icon.png[Alt text, 50, 50]
+----
+* Example 2: Inline image. Note, there is only one colon (:) used here.
++
+[listing]
+----
+This is an inline image. image:icon.png[Alt text] Cool!
+----

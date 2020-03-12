@@ -1,0 +1,13 @@
+[id="api_{context}"]
+= API
+
+Following code snippet depicts how a reference to this service can be obtained and used.
+
+[source,java]
+----
+link:code_examples/KeyAffinityService.java[]
+----
+
+The service is started at step 2: after this point it uses the supplied _Executor_ to
+generate and queue keys.
+At step 3, we obtain a key from the service, and at step 4 we use it.

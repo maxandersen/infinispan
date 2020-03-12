@@ -1,0 +1,11 @@
+ifdef::context[:parent-context: {context}]
+[id="apache-spark_{context}"]
+= Apache Spark
+:context: apache-spark
+
+{brandname} provides an link:http://spark.apache.org[Apache Spark] connector capable of exposing caches as an RDD, allowing batch and stream jobs to be run against data stored in {brandname}. For further details, see the link:https://github.com/infinispan/infinispan-spark/blob/master/README.md[{brandname} Spark connector documentation].
+Also check the link:https://github.com/infinispan/infinispan-spark/tree/master/examples/twitter/README.md[Docker based Twitter demo].
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

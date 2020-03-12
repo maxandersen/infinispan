@@ -1,0 +1,15 @@
+ifdef::context[:parent-context: {context}]
+[id="pre-requisites_{context}"]
+= Pre-requisites
+:context: pre-requisites
+
+[table,tablepcwidth="100",rowcount="3",colcount="2"]
+|===
+| Java 11 | {brandname} is baselined on Java 8 but needs to be built with Java 11 (we build with OpenJDK)
+| Maven 3.5 | The {brandname} build uses Maven, and you should be using at least Maven 3.5
+| Git | The {brandname} source code is stored in Git.
+|===
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

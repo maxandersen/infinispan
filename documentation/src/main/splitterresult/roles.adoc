@@ -1,0 +1,33 @@
+ifdef::context[:parent-context: {context}]
+[id="roles_{context}"]
+= Roles
+:context: roles
+
+The project assumes one of 2 _roles_ an individual may assume when interacting with the {brandname} codebase. The 2 roles here are:
+
+.Roles
+* _Contributor_
+* _Project Admin_ (typically, no more than a small handful of people)
+
+[NOTE,textlabel="Note",name="note"]
+====
+None of the roles assume that you are a Red Hat employee.
+All it assumes is how much responsibility over the project has been granted to you.
+Typically, someone may be in more than one role at any given time, and puts on a different "hats" based on the task at hand.
+====
+
+include::modules/contributor.adoc[leveloffset=+1]
+
+include::modules/project-admin.adoc[leveloffset=+1]
+
+include::modules/release-branches.adoc[leveloffset=+1]
+
+include::modules/topic-branches.adoc[leveloffset=+1]
+
+include::modules/comments.adoc[leveloffset=+1]
+
+include::modules/commits.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

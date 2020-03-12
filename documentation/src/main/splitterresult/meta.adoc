@@ -1,0 +1,62 @@
+ifdef::context[:parent-context: {context}]
+[id="meta_{context}"]
+= Metadata Parameter Handling
+:context: meta
+
+link:{javadocroot}/org/infinispan/commons/api/functional/MetaParam.html[Metadata parameters]
+provide extra information about the cache entry, such
+as version information, lifespan, last accessed/used time...etc. Some of
+these can be provided by the user, e.g. version, lifespan...etc, but some
+others are computed internally and can only be queried, e.g. last
+accessed/used time.
+
+The functional map API provides a flexible way to store metadata parameters
+along with an cache entry. To be able to store a metadata parameter, it must
+extend
+link:{javadocroot}/org/infinispan/commons/api/functional/MetaParam.Lookup.html[`MetaParam.Writable`]
+interface, and implement the methods to allow the
+internal logic to extra the data. Storing is done via the
+`set(V, MetaParam.Writable...)` method in the link:#write_only_entry_view[write-only entry view] or link:#read_write_entry_view[read-write entry view] function parameters.
+
+Querying metadata parameters is available via the
+link:{javadocroot}/org/infinispan/commons/api/functional/MetaParam.Lookup.html#findMetaParam-java.lang.Class-[`findMetaParam(Class)`]
+method
+available via link:#read_write_entry_view[read-write entry view] or
+link:#read_only_entry_view[read-only entry views] or function parameters.
+
+Here is an example showing how to store metadata parameters and how to query
+them:
+
+[source,java]
+----
+link:code_examples/FunctionalMetaParam.java[]
+----
+
+If the metadata parameter is generic, for example
+link:{javadocroot}/org/infinispan/commons/api/functional/MetaParam.MetaEntryVersion.html[`MetaEntryVersion<T>`]
+, retrieving the metadata parameter along with a specific type can be tricky
+if using `.class` static helper in a class because it does not return a
+`Class<T>` but only `Class`, and hence any generic information in the class is
+lost:
+
+[source,java]
+----
+link:code_examples/ReadOnlyMapMetaParam.java[]
+----
+
+When generic information is important the user can define a static helper
+method that coerces the static class retrieval to the type requested,
+and then use that helper method in the call to `findMetaParam`:
+
+[source,java]
+----
+link:code_examples/ReadOnlyMapFindMetaParam.java[]
+----
+
+Finally, users are free to create new instances of metadata parameters to
+suit their needs. They are stored and retrieved in the very same way as done
+for the metadata parameters already provided by the functional map API.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

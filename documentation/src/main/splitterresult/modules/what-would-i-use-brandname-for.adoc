@@ -1,0 +1,15 @@
+[id="what-would-i-use-brandname-for_{context}"]
+= What would I use {brandname} for?
+
+Most people use {brandname} for one of two reasons. Firstly, as a distributed cache.
+Putting {brandname} in front of your database, disk-based NoSQL store or any part of your system that is a bottleneck can greatly help improve performance.
+Often, a simple cache isn't enough - for example if your application is clustered and cache coherency is important to data consistency.
+A distributed cache can greatly help here.
+
+The other major use-case is as a NoSQL data store.
+In addition to being in memory, {brandname} can also persist data to a more permanent store.
+We call this a cache store. Cache stores are pluggable, you can easily write your own, and many already exist for you to use.
+
+A less common use case is adding clusterability and high availability to frameworks.
+Since {brandname} exposes a distributed data structure, frameworks and libraries that also need to be clustered can easily achieve this by embedding {brandname} and delegating all state management to {brandname}.
+This way, any framework can easily be clustered by letting {brandname} do all the heavy lifting.

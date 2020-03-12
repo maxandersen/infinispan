@@ -1,0 +1,4 @@
+[id="persistencemanager_{context}"]
+= PersistenceManager
+
+Manager that handles persisting data to any configured cache stores.

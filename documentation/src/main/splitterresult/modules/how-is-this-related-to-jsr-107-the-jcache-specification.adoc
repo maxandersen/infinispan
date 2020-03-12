@@ -1,0 +1,4 @@
+[id="how-is-this-related-to-jsr-107-the-jcache-specification_{context}"]
+= How is this related to JSR 107, the JCACHE specification?
+
+{brandname} core engineers are on the link:http://jcp.org/en/jsr/detail?id=107[JSR 107] expert group and starting with version 7.0.0, {brandname} provides a certified compatible implementation of version 1.0.0 of the specification.

@@ -1,0 +1,22 @@
+[id="replicated-mode_{context}"]
+= Replicated mode
+
+To run the example in replication mode, we need to launch two nodes from different consoles.
+For the first node:
+
+[source,bash,nowrap-option=""]
+----
+$ mvn exec:java -Djava.net.preferIPv4Stack=true -Djgroups.bind_addr=127.0.0.1 -Dexec.mainClass="org.infinispan.quickstart.clusteredcache.Node" -Dexec.args="A"
+----
+
+And for the second node:
+
+[source,bash,nowrap-option=""]
+----
+$ mvn exec:java -Djava.net.preferIPv4Stack=true -Djgroups.bind_addr=127.0.0.1 -Dexec.mainClass="org.infinispan.quickstart.clusteredcache.Node" -Dexec.args="B"
+----
+
+Note: You need to set `-Djava.net.preferIPv4Stack=true` because the JGroups configuration uses IPv4 multicast address.
+Normally you should not need `-Djgroups.bind_addr=127.0.0.1`, but many wireless routers do not relay IP multicast by default.
+
+Each node will insert or update an entry every second, and it will log any changes.

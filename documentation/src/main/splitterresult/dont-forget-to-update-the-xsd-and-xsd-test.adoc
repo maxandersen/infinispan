@@ -1,0 +1,12 @@
+ifdef::context[:parent-context: {context}]
+[id="dont-forget-to-update-the-xsd-and-xsd-test_{context}"]
+= Don&#8217;t forget to update the XSD and XSD test
+:context: dont-forget-to-update-the-xsd-and-xsd-test
+
+[arabic]
+. Add your new elements or attributes to the XSD in `src/main/resources`.
+. Update `src/test/resources/configs/all.xml` to include your new elements or attributes.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

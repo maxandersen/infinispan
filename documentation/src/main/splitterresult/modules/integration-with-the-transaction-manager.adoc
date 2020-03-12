@@ -1,0 +1,12 @@
+[id="integration-with-the-transaction-manager_{context}"]
+= Integration with the transaction manager
+
+Even though this is transaction manager specific, generally a transaction manager would need a reference to a `XAResource` implementation in order to invoke `XAResource.recover()` on it.
+In order to obtain a reference to an {brandname} `XAResource` following API can be used:
+
+[source,java]
+----
+XAResource xar = cache.getAdvancedCache().getXAResource();
+----
+
+It is a common practice to run the recovery in a different process from the one running the transaction.

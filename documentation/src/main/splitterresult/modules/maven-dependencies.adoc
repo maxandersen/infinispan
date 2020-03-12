@@ -1,0 +1,10 @@
+[id="maven-dependencies_{context}"]
+= Maven dependencies
+
+All you need is the following:
+
+.pom.xml
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:dependencies_maven/lucene_directory.xml[]
+----

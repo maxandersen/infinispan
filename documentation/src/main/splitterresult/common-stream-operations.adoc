@@ -1,0 +1,11 @@
+ifdef::context[:parent-context: {context}]
+[id="common-stream-operations_{context}"]
+= Common stream operations
+:context: common-stream-operations
+
+This section highlights various options that are present irrespective of what type of underlying cache
+you are using.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

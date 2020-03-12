@@ -1,0 +1,37 @@
+ifdef::context[:parent-context: {context}]
+[id="deserialization_{context}"]
+= Adding Java Classes to Deserialization White Lists
+:context: deserialization
+
+{brandname} does not allow deserialization of arbritrary Java classes for
+security reasons, which applies to JSON, XML, and marshalled `byte[]` content.
+
+You must add Java classes to a deserialization white list, either using system
+properties or specifying them in the {brandname} configuration.
+
+.System properties
+[source,subs="attributes+",nowrap-option=""]
+----
+// Specify a comma-separated list of fully qualified class names
+-Dinfinispan.deserialization.whitelist.classes=java.time.Instant,com.myclass.Entity
+
+// Specify a regular expression to match classes
+-Dinfinispan.deserialization.whitelist.regexps=.*
+----
+
+.Declarative
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/deserialization_whitelist.xml[]
+----
+
+[NOTE,textlabel="Note",name="note"]
+====
+Java classes that you add to the deserialization whitelist apply to the
+{brandname} `CacheContainer` and can be deserialized by all caches that the
+`CacheContainer` controls.
+====
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

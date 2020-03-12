@@ -1,0 +1,17 @@
+[id="completions_{context}"]
+= Completions
+
+Save link:http://git.kernel.org/?p=git/git.git;a=blob_plain;f=contrib/completion/git-completion.bash;h=168669bbf79cb33c527a688fb906e276beadaf79;hb=HEAD[this script] as `~/.git-completion.bash` and in `~/.bash_profile`, add the following on one line:
+
+....
+source ~/.git-completion.bash
+....
+
+After logging out and back in again, typing `git` followed by kbd:[TAB] will give you a list of git commands, as would `git c` followed by kbd:[TAB], etc.
+This even works for options, e.g. `git commit --` followed by kbd:[TAB].
+The completions are even aware of your refs, so even `git checkout my_br` followed by kbd:[TAB] will complete to `git checkout my_branch`!
+
+[TIP,textlabel="Tip",name="tip"]
+====
+You get git autocompletion for free if you use link:http://zsh.sourceforge.net/[zsh] instead of bash.
+====

@@ -1,0 +1,6 @@
+[id="jndi-questions_{context}"]
+= JNDI questions
+
+[id="can-i-bind-cache-or-cachemanager-to-jndi_{context}"]
+== Can I bind Cache or CacheManager to JNDI?
+:context: can-i-bind-cache-or-cachemanager-to-jndi

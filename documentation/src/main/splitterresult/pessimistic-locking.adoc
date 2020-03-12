@@ -1,0 +1,16 @@
+ifdef::context[:parent-context: {context}]
+[id="pessimistic-locking_{context}"]
+= Pessimistic locking
+:context: pessimistic-locking
+
+A lock is used when multiple threads need to access data concurrently. This
+prevents data from being corrupted or invalidated when multiple threads try to
+modify the same item of data. Any single thread can only modify data to which
+it has applied a lock that gives them exclusive access to the record until the
+lock is released.  However, pessimistic locking isn't ideal from a throughput
+perspective, as locking is expensive and serializing writes may not be desired.
+_Optimistic locking_ is often seen as a preferred alternative in many cases.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

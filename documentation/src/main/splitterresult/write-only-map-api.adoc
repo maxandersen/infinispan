@@ -1,0 +1,63 @@
+ifdef::context[:parent-context: {context}]
+[id="write-only-map-api_{context}"]
+= Write-Only Map API
+:context: write-only-map-api
+
+Write-only operations include operations that insert or update data in the
+cache and also removals. Crucially, a write-only operation does not attempt
+to read any previous value associated with the key. This is an important
+optimization since that means neither the cluster nor any persistence stores
+will be looked up to retrieve previous values. In the main {brandname} Cache,
+this kind of optimization was achieved using a local-only per-invocation
+flag, but the use case is so common that in this new functional API, this
+optimization is provided as a first-class citizen.
+
+Using
+link:{javadocroot}/org/infinispan/commons/api/functional/FunctionalMap.WriteOnlyMap.html[write-only map API]
+, an operation equivalent to
+link:https://github.com/jsr107/jsr107spec/blob/v1.0.0/src/main/java/javax/cache/Cache.java[`javax.cache.Cache` (`JCache`)]
+'s void returning
+link:https://github.com/jsr107/jsr107spec/blob/v1.0.0/src/main/java/javax/cache/Cache.java#L194[`put`]
+can be achieved this way, followed by an attempt to read the stored
+value using the read-only map API:
+
+[source,java]
+----
+link:code_examples/WriteOnlyMap.java[]
+----
+
+Multiple key/value pairs can be stored in one go using
+{javadocroot}/org/infinispan/commons/api/functional/FunctionalMap.WriteOnlyMap.html#evalMany-java.util.Map-java.util.function.BiConsumer-[`evalMany`]
+API:
+
+[source,java]
+----
+link:code_examples/WriteOnlyMapStoreKeys.java[]
+----
+
+To remove all contents of the cache, there are two possibilities with
+different semantics. If using
+link:{javadocroot}/org/infinispan/commons/api/functional/FunctionalMap.WriteOnlyMap.html#evalAll-java.util.function.Consumer-[`evalAll`]
+each cached entry is iterated over and the function is called
+with that entry's information. Using this method also results in listeners being invoked.
+
+[source,java]
+----
+link:code_examples/WriteOnlyMapRemoveAll.java[]
+----
+
+The alternative way to remove all entries is to call
+link:{javadocroot}/org/infinispan/commons/api/functional/FunctionalMap.WriteOnlyMap.html#truncate--[`truncate`]
+operation which clears the entire cache contents in one go without
+invoking any listeners and is best-effort:
+
+[source,java]
+----
+link:code_examples/WriteOnlyMapTruncate.java[]
+----
+
+include::modules/write.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

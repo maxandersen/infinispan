@@ -1,0 +1,16 @@
+[id="configuration_{context}"]
+= Configuration
+
+Declarative:
+
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/encoding_media_type.xml[]
+----
+
+Programmatic:
+
+[source,java]
+----
+link:code_examples/EncoderMediaType.java[]
+----

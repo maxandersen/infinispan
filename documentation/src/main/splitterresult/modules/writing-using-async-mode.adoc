@@ -1,0 +1,12 @@
+[id="writing-using-async-mode_{context}"]
+= Writing using async mode
+
+If it's acceptable a small delay between data writes and when that data is visible in queries, an index manager can be configured to work in *async mode*.
+The async mode offers much better writing performance, since in this mode commits happen at a configurable interval.
+
+Configuration:
+
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/indexing_async.xml[]
+----

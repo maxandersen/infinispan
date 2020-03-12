@@ -1,0 +1,6 @@
+[id="support-for-duplicates_{context}"]
+= Support for duplicates
+
+Duplicates are not supported yet. This means that the multimap won't contain any duplicate key-value pair.
+Whenever put method is called, if the key-value pair already exist, this key-value par won't be added.
+Methods used to check if a key-value pair is already present in the Multimap are the `equals` and `hashcode`.

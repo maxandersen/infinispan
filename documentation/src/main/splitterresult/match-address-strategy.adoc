@@ -1,0 +1,23 @@
+ifdef::context[:parent-context: {context}]
+[id="match-address-strategy_{context}"]
+= Match Address Strategy
+:context: match-address-strategy
+
+Similar to `inet-address` but selects an IP address using a regular expression.
+
+{brandname} servers enumerate all available operating system interfaces to
+locate the IP address in your configuration.
+
+[TIP,textlabel="Tip",name="tip"]
+====
+Use regular expressions with this strategy for additional flexibility.
+====
+
+[source,xml]
+----
+link:config_examples/server_network_matchaddress.xml[]
+----
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

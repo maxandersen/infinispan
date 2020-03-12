@@ -1,0 +1,4 @@
+[id="transactionmanager_{context}"]
+= TransactionManager
+
+Manager than handles transactions, usually supplied by a third party.

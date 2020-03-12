@@ -1,0 +1,23 @@
+[id="custom-implementation_{context}"]
+= Custom Implementation
+
+You can provide custom marshaller classes with the link:{javadocroot}/org/infinispan/commons/marshall/Marshaller.html[Marshaller interface].
+For example:
+
+.Programmatic procedure
+[source,java]
+----
+link:code_examples/CustomMarshaller.java[]
+----
+
+.Declarative procedure
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/custom_marshaller.xml[]
+----
+
+[TIP,textlabel="Tip",name="tip"]
+====
+Custom marshaller implementations can access a configured white list via the
+link:{javadocroot}/org/infinispan/commons/marshall/Marshaller.html#initialize[initialize()] method, which is called during startup.
+====

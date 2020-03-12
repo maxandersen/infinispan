@@ -1,0 +1,31 @@
+[id="link_{context}"]
+= If you have forked upstream
+
+If you have a fork of upstream, you should probably define upstream as one of your remotes:
+
+....
+$ git remote add upstream git://github.com/infinispan/infinispan.git
+....
+
+You should now be able to fetch and pull changes from upstream into your local repository, though you should make sure you have no uncommitted changes.
+(You _do_ use topic branches, right?)
+
+....
+$ git fetch upstream
+$ git fetch upstream --tags
+$ git checkout master
+$ git pull upstream master
+$ git push origin master
+$ git checkout 4.2.x
+$ git pull upstream 4.2.x
+$ git push origin 4.2.x
+....
+
+[TIP,textlabel="Tip",name="tip"]
+====
+A script can do this for you - have a look at link:https://github.com/maniksurtani/githelpers/blob/master/contributors/sync_with_upstream[`sync_with_upstream`] .
+====
+
+[id="updating-topic-branches-2_{context}"]
+== Updating topic branches
+:context: updating-topic-branches-2

@@ -1,0 +1,25 @@
+[id="java_{context}"]
+= Java Serialization Marshaller
+
+Java serialization can also be used to marshall your objects. The only requirements are that your Java objects implement
+the link:https://docs.oracle.com/javase/8/docs/api/java/io/Serializable.html[Serializable] interface, the
+link:{javadocroot}/org/infinispan/commons/marshall/JavaSerializationMarshaller.html[JavaSerializationMarshaller] is specified
+and that your objects are added to the serialization white list as part of the global configuration. For example,
+to utilise Java serialization with all classes in package "org.infinispan.example.*" and the class "org.infinispan.concrete.SomeClass"
+in the white list configure the CacheManager as follows:
+
+.Programmatic procedure
+[source,java]
+----
+link:code_examples/SerializationMarshaller.java[]
+----
+
+.Declarative procedure
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/serialization_marshaller.xml[]
+----
+
+.Reference
+[]
+link:#deserialization_whitelist[Adding Java Classes to Deserialization White Lists]

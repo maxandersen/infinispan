@@ -1,0 +1,11 @@
+ifdef::context[:parent-context: {context}]
+[id="apache-hadoop_{context}"]
+= Apache Hadoop
+:context: apache-hadoop
+
+The {brandname} Hadoop connector can be used to expose {brandname} as a Hadoop compliant data source and sink that implements link:https://hadoop.apache.org/docs/stable/api/org/apache/hadoop/mapreduce/InputFormat.html[InputFormat]/link:https://hadoop.apache.org/docs/stable/api/org/apache/hadoop/mapreduce/OutputFormat.html[OutputFormat].
+For further details, refer to the full link:https://github.com/infinispan/infinispan-hadoop/blob/master/README.md[documentation].
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

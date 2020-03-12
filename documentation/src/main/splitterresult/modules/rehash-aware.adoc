@@ -1,0 +1,25 @@
+[id="rehash-aware_{context}"]
+= Rehash Aware
+
+Internally the data is segmented and each node only performs the operations upon the data it owns as a primary owner.
+This allows for data to be processed evenly, assuming segments are granular enough to provide for equal amounts of
+data on each node.
+
+When you are utilizing a distributed cache, the data can be reshuffled between nodes when a
+new node joins or leaves. Distributed Streams handle this reshuffling of data automatically so you don't
+have to worry about monitoring when nodes leave or join the cluster.
+Reshuffled entries may be processed a second time, and we keep track of the processed entries at the
+key level or at the segment level (depending on the terminal operation) to limit the amount of
+duplicate processing.
+
+It is possible but highly discouraged to disable rehash awareness on the stream.  This should only be considered if
+your request can handle only seeing a subset of data if a rehash occurs.  This can be done by invoking
+link:{javadocroot}/org/infinispan/CacheStream.html#disableRehashAware--[CacheStream.disableRehashAware()]
+The performance gain for most operations when a rehash doesn't occur is completely negligible.
+The only exceptions are for iterator and forEach, which will use less memory, since they do not have
+to keep track of processed keys.
+
+[WARNING,textlabel="Warning",name="warning"]
+====
+Please rethink disabling rehash awareness unless you really know what you are doing.
+====

@@ -1,0 +1,23 @@
+[id="query_{context}"]
+= Querying APIs
+
+You can query {brandname} using:
+
+* Lucene or Hibernate Search Queries. {brandname} exposes the Hibernate Search DSL, which produces Lucene queries. You can run Lucene queries on single nodes or broadcast queries to multiple nodes in an {brandname} cluster.
+* Ickle queries, a custom string-based query language with full-text extensions.
+
+[id="query_{context}" id="query_hibernatesearch"]
+== Hibernate Search
+:context: query_hibernatesearch
+
+[id="query_{context}" id="query_dsl"]
+== {brandname} Query DSL
+:context: query_dsl
+
+[id="query_{context}" id="query_ickle"]
+== Ickle
+:context: query_ickle
+
+[id="query_{context}" id="query_continuous"]
+== Continuous Query
+:context: query_continuous

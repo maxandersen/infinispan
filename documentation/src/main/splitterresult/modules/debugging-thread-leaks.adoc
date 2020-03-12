@@ -1,0 +1,25 @@
+[id="debugging-thread-leaks_{context}"]
+= Debugging thread leaks
+
+The Infinispan test suite uses TestNG/JUnit test listeners to find and report thread leaks.
+In order to debug thread leaks in the IDE, please add this listener to your default TestNG run configuration:
+
+....
+org.infinispan.commons.test.TestNGTestListener
+....
+
+If your IDE supports listeners in the JUnit run configuration (IntelliJ IDEA does not), add this listener:
+
+....
+org.infinispan.commons.test.JUnitTestListener
+....
+
+If your IDE does not support listeners in the JUnit run configuration, you can always add the listener to your class:
+
+....
+@Listeners(org.infinispan.commons.test.JUnitTestListener.class)
+....
+
+In order to make the leak report look like a test failure,
+modules using TestNG duplicate the check in a test, `TestNGSuiteChecksTest`.
+Including the test is not required to see the leak, but without it the failure looks more like a crash.

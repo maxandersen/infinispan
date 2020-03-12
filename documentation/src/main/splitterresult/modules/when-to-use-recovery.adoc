@@ -1,0 +1,7 @@
+[id="when-to-use-recovery_{context}"]
+= When to use recovery
+
+Consider a distributed transaction in which money is transferred from an account stored in an external database to an account stored in {brandname}.
+When `TransactionManager.commit()` is invoked, both resources prepare successfully (1st phase). During the commit (2nd) phase, the database successfully applies the changes whilst {brandname} fails before receiving the commit request from the transaction manager.
+At this point the system is in an inconsistent state: money is taken from the account in the external database but not visible yet in {brandname} (since locks are only released during 2nd phase of a two-phase commit protocol).
+Recovery deals with this situation to make sure data in both the database and {brandname} ends up in a consistent state.

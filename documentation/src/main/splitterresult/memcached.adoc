@@ -1,0 +1,16 @@
+ifdef::context[:parent-context: {context}]
+[id="memcached_{context}"]
+= Memcached
+:context: memcached
+
+Memcached is an in-memory caching system, often used to speed-up
+database-driven websites. Memcached also defines a text based,
+client/server, caching protocol, known as the Memcached protocol
+{brandname} offers a server which speaks the Memcached protocol, allowing
+Memcached itself to be replaced by {brandname}. Thanks to {brandname}'s
+clustering capabilities, it can offer data failover capabilities not present
+in original Memcached systems.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

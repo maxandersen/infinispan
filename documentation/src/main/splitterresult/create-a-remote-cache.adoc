@@ -1,0 +1,22 @@
+ifdef::context[:parent-context: {context}]
+[id="create-a-remote-cache_{context}"]
+= Create a remote cache
+:context: create-a-remote-cache
+
+Creating a remote cache (client-server mode), using default configuration options
+as defined by the JCache API specification, is as simple as doing the following:
+
+[source,java]
+----
+link:code_examples/JCacheCreateRemoteCache.java[]
+----
+
+[NOTE,textlabel="Note",name="note"]
+====
+In order to use the org.infinispan.jcache.remote.JCachingProvider, infinispan-jcache-remote-<version>.jar
+and all its transitive dependencies need to be on put your classpath.
+====
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

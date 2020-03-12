@@ -1,0 +1,15 @@
+[id="how-to-use-it_{context}"]
+= How to use it
+
+See the below example of using the {brandname} Lucene Directory in order to index and query a single Document:
+
+[source,java]
+----
+link:code_examples/LuceneDirectoryExampleQuery.java[]
+----
+
+The _indexName_ in the _DirectoryBuilder_ is a unique key to identify your index. It takes the same role as the path did on filesystem based indexes: you can create several different indexes giving them different names. When you use the same _indexName_ in another instance connected to the same network (or instantiated on the same machine, useful for testing) they will join, form a cluster and share all content. Using a different _indexName_ allows you to store different indexes in the same set of Caches.
+
+The _metadataCache_, _dataCache_ and _lockCache_ are the caches that will store the indexes. More details provided below.
+
+New nodes can be added or removed dynamically, making the service administration very easy and also suited for cloud environments: it's simple to react to load spikes, as adding more memory and CPU power to the search system is done by just starting more nodes.

@@ -1,0 +1,40 @@
+ifdef::context[:parent-context: {context}]
+[id="the-counter_{context}"]
+= The Counter
+:context: the-counter
+
+A counter can be strong (`StrongCounter`) or weakly consistent (``WeakCounter``) and both is identified by a name.
+They have a specific interface but they share some logic, namely, both of them are asynchronous
+( a `CompletableFuture` is returned by each operation), provide an update event and can be reset to its initial value.
+
+If you don't want to use the async API, it is possible to return a synchronous counter via `sync()` method.
+The API is the same but without the `CompletableFuture` return value.
+
+The following methods are common to both interfaces:
+
+[source,java]
+----
+link:code_examples/CounterSync.java[]
+----
+
+* `getName()` returns the counter name (identifier).
+* `getValue()` returns the current counter's value.
+* `reset()` allows to reset the counter's value to its initial value.
+* `addListener()` register a listener to receive update events.
+More details about it in the link:#clustered_counters_notify_events[Notification and Events] section.
+* `getConfiguration()` returns the configuration used by the counter.
+* `remove()` removes the counter value from the cluster. The instance can still be used and the listeners are kept.
+* `sync()` creates a synchronous counter.
+
+[NOTE,textlabel="Note",name="note"]
+====
+The counter is re-created if it is accessed after a removal.
+====
+
+include::modules/the-strongcounter-interface-when-the-consistency-or-bounds-matters.adoc[leveloffset=+1]
+
+include::modules/the-weakcounter-interface-when-speed-is-needed.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

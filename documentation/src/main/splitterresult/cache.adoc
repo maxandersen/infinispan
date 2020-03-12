@@ -1,0 +1,25 @@
+ifdef::context[:parent-context: {context}]
+[id="cache_{context}"]
+= Cache hierarchy
+:context: cache
+
+{brandname}'s Cache interface extends the JRE's ConcurrentMap interface
+which provides for a familiar and easy-to-use API.
+
+[source,java]
+----
+link:code_examples/ConcurrentMap.java[]
+----
+
+Caches are created by using a CacheContainer instance - either the
+EmbeddedCacheManager or a RemoteCacheManager.  In addition to their capabilities
+as a factory for Caches, CacheContainers also act as a registry for looking
+up Caches.
+
+EmbeddedCacheManagers create either clustered or standalone Caches that reside
+in the same JVM.  RemoteCacheManagers, on the other hand, create RemoteCaches
+that connect to a remote cache tier via the Hot Rod protocol.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

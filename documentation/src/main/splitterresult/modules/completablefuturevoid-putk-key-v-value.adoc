@@ -1,0 +1,17 @@
+[id="completablefuturevoid-putk-key-v-value_{context}"]
+= CompletableFuture&lt;Void&gt; put(K key, V value)
+
+Puts a key-value pair in the multimap cache.
+
+[source,java]
+----
+link:code_examples/MultiMapCachePut.java[]
+----
+
+The output of this code is as follows:
+
+[source,txt]
+----
+Marie is a girl name
+Oihana is a girl name
+----

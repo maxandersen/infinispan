@@ -1,0 +1,16 @@
+ifdef::context[:parent-context: {context}]
+[id="removing-event-listeners_{context}"]
+= Removing Event Listeners
+:context: removing-event-listeners
+
+When an client event listener is not needed any more, it can be removed:
+
+[source,java]
+----
+EventPrintListener listener = ...
+cache.removeClientListener(listener);
+----
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

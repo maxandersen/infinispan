@@ -1,0 +1,15 @@
+[id="enabling-trace-in-test-logs_{context}"]
+= Enabling TRACE in test logs
+
+When you run tests, you can get TRACE logging via using the `traceTests` profile
+
+....
+$ mvn test -PtraceTests
+....
+
+ecuting this will generate a GZIP file called `trace-infinispan.log.gz`.
+This file is not fully closed, so to extract the log file, execute:
+
+....
+$ gunzip -c trace-infinispan.log.gz > trace-infinispan.log
+....

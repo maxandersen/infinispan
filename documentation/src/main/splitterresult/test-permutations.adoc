@@ -1,0 +1,23 @@
+ifdef::context[:parent-context: {context}]
+[id="test-permutations_{context}"]
+= Test permutations
+:context: test-permutations
+
+We use the term permutation to describe a test suite execution against a particular configuration.
+This allows us to test a variety of environments and configurations without rewriting the same basic test over and over again.
+For example, if we pass JVM parameter `-Dinfinispan.cluster.stack=udp` test suite is executed using UDP config.
+
+....
+$ mvn -Dinfinispan.cluster.stack=udp test
+....
+
+Each permutation uses its own report directory, and its own html output file name.
+This allows you to execute multiple permutations without wiping the results from the previous run.
+Note that due to the way Maven operates, only one permutation can be executed per `mvn` invocation.
+So automating multiple runs requires shell scripting, or some other execution framework to make multiple calls to Maven.
+
+include::modules/running-permutations-manually-or-in-an-ide.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

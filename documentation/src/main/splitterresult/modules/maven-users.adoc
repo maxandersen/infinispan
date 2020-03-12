@@ -1,0 +1,18 @@
+[id="maven-users_{context}"]
+= Maven users
+
+If you are using Maven (or another build system like Gradle or Ivy which can use Maven dependencies), then this is easy. Just add the following to the `<dependencies>` section of your `pom.xml`:
+
+.pom.xml
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:dependencies_maven/ispn_embedded.xml[]
+----
+
+.Which version of {brandname} should I use?
+[TIP,textlabel="Tip",name="tip"]
+====
+We recommend using the latest stable version of {brandname}. All releases are displayed on the link:http://www.infinispan.org/download[downloads page].
+====
+
+Alternatively, you can link:https://raw.github.com/infinispan/infinispan-quickstart/master/embedded-cache/pom.xml[use the POM] from the quickstart that accompanies this tutorial.

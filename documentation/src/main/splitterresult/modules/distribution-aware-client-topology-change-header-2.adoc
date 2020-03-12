@@ -1,0 +1,44 @@
+[id="distribution-aware-client-topology-change-header-2_{context}"]
+= Distribution-Aware Client Topology Change Header
+
+.Updated for 1.1
+[IMPORTANT,textlabel="Important",name="important"]
+====
+This section has been modified to be more efficient when talking
+to distributed caches with virtual nodes enabled.
+====
+
+This is what hash-distribution-aware clients receive as response header when
+a topology change is sent back:
+
+[table,tablepcwidth="100",rowcount="17",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Response header with topology change marker | variable | See previous section.
+| Topology Id | vInt | Topology ID
+| Num Key Owners | 2 bytes (Unsigned Short) | Globally configured number of copies for each Infinispan distributed key
+| Hash Function Version | 1 byte | Hash function version, pointing to a specific hash function in use.
+See link:#hot_rod_hash_functions[Hot Rod hash functions] for details.
+| Hash space size | vInt | Modulus used by Infinispan for for all module arithmetic related to hash
+code generation. Clients will likely require this information in order to
+apply the correct hash calculation to the keys.
+| Num servers in topology | vInt | Number of Hot Rod servers running within the cluster.
+This could be a subset of the entire cluster if only a fraction of those
+nodes are running Hot Rod servers.
+| Num Virtual Nodes Owners | vInt | Field added in version +1.1+ of the protocol that represents the number of
+configured virtual nodes. If no virtual nodes are configured or the cache
+is not configured with distribution, this field will contain 0.
+| m1: Host/IP length | vInt | Length of hostname or IP address of individual cluster member that Hot Rod
+client can use to access it. Using variable length here allows for covering
+for hostnames, IPv4 and IPv6 addresses.
+| m1: Host/IP address | string | String containing hostname or IP address of individual cluster member
+that Hot Rod client can use to access it.
+| m1: Port | 2 bytes (Unsigned Short) | Port that Hot Rod clients can use to communicat with this cluster member.
+| m1: Hashcode | 4 bytes | 32 bit integer representing the hashcode of a cluster member that a Hot Rod
+client can use indentify in which cluster member a key is located having
+applied the CSA to it.
+| m2: Host/IP length | vInt | 
+| m2: Host/IP address | string | 
+| m2: Port | 2 bytes (Unsigned Short) | 
+| m2: Hashcode | 4 bytes | 
+| ...etc |  | 
+|===

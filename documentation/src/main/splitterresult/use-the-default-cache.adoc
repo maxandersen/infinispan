@@ -1,0 +1,39 @@
+ifdef::context[:parent-context: {context}]
+[id="use-the-default-cache_{context}"]
+= Use the default cache
+:context: use-the-default-cache
+
+{brandname} exposes a Map-like, JSR-107-esque interface for accessing and mutating the data stored in the cache. For example:
+
+.DefaultCacheQuickstart.java
+[source,java,nowrap-option=""]
+----
+link:code_examples/QuickstartDefaultCache.java[]
+----
+
+{brandname} offers a thread-safe data-structure:
+
+.DefaultCacheQuickstart.java
+[source,java,nowrap-option=""]
+----
+link:code_examples/QuickstartDefaultCacheThreadSafe.java[]
+----
+
+By default entries are immortal but you can override this on a per-key basis and provide lifespans.
+
+.DefaultCacheQuickstart.java
+[source,java,nowrap-option=""]
+----
+link:code_examples/QuickstartDefaultCacheLifespan.java[]
+----
+
+to run using maven:
+
+[source,bash,nowrap-option=""]
+----
+$ mvn compile exec:java -Dexec.mainClass="org.infinispan.quickstart.embeddedcache.DefaultCacheQuickstart"
+----
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

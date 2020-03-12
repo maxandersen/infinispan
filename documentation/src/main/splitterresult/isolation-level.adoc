@@ -1,0 +1,15 @@
+ifdef::context[:parent-context: {context}]
+[id="isolation-level_{context}"]
+= Isolation level
+:context: isolation-level
+
+Isolation is a property that defines how/when the changes made by one operation
+become visible to other concurrent operations. Isolation is one of the _ACID_
+properties.
+
+{brandname} ships with +REPEATABLE_READ+ and +READ_COMMITTED+ isolation levels,
+the latter being the default.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

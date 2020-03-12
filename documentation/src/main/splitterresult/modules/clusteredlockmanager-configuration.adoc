@@ -1,0 +1,17 @@
+[id="clusteredlockmanager-configuration_{context}"]
+= ClusteredLockManager Configuration
+
+You can configure `ClusteredLockManager` to use different strategies for locks, either declaratively or programmatically, with the following attributes:
+
+`num-owners`:: Defines the total number of nodes in each cluster that store the states of clustered locks. The default value is `-1`, which replicates the value to all nodes.
+`reliability`::
++
+* `AVAILABLE`: Nodes in any partition can concurrently operate on locks.
+* `CONSISTENT`: Only nodes that belong to the majority partition can operate on locks. This is the default value.
+
+The following is an example declarative configuration for `ClusteredLockManager`:
+
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/clustered_lock_manager.xml[]
+----

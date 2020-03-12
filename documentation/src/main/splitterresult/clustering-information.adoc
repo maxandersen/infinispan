@@ -1,0 +1,13 @@
+ifdef::context[:parent-context: {context}]
+[id="clustering-information_{context}"]
+= Clustering Information
+:context: clustering-information
+
+The `EmbeddedCacheManager` has quite a few methods to provide information
+as to how the cluster is operating.  The following methods only really make
+sense when being used in a clustered environment (that is when a Transport
+is configured).
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

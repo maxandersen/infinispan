@@ -1,0 +1,50 @@
+[id="what-is-brandname_{context}"]
+= What is {brandname}?
+
+{brandname} is an open source data grid platform.
+It exposes a link:http://jcp.org/en/jsr/detail?id=107[JSR-107] compatible link:{javadocroot}/org/infinispan/Cache.html[`Cache`] interface (which in turn extends `java.util.Map`) in which you can store objects.
+While {brandname} can be run in local mode, its real value is in distributed mode where caches cluster together and expose a large memory heap.
+Distributed mode is more powerful than simple replication since each data entry is spread out only to a fixed number of replicas thus providing resilience to server failures as well as scalability since the work done to store each entry is constant in relation to a cluster size.
+
+So, why would you use it? {brandname} offers:
+
+* _Massive heap_ and _high availability_ -
+If you have 100 blade servers, and each node has 2GB of space to dedicate to a replicated cache, you end up with 2 GB of total data.
+Every server is just a copy.
+On the other hand, with a distributed grid - assuming you want 1 copy per data item -
+you get a 100 GB memory backed virtual heap that is efficiently accessible from anywhere in the grid.
+If a server fails, the grid simply creates new copies of the lost data, and puts them on other servers.
+Applications looking for ultimate performance are no longer forced to delegate the majority of their
+ data lookups to a large single database server -
+a bottleneck that exists in over 80% of enterprise applications!
+* _Scalability_ -
+Since data is evenly distributed there is essentially no major limit to the size of the grid,
+except group communication on the network - which is minimised to just discovery of new nodes.
+All data access patterns use peer-to-peer communication where nodes directly speak to each other,
+which scales very well.
+{brandname} does not require entire infrastructure shutdown to allow scaling up or down.
+Simply add/remove machines to your cluster without incurring any down-time.
+* _Data distribution_ -
+{brandname} uses consistent hash algorithm to determine where keys should be located in the cluster.
+Consistent hashing allows for cheap, fast and above all, deterministic location of keys with no need
+for further metadata or network traffic.
+The goal of data distribution is to maintain enough copies of state in the cluster so it can be durable and fault tolerant,
+but not too many copies to prevent {brandname} from being scalable.
+* _Persistence_ -
+{brandname} exposes a CacheStore interface, and several high-performance implementations -
+including JDBC cache stores, ﬁlesystem-based cache stores, Amazon S3 cache stores, etc.
+CacheStores can be used for "warm starts", or simply to ensure data in the grid survives complete grid restarts,
+or even to overﬂow to disk if you really do run out of memory.
+* _Language bindings_ (PHP, Python, Ruby, C, etc.) -
+{brandname} offers support for both the popular memcached protocol - with existing clients for almost every popular programming language - as well as an optimised {brandname}-specific protocol called Hot Rod.
+This means that {brandname} is not just useful to Java.
+Any major website or application that wants to take advantage of a fast data grid will be able to do so.
+* _Management_ -
+When you start thinking about running a grid on several hundred servers, management is no longer an extra, it becomes a necessity.
+Since version 8.0, {brandname} bundles a management console.
+* _Support for Compute Grids_ -
+{brandname} 5 adds the ability to pass a Runnable around the grid.
+This allows you to push complex processing towards the server where data is local, and pull back results using a Future.
+This map/reduce style paradigm is common in applications where a large amount of data is needed to compute relatively small results.
+
+Also see link:http://www.infinispan.org/about[this page] on the {brandname} website.

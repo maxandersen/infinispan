@@ -1,0 +1,31 @@
+[id="the-maven-archetypes_{context}"]
+= The Maven Archetypes
+
+{brandname} currently has 2 separate Maven link:http://maven.apache.org/guides/introduction/introduction-to-archetypes.html[archetypes] you can use to create a skeleton project and get started using {brandname}.
+This is an easy way to get started using {brandname} as the archetype generates sample code, a sample Maven pom.xml with necessary dependencies, etc.
+
+You don't need to have any experience with or knowledge of Maven's Archetypes to use this!  Just follow the simple steps below.
+
+[id="starting-a-new-project_{context}"]
+== Starting a new project
+:context: starting-a-new-project
+
+[id="writing-a-test-case-for-brandname_{context}"]
+== Writing a test case for {brandname}
+:context: writing-a-test-case-for-brandname
+
+[id="contributing-tests-back-to-brandname_{context}"]
+== Contributing tests back to {brandname}
+:context: contributing-tests-back-to-brandname
+
+[id="checking-coding-style_{context}"]
+== Checking coding style
+:context: checking-coding-style
+
+[id="versions_{context}"]
+== Versions
+:context: versions
+
+[id="source-code_{context}"]
+== Source Code
+:context: source-code

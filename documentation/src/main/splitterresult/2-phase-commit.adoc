@@ -1,0 +1,14 @@
+ifdef::context[:parent-context: {context}]
+[id="2-phase-commit_{context}"]
+= 2-phase commit
+:context: 2-phase-commit
+
+2-phase commit protocol (2PC) is a consensus protocol used for atomically
+commit or rollback distributed transactions.
+
+.More resources
+* link:http://en.wikipedia.org/wiki/Two-phase_commit_protocol[Wikipedia article]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

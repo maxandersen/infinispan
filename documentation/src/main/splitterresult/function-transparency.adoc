@@ -1,0 +1,18 @@
+ifdef::context[:parent-context: {context}]
+[id="function-transparency_{context}"]
+= Function transparency
+:context: function-transparency
+
+Since the content of the functions is transparent to {brandname}, the API
+has been split into 3 interfaces for read­-only (
+link:{javadocroot}/org/infinispan/commons/api/functional/FunctionalMap.ReadOnlyMap.html[`R​eadOnlyMap`]
+)​, read­-write (
+link:{javadocroot}/org/infinispan/commons/api/functional/FunctionalMap.ReadWriteMap.html[`R​eadWriteMap`]
+)​ and write­-only (
+link:{javadocroot}/org/infinispan/commons/api/functional/FunctionalMap.WriteOnlyMap.html[`W​riteOnlyMap`]
+)​ operations respectively, in order to provide hints to the {brandname}
+internals on the type of work needed to support functions.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

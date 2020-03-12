@@ -1,0 +1,418 @@
+[id="operations_{context}"]
+= Operations
+
+.Get (0x03)/Remove (0x0B)/ContainsKey (0x0F)/GetWithVersion (0x11)
+[]
+Common request format:
+
+[table,tablepcwidth="100",rowcount="4",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Request header
+| Key Length | vInt | Length of key. Note that the size of a
+vint can be up to 5 bytes which in theory can produce bigger numbers than
+Integer.MAX_VALUE. However, Java cannot create a single array that’s bigger
+than Integer.MAX_VALUE, hence the protocol is limiting vint array lengths to
+Integer.MAX_VALUE.
+| Key | byte array | Byte array containing the key whose value is being requested.
+|===
+
+Get response (0x04):
+
+[table,tablepcwidth="100",rowcount="5",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Response header
+| Response status | 1 byte | +0x00+ = success, if key retrieved +
++0x02+ = if key does not exist +
+| Value Length | vInt | If success, length of value
+| Value | byte array | If success, the requested value
+|===
+
+Remove response (0x0C):
+
+[table,tablepcwidth="100",rowcount="5",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Response header
+| Response status | 1 byte | +0x00+ = success, if key removed +
++0x02+ = if key does not exist +
+| Previous value Length | vInt | If force return previous value flag was
+sent in the request and the key was removed, the length of the previous value
+will be returned. If the key does not exist, value length would be 0.
+If no flag was sent, no value length would be present.
+| Previous value | byte array | If force return previous value flag was
+sent in the request and the key was removed, previous value.
+|===
+
+ContainsKey response (0x10):
+
+[table,tablepcwidth="100",rowcount="3",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Response header
+| Response status | 1 byte | +0x00+ = success, if key exists +
++0x02+ = if key does not exist +
+|===
+
+GetWithVersion response (0x12):
+
+[table,tablepcwidth="100",rowcount="6",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Response header
+| Response status | 1 byte | +0x00+ = success, if key retrieved +
++0x02+ = if key does not exist +
+| Entry Version | 8 bytes | Unique value of an existing entry's modification.
+The protocol does not mandate that entry_version values are sequential.
+They just need to be unique per update at the key level.
+| Value Length | vInt | If success, length of value
+| Value | byte array | If success, the requested value
+|===
+
+.BulkGet
+[]
+Request (0x19):
+
+[table,tablepcwidth="100",rowcount="3",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Request header
+| Entry count | vInt | Maximum number of Infinispan entries to
+be returned by the server (entry == key + associated value).
+Needed to support CacheLoader.load(int). If 0 then all entries are returned
+(needed for CacheLoader.loadAll()).
+|===
+
+Response (0x20):
+
+[table,tablepcwidth="100",rowcount="14",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Response header
+| Response status | 1 byte | +0x00+ = success, data follows +
+| More | 1 byte | One byte representing whether more
+entries need to be read from the stream. So, when it's set to 1, it means
+that an entry follows, whereas when it's set to 0, it's the end of stream and
+no more entries are left to read. For more information on BulkGet look
+link:http://community.jboss.org/docs/DOC-15592[here]
+| Key 1 Length | vInt | Length of key
+| Key 1 | byte array | Retrieved key
+| Value 1 Length | vInt | Length of value
+| Value 1 | byte array | Retrieved value
+| More | 1 byte | 
+| Key 2 Length | vInt | 
+| Key 2 | byte array | 
+| Value 2 Length | vInt | 
+| Value 2 | byte array | 
+| ... etc |  | 
+|===
+
+.Put (0x01)/PutIfAbsent (0x05)/Replace (0x07)
+[]
+Common request format:
+
+[table,tablepcwidth="100",rowcount="8",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Request header
+| Key Length | vInt | Length of key. Note that the size of a
+vint can be up to 5 bytes which in theory can produce bigger numbers than
+Integer.MAX_VALUE. However, Java cannot create a single array that’s bigger
+than Integer.MAX_VALUE, hence the protocol is limiting vint array lengths to
+Integer.MAX_VALUE.
+| Key | byte array | Byte array containing the key whose value is being requested.
+| Lifespan | vInt | Number of seconds that a entry during
+which the entry is allowed to life. If number of seconds is bigger than 30 days,
+this number of seconds is treated as UNIX time and so, represents the number
+of seconds since 1/1/1970. If set to 0, lifespan is unlimited.
+| Max Idle | vInt | Number of seconds that a entry can be
+idle before it's evicted from the cache. If 0, no max idle time.
+| Value Length | vInt | Length of value
+| Value | byte-array | Value to be stored
+|===
+
+Put response (0x02):
+
+[table,tablepcwidth="100",rowcount="5",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Response header
+| Response status | 1 byte | +0x00+ = success, if stored +
+| Previous value Length | vInt | If force return previous value flag was
+sent in the request and the key was put, the length of the previous value
+will be returned. If the key does not exist, value length would be 0.
+If no flag was sent, no value length would be present.
+| Previous value | byte array | If force return previous value flag was
+sent in the request and the key was put, previous value.
+|===
+
+Replace response (0x08):
+
+[table,tablepcwidth="100",rowcount="5",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Response header
+| Response status | 1 byte | +0x00+ = success, if stored +
++0x01+ = if store did not happen because key does not exist +
+| Previous value Length | vInt | If force return previous value flag was
+sent in the request, the length of the previous value will be returned.
+If the key does not exist, value length would be 0.
+If no flag was sent, no value length would be present.
+| Previous value | byte array | If force return previous value flag was
+sent in the request and the key was replaced, previous value.
+|===
+
+PutIfAbsent response (0x06):
+
+[table,tablepcwidth="100",rowcount="5",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Response header
+| Response status | 1 byte | +0x00+ = success, if stored +
++0x01+ = if store did not happen because key was present +
+| Previous value Length | vInt | If force return previous value flag was
+sent in the request, the length of the previous value will be returned.
+If the key does not exist, value length would be 0.
+If no flag was sent, no value length would be present.
+| Previous value | byte array | If force return previous value flag was
+sent in the request and the key was replaced, previous value.
+|===
+
+.ReplaceIfUnmodified
+[]
+Request (0x09):
+
+[table,tablepcwidth="100",rowcount="9",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Request header
+| Key Length | vInt | Length of key. Note that the size of a
+vint can be up to 5 bytes which in theory can produce bigger numbers than
+Integer.MAX_VALUE. However, Java cannot create a single array that’s bigger
+than Integer.MAX_VALUE, hence the protocol is limiting vint array lengths to
+Integer.MAX_VALUE.
+| Key | byte array | Byte array containing the key whose value is being requested.
+| Lifespan | vInt | Number of seconds that a entry during
+which the entry is allowed to life. If number of seconds is bigger than 30 days,
+this number of seconds is treated as UNIX time and so, represents the number
+of seconds since 1/1/1970. If set to 0, lifespan is unlimited.
+| Max Idle | vInt | Number of seconds that a entry can be
+idle before it's evicted from the cache. If 0, no max idle time.
+| Entry Version | 8 bytes | Use the value returned by GetWithVersion operation.
+| Value Length | vInt | Length of value
+| Value | byte-array | Value to be stored
+|===
+
+Response (0x0A):
+
+[table,tablepcwidth="100",rowcount="5",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Response header
+| Response status | 1 byte | +0x00+ = success, if replaced +
++0x01+ = if replace did not happen because key had been modified +
++0x02+ = if not replaced because if key does not exist
+| Previous value Length | vInt | If force return previous value flag was
+sent in the request, the length of the previous value will be returned.
+If the key does not exist, value length would be 0.
+If no flag was sent, no value length would be present.
+| Previous value | byte array | If force return previous value flag was
+sent in the request and the key was replaced, previous value.
+|===
+
+.RemoveIfUnmodified
+[]
+Request (0x0D):
+
+[table,tablepcwidth="100",rowcount="5",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Request header
+| Key Length | vInt | Length of key. Note that the size of a
+vint can be up to 5 bytes which in theory can produce bigger numbers than
+Integer.MAX_VALUE. However, Java cannot create a single array that’s bigger
+than Integer.MAX_VALUE, hence the protocol is limiting vint array lengths to
+Integer.MAX_VALUE.
+| Key | byte array | Byte array containing the key whose value is being requested.
+| Entry Version | 8 bytes | Use the value returned by GetWithMetadata operation.
+|===
+
+Response (0x0E):
+
+[table,tablepcwidth="100",rowcount="5",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Response header
+| Response status | 1 byte | +0x00+ = success, if removed +
++0x01+ = if remove did not happen because key had been modified +
++0x02+ = if not removed because key does not exist +
+| Previous value Length | vInt | If force return previous value flag was
+sent in the request, the length of the previous value will be returned.
+If the key does not exist, value length would be 0.
+If no flag was sent, no value length would be present.
+| Previous value | byte array | If force return previous value flag was
+sent in the request and the key was removed, previous value.
+|===
+
+.Clear
+[]
+Request (0x13):
+
+[table,tablepcwidth="100",rowcount="2",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Request header
+|===
+
+Response (0x14):
+
+[table,tablepcwidth="100",rowcount="3",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Response header
+| Response status | 1 byte | +0x00+ = success, if cleared +
+|===
+
+.PutAll
+[]
+Bulk operation to put all key value entries into the cache at the same time.
+
+Request (0x2D):
+
+[table,tablepcwidth="100",rowcount="14",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Request header
+| Lifespan | vInt | Number of seconds that provided entries
+are allowed to live. If number of seconds is bigger than 30 days,
+this number of seconds is treated as UNIX time and so, represents the number
+of seconds since 1/1/1970. If set to 0, lifespan is unlimited.
+| Max Idle | vInt | Number of seconds that each entry can be
+idle before it's evicted from the cache. If 0, no max idle time.
+| Entry count | vInt | How many entries are being inserted
+| Key 1 Length | vInt | Length of key
+| Key 1 | byte array | Retrieved key
+| Value 1 Length | vInt | Length of value
+| Value 1 | byte array | Retrieved value
+| Key 2 Length | vInt | 
+| Key 2 | byte array | 
+| Value 2 Length | vInt | 
+| Value 2 | byte array | 
+| ... continues until entry count is reached |  | 
+|===
+
+Response (0x2E):
+
+[table,tablepcwidth="100",rowcount="3",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Response header
+| Response status | 1 byte | +0x00+ = success, if all put +
+|===
+
+.GetAll
+[]
+Bulk operation to get all entries that map to a given set of keys.
+
+Request (0x2F):
+
+[table,tablepcwidth="100",rowcount="8",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Request header
+| Key count | vInt | How many keys to find entries for
+| Key 1 Length | vInt | Length of key
+| Key 1 | byte array | Retrieved key
+| Key 2 Length | vInt | 
+| Key 2 | byte array | 
+| ... continues until key count is reached |  | 
+|===
+
+Response (0x30):
+
+[table,tablepcwidth="100",rowcount="13",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Response header
+| Response status | 1 byte | 
+| Entry count | vInt | How many entries are being returned
+| Key 1 Length | vInt | Length of key
+| Key 1 | byte array | Retrieved key
+| Value 1 Length | vInt | Length of value
+| Value 1 | byte array | Retrieved value
+| Key 2 Length | vInt | 
+| Key 2 | byte array | 
+| Value 2 Length | vInt | 
+| Value 2 | byte array | 
+| ... continues until entry count is reached |  | +0x00+ = success, if the get returned sucessfully +
+|===
+
+.Stats
+[]
+Returns a summary of all available statistics. For each statistic returned,
+a name and a value is returned both in String UTF-8 format.
+The supported stats are the following:
+
+[table,tablepcwidth="100",rowcount="10",header-option="",colcount="2"]
+|===
+| timeSinceStart | Number of seconds since Hot Rod started.
+| currentNumberOfEntries | Number of entries currently in the Hot Rod server.
+| totalNumberOfEntries | Number of entries stored in Hot Rod server.
+| stores | Number of put operations.
+| retrievals | Number of get operations.
+| hits | Number of get hits.
+| misses | Number of get misses.
+| removeHits | Number of removal hits.
+| removeMisses | Number of removal misses.
+|===
+
+Request (0x15):
+
+[table,tablepcwidth="100",rowcount="2",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Request header
+|===
+
+Response (0x16):
+
+[table,tablepcwidth="100",rowcount="13",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Response header
+| Response status | 1 byte | +0x00+ = success, if stats retrieved +
+| Number of stats | vInt | Number of individual stats returned.
+| Name 1 length | vInt | Length of named statistic.
+| Name 1 | string | String containing statistic name.
+| Value 1 length | vInt | Length of value field.
+| Value 1 | string | String containing statistic value.
+| Name 2 length | vInt | 
+| Name 2 | string | 
+| Value 2 length | vInt | 
+| Value 2 | String | 
+| ...etc |  | 
+|===
+
+.Ping
+[]
+Application level request to see if the server is available.
+
+Request (0x17):
+
+[table,tablepcwidth="100",rowcount="2",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Request header
+|===
+
+Response (0x18):
+
+[table,tablepcwidth="100",rowcount="3",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Response header
+| Response status | 1 byte | +0x00+ = success, if no errors +
+|===
+
+.Error Handling
+[]
+Error response (0x50)
+
+[table,tablepcwidth="100",rowcount="5",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Response header
+| Response status | 1 byte | +0x8x+ = error response code +
+| Error Message Length | vInt | Length of error message
+| Error Message | string | Error message. In the case of 0x84 ,
+this error field contains the latest version supported by the Hot Rod server.
+Length is defined by total body length.
+|===
+
+.Multi-Get Operations
+[]
+A multi-get operation is a form of get operation that instead of requesting a
+single key, requests a set of keys. The Hot Rod protocol does not include such
+operation but remote Hot Rod clients could easily implement this type of
+operations by either parallelizing/pipelining individual get requests.
+Another possibility would be for remote clients to use async or non-blocking
+get requests. For example, if a client wants N keys, it could send send N
+async get requests and then wait for all the replies. Finally, multi-get is
+not to be confused with bulk-get operations. In bulk-gets, either all or a
+number of keys are retrieved, but the client does not know which keys to
+retrieve, whereas in multi-get, the client defines which keys to retrieve.

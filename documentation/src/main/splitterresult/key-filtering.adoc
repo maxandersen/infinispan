@@ -1,0 +1,22 @@
+ifdef::context[:parent-context: {context}]
+[id="key-filtering_{context}"]
+= Key filtering
+:context: key-filtering
+
+It is possible to filter the stream so that it only operates upon a given subset of keys.  This can be done
+by invoking the
+link:{javadocroot}/org/infinispan/CacheStream.html#filterKeys-java.util.Set-[filterKeys]
+method on the `CacheStream`.  This should always be used over a Predicate
+link:{jdkdocroot}/java/util/stream/Stream.html?is-external=true#filter-java.util.function.Predicate-[filter]
+and will be faster if the predicate was holding all keys.
+
+If you are familiar with the ``AdvancedCache`` interface you may be wondering why you even use
+link:{javadocroot}/org/infinispan/AdvancedCache.html#getAll-java.util.Set-[getAll]
+over this keyFilter.  There are some small benefits (mostly smaller payloads) to using getAll
+if you need the entries as is and need them all in memory in the local node.  However if you
+need to do processing on these elements a stream is recommended since you will get both
+distributed and threaded parallelism for free.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

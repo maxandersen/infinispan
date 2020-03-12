@@ -1,0 +1,4 @@
+[id="completablefuturevoid-removepredicate-super-v-p_{context}"]
+= CompletableFuture&lt;Void&gt; remove(Predicate&lt;? super V&gt; p)
+
+Asynchronous method. Removes every value that match the given predicate.

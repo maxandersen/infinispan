@@ -1,0 +1,4 @@
+[id="completablefutureboolean-removek-key-v-value_{context}"]
+= CompletableFuture&lt;Boolean&gt; remove(K key, V value)
+
+Asynchronous that removes a key-value pair from the multimap cache, if such exists.

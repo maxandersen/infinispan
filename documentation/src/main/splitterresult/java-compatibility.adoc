@@ -1,0 +1,10 @@
+ifdef::context[:parent-context: {context}]
+[id="java-compatibility_{context}"]
+= Java compatibility
+:context: java-compatibility
+
+{brandname} can run with Java 8 or greater. However it *must* be compiled at least with Java 11.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

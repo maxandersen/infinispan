@@ -1,0 +1,30 @@
+ifdef::context[:parent-context: {context}]
+[id="script-parameters_{context}"]
+= Script parameters
+:context: script-parameters
+
+Aside from the standard bindings described above, when a script is executed it can be passed a set of named parameters which also appear as bindings.
+Parameters are passed as +name,value+ pairs where +name+ is a string and +value+ can be any value that is understood by the marshaller in use.
+
+The following is an example of a JavaScript script which takes two parameters, +multiplicand+ and +multiplier+ and multiplies them.
+Because the last operation is an expression evaluation, its result is returned to the invoker.
+
+[source,javascript]
+----
+// mode=local,language=javascript
+multiplicand * multiplier
+----
+
+To store the script in the script cache, use the following Hot Rod code:
+
+[source,java]
+----
+RemoteCache<String, String> scriptCache = cacheManager.getCache("___script_cache");
+scriptCache.put("multiplication.js",
+  "// mode=local,language=javascript\n" +
+  "multiplicand * multiplier\n");
+----
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

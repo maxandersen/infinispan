@@ -1,0 +1,11 @@
+[id="skipping-the-test-run_{context}"]
+= Skipping the test run
+
+It is sometimes desirable to install the {brandname} package in your local repository without performing a full test run.
+To do this, simply use the `skipTests` property:
+
+....
+$ mvn -DskipTests install
+....
+
+Note that you should _never_ use `-Dmaven.test.skip=true` since modules' test classes depend on other module test classes, and this will cause compilation errors.

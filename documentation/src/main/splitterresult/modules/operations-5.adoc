@@ -1,0 +1,45 @@
+[id="operations-5_{context}"]
+= Operations
+
+.Add client listener for remote events
+[]
+An extra byte parameter is added at the end which indicates whether the client
+prefers client listener to work with raw binary data for filter/converter
+callbacks. If using raw data, its value is `1` otherwise `0`.
+
+Request format:
+
+[table,tablepcwidth="100",rowcount="10",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Request header
+| Listener ID | byte array | ...
+| Include state | byte | ...
+| Key/value filter factory parameter count | byte | ...
+| ... |  | 
+| Converter factory name | string | ...
+| Converter factory parameter count | byte | ...
+| ... |  | 
+| Use raw data | byte | If filter/converter parameters should be raw binary,
+then `1`, otherwise `0`.
+|===
+
+.Custom event
+[]
+Starting with Hot Rod 2.1, custom events can return raw data that the Hot Rod
+client should not try to unmarshall before passing it on to the user. The way
+this is transmitted to the Hot Rod client is by sending `2` as the custom
+event marker. So, the format of the custom event remains like this:
+
+[table,tablepcwidth="100",rowcount="5",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Event header with event specific operation code
+| Listener ID | byte array | Listener for which this event is directed
+| Custom marker | byte | Custom event marker. For custom events whose event
+data needs to be unmarshalled before returning to user the value is `1`. For
+custom events that need to return the event data as-is to the user, the value
+is `2`.
+| Event data | byte array | Custom event data. If the custom marker is `1`,
+the bytes represent the marshalled version of the instance returned by the
+converter. If custom marker is `2`, it represents the byte array, as returned
+by the converter.
+|===

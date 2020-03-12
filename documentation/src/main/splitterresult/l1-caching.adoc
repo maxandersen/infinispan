@@ -1,0 +1,30 @@
+ifdef::context[:parent-context: {context}]
+[id="l1-caching_{context}"]
+= L1 Caching
+:context: l1-caching
+
+When L1 is enabled, a node will keep the result of remote reads locally for a short
+period of time (configurable, 10 minutes by default), and repeated lookups will return
+the local L1 value instead of asking the owners again.
+
+.L1 caching
+[imagesdir="null",alt="clustering l1",align="center",default-alt="clustering l1",target="clustering-l1.svg"]
+image::
+
+image::
+
+L1 caching is not free though.
+Enabling it comes at a cost, and this cost is that every entry update must broadcast an
+invalidation message to all the nodes.
+L1 entries can be evicted just like any other entry when the the cache is configured
+with a maximum size.
+Enabling L1 will improve performance for repeated reads of non-local keys, but it will
+slow down writes and it will increase memory consumption to some degree.
+
+Is L1 caching right for you?
+The correct approach is to benchmark your application with and without L1 enabled and see
+what works best for your access pattern.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

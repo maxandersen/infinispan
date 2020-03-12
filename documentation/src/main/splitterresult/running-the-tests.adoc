@@ -1,0 +1,56 @@
+ifdef::context[:parent-context: {context}]
+[id="running-the-tests_{context}"]
+= Running the tests
+:context: running-the-tests
+
+The default run executes all tests in the functional, unit, xsite, and arquillian groups. To just run the tests with txt and xml output the command is:
+
+....
+$ mvn test
+....
+
+Alternatively, you can execute the tests _and_ generate a report with:
+
+....
+$ mvn surefire-report:report
+....
+
+If you are running the tests on a Unix-like operating system, the default limits per user are typically low.
+The {brandname} test suite creates a lot of processes/threads, thus you will have to increase your user's limits and reboot the system to pick up the new values.
+Open up `/etc/security/limits.conf` and add the following lines replacing the user name with your username.
+
+./etc/security/limits.conf
+[listing]
+----
+ rhusar    soft    nofile    16384
+ rhusar    hard    nofile    16384
+ rhusar    soft    nproc     16384
+ rhusar    hard    nproc     16384
+----
+
+We recommend running the tests on a machine with at least 4GB of RAM.
+Tests run in a forked JVM, so `MAVEN_OPTS` does not affect them.
+However, you may need to reduce the Maven JVM's heap to run in 4GB of RAM
+by updating the `MAVEN_OPTS` environment variable, e.g.
+
+....
+$ export MAVEN_OPTS="-Xmx800m"
+....
+
+include::modules/specifying-which-tests-to-run.adoc[leveloffset=+1]
+
+include::modules/skipping-the-test-run.adoc[leveloffset=+1]
+
+include::modules/debugging-thread-leaks.adoc[leveloffset=+1]
+
+include::modules/running-tests-using-parameters.adoc[leveloffset=+1]
+
+include::modules/enabling-trace-in-test-logs.adoc[leveloffset=+1]
+
+include::modules/running-tests-with-jdk-8.adoc[leveloffset=+1]
+
+include::modules/enabling-code-coverage-generation.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

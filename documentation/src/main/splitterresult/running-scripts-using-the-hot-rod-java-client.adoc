@@ -1,0 +1,21 @@
+ifdef::context[:parent-context: {context}]
+[id="running-scripts-using-the-hot-rod-java-client_{context}"]
+= Running Scripts using the Hot Rod Java client
+:context: running-scripts-using-the-hot-rod-java-client
+
+The following example shows how to invoke the above script by passing two named parameters.
+
+[source,java]
+----
+RemoteCache<String, Integer> cache = cacheManager.getCache();
+// Create the parameters for script execution
+Map<String, Object> params = new HashMap<>();
+params.put("multiplicand", 10);
+params.put("multiplier", 20);
+// Run the script on the server, passing in the parameters
+Object result = cache.execute("multiplication.js", params);
+----
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

@@ -1,0 +1,168 @@
+[id="operations-4_{context}"]
+= Operations
+
+.Auth Mech List
+[]
+Request (0x21):
+
+[table,tablepcwidth="100",rowcount="2",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Request header
+|===
+
+Response (0x22):
+
+[table,tablepcwidth="100",rowcount="6",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Response header
+| Mech count | vInt | The number of mechs
+| Mech 1 | string | String containing the name of the SASL mech in its IANA-registered form (e.g. GSSAPI, CRAM-MD5, etc)
+| Mech 2 | string | 
+| ...etc |  | 
+|===
+
+The purpose of this operation is to obtain the list of valid SASL authentication mechs supported by the server. The client
+will then need to issue an Authenticate request with the preferred mech.
+
+.Authenticate
+[]
+Request (0x23):
+
+[table,tablepcwidth="100",rowcount="5",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Request header
+| Mech | string | String containing the name of the mech chosen by the client for authentication. Empty on the successive invocations
+| Response length | vInt | Length of the SASL client response
+| Response data | byte array | The SASL client response
+|===
+
+Response (0x24):
+
+[table,tablepcwidth="100",rowcount="5",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Response header
+| Completed | byte | 0 if further processing is needed, 1 if authentication is complete
+| Challenge length | vInt | Length of the SASL server challenge
+| Challenge data | byte array | The SASL server challenge
+|===
+
+The purpose of this operation is to authenticate a client against a server using SASL. The authentication process, depending
+on the chosen mech, might be a multi-step operation. Once complete the connection becomes authenticated
+
+.Add client listener for remote events
+[]
+Request (0x25):
+
+[table,tablepcwidth="100",rowcount="14",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Request header
+| Listener ID | byte array | Listener identifier
+| Include state | byte | When this byte is set to `1`, cached state is
+sent back to remote clients when either adding a cache listener for the first
+time, or when the node where a remote listener is registered changes in a clustered
+environment. When enabled, state is sent back as cache entry created events to
+the clients. If set to `0`, no state is sent back to the client when adding a listener,
+nor it gets state when the node where the listener is registered changes.
+| Key/value filter factory name | string | Optional name of the key/value filter
+factory to be used with this listener. The factory is used to create key/value
+filter instances which allow events to be filtered directly in the Hot Rod
+server, avoiding sending events that the client is not interested in. If no
+factory is to be used, the length of the string is `0`.
+| Key/value filter factory parameter count | byte | The key/value filter
+factory, when creating a filter instance, can take an arbitrary number of
+parameters, enabling the factory to be used to create different filter
+instances dynamically. This count field indicates how many parameters will be
+passed to the factory. If no factory name was provided, this field is not
+present in the request.
+| Key/value filter factory parameter 1 | byte array | First key/value filter
+factory parameter
+| Key/value filter factory parameter 2 | byte array | Second key/value filter
+factory parameter
+| ... |  | 
+| Converter factory name | string | Optional name of the converter
+factory to be used with this listener. The factory is used to transform the
+contents of the events sent to clients. By default, when no converter is in use,
+events are well defined, according to the type of event generated. However,
+there might be situations where users want to add extra information to the event,
+or they want to reduce the size of the events. In these cases, a converter can
+be used to transform the event contents. The given converter factory name
+produces converter instances to do this job. If no factory is to be used, the
+length of the string is `0`.
+| Converter factory parameter count | byte | The converter
+factory, when creating a converter instance, can take an arbitrary number of
+parameters, enabling the factory to be used to create different converter
+instances dynamically. This count field indicates how many parameters will be
+passed to the factory. If no factory name was provided, this field is not
+present in the request.
+| Converter factory parameter 1 | byte array | First converter factory parameter
+| Converter factory parameter 2 | byte array | Second converter factory parameter
+| ... |  | 
+|===
+
+Response (0x26):
+
+[table,tablepcwidth="100",rowcount="2",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Response header
+|===
+
+.Remove client listener for remote events
+[]
+Request (0x27):
+
+[table,tablepcwidth="100",rowcount="3",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Request header
+| Listener ID | byte array | Listener identifier
+|===
+
+Response (0x28):
+
+[table,tablepcwidth="100",rowcount="2",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Response header
+|===
+
+.Size
+[]
+Request (0x29):
+
+[table,tablepcwidth="100",rowcount="2",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Request header
+|===
+
+Response (0x2A):
+
+[table,tablepcwidth="100",rowcount="3",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Response header
+| Size | vInt | Size of the remote cache, which is calculated globally in the
+clustered set ups, and if present, takes cache store contents into account as
+well.
+|===
+
+.Exec
+[]
+Request (0x2B):
+
+[table,tablepcwidth="100",rowcount="7",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Request header
+| Script | string | Name of the task to execute
+| Parameter Count | vInt | The number of parameters
+| Parameter 1 Name | string | The name of the first parameter
+| Parameter 1 Length | vInt | The length of the first parameter
+| Parameter 1 Value | byte array | The value of the first parameter
+|===
+
+Response (0x2C):
+
+[table,tablepcwidth="100",rowcount="5",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Response header
+| Response status | 1 byte | +0x00+ = success, if execution completed successfully +
++0x85+ = server error +
+| Value Length | vInt | If success, length of return value
+| Value | byte array | If success, the result of the execution
+|===

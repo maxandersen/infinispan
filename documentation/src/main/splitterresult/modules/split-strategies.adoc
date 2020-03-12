@@ -1,0 +1,16 @@
+[id="split-strategies_{context}"]
+= Split Strategies
+
+In this section, we detail how each partition handling strategy behaves in the event of split brain occurring.
+
+[id="allow-read-writes_{context}"]
+== ALLOW_READ_WRITES
+:context: allow-read-writes
+
+[id="deny-read-writes_{context}"]
+== DENY_READ_WRITES
+:context: deny-read-writes
+
+[id="allow-reads_{context}"]
+== ALLOW_READS
+:context: allow-reads

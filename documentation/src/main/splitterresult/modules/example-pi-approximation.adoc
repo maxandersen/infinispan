@@ -1,0 +1,21 @@
+[id="example-pi-approximation_{context}"]
+= Example: PI Approximation
+
+This example shows how you can use the ClusterExecutor to estimate the value of PI.
+
+Pi approximation can greatly benefit from parallel distributed execution via
+Cluster Executor. Recall that area of the square is Sa = 4r2 and area of the
+circle is Ca=pi*r2. Substituting r2 from the second equation into the first
+one it turns out that pi = 4 * Ca/Sa. Now, image that we can shoot very large
+number of darts into a square; if we take ratio of darts that land inside a
+circle over a total number of darts shot we will approximate Ca/Sa value. Since
+we know that pi = 4 * Ca/Sa we can easily derive approximate value of pi. The
+more darts we shoot the better approximation we get. In the example below we
+shoot 1 billion darts but instead of "shooting" them serially we parallelize
+work of dart shooting across the entire {brandname} cluster. Note this will
+work in a cluster of 1 was well, but will be slower.
+
+[source,java]
+----
+link:code_examples/PiAppx.java[]
+----

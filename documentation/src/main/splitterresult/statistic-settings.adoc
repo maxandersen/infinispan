@@ -1,0 +1,10 @@
+ifdef::context[:parent-context: {context}]
+[id="statistic-settings_{context}"]
+= Statistic Settings
+:context: statistic-settings
+
+The statistics setting section of the text protocol has not been implemented due to its volatility.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

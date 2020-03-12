@@ -1,0 +1,13 @@
+[id="multi-node-standalone-hibernate-application_{context}"]
+= Multi-Node Standalone Hibernate Application
+
+When running a JPA/Hibernate in a multi-node environment and enabling {brandname} second-level cache, it is necessary to cluster the second-level cache so that cache consistency can be guaranteed.
+Clustering the {brandname} second-level cache provider is as simple as adding the following property to the `persistence.xml` file:
+
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/ispn_second_level_cache_multinode.xml[]
+----
+
+The default {brandname} configuration used by the second-level cache provider is already configured to work in a cluster environment, so no need to add any extra properties.
+You can find more about the configuration check the link:#default_cluster_configuration_second_level[Default Cluster Configuration] section.

@@ -1,0 +1,42 @@
+[id="server-node-hash-code-calculation_{context}"]
+= Server node hash code calculation
+
+Adding support for virtual nodes has made version +1.0+ of the Hot Rod protocol
+impractical due to bandwidth it would have taken to return hash codes for all
+virtual nodes in the clusters (this number could easily be in the millions).
+So, as of version +1.1+ of the Hot Rod protocol, clients are given the base
+hash id or hash code of each server, and then they have to calculate the real
+hash position of each server both with and without virtual nodes configured.
+Here are the rules clients should follow when trying to calculate a node's
+hash code:
+
+1\.  With _virtual nodes disabled_ : Once clients have received the base
+hash code of the server, they need to normalize it in order to find the exact
+position of the hash wheel. The process of normalization involves passing the
+base hash code to the hash function, and then do a small calculation to avoid
+negative values. The resulting number is the node's position in the hash wheel:
+
+[source,java]
+----
+public static int getNormalizedHash(int nodeBaseHashCode, Hash hashFct) {
+   return hashFct.hash(nodeBaseHashCode) & Integer.MAX_VALUE; // make sure no negative numbers are involved.
+}
+----
+
+2\.  With _virtual nodes enabled_ : In this case, each node represents N
+different virtual nodes, and to calculate each virtual node's hash code, we
+need to take the the range of numbers between 0 and N-1 and apply the
+following logic:
+
+* For virtual node with 0 as id, use the technique used to retrieve a node's
+hash code, as shown in the previous section.
+* For virtual nodes from 1 to N-1 ids, execute the following logic:
+
+[source,java]
+----
+public static int virtualNodeHashCode(int nodeBaseHashCode, int id, Hash hashFct) {
+   int virtualNodeBaseHashCode = id;
+   virtualNodeBaseHashCode = 31 * virtualNodeBaseHashCode + nodeBaseHashCode;
+   return getNormalizedHash(virtualNodeBaseHashCode, hashFct);
+}
+----

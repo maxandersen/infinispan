@@ -1,0 +1,36 @@
+ifdef::context[:parent-context: {context}]
+[id="multimapcache-api_{context}"]
+= MultimapCache API
+:context: multimapcache-api
+
+MultimapCache API exposes several methods to interact with the Multimap Cache.
+All these methods are non-blocking in most of the cases. See [limitations]
+
+[source,java]
+----
+link:code_examples/MultiMapCache.java[]
+----
+
+include::modules/completablefuturevoid-putk-key-v-value.adoc[leveloffset=+1]
+
+include::modules/completablefuturecollectionv-getk-key.adoc[leveloffset=+1]
+
+include::modules/completablefutureboolean-removek-key.adoc[leveloffset=+1]
+
+include::modules/completablefutureboolean-removek-key-v-value.adoc[leveloffset=+1]
+
+include::modules/completablefuturevoid-removepredicate-super-v-p.adoc[leveloffset=+1]
+
+include::modules/completablefutureboolean-containskeyk-key.adoc[leveloffset=+1]
+
+include::modules/completablefutureboolean-containsvaluev-value.adoc[leveloffset=+1]
+
+include::modules/completablefutureboolean-containsentryk-key-v-value.adoc[leveloffset=+1]
+
+include::modules/completablefuturelong-size.adoc[leveloffset=+1]
+
+include::modules/boolean-supportsduplicates.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

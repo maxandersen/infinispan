@@ -1,0 +1,17 @@
+[id="reporting-issues_{context}"]
+= Reporting Issues
+
+If you need to create a new issue then follow these steps.
+
+[arabic]
+. Choose between
+* _Feature Request_ if you want to request an enhancement or new feature for {brandname}
+* _Bug_ if you have discovered an issue
+* _Task_ if you wish to request a documentation, sample or process (e.g. build system) enhancement or issue
+. Then enter a _Summary_ , describing briefly the problem - please try to be descriptive!
+. You should *not* set _Priority_.
+. Now, enter the version you are reporting an issue against in the _Affects Version_ field, and leave the _Fix Version_ field blank.
+. In the _Environment_ text area, provide as much detail as possible about your environment (e.g. Java runtime and version, operating system, any network topology which is relevant).
+. In the _Description_ field enter a detailed description of your problem or request.
+. If the issue has been discussed on the forums or the mailing list, enter a reference in the _Forum Reference_ field
+. Finally, hit _Create_

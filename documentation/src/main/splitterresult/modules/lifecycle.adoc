@@ -1,0 +1,20 @@
+[id="lifecycle_{context}"]
+= Lifecycle
+
+`KeyAffinityService` extends `Lifecycle`, which allows stopping and (re)starting it:
+
+[source,java]
+----
+link:code_examples/Lifecycle.java[]
+----
+
+The service is instantiated through `KeyAffinityServiceFactory`. All the factory methods
+have an `Executor` parameter, that is used for asynchronous key generation (so that it
+won't happen in the caller's thread).
+It is the user's responsibility to handle the shutdown of this `Executor`.
+
+The `KeyAffinityService`, once started, needs to be explicitly stopped. This stops the
+background key generation and releases other held resources.
+
+The only situation in which `KeyAffinityService` stops by itself is when the cache manager
+with which it was registered is shutdown.

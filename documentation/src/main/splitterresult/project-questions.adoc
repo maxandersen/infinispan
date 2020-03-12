@@ -1,0 +1,24 @@
+ifdef::context[:parent-context: {context}]
+[id="project-questions_{context}"]
+= Project questions
+:context: project-questions
+
+include::modules/what-is-brandname.adoc[leveloffset=+1]
+
+include::modules/what-would-i-use-brandname-for.adoc[leveloffset=+1]
+
+include::modules/how-is-brandname-related-to-jboss-cache.adoc[leveloffset=+1]
+
+include::modules/what-version-of-java-does-brandname-need-to-run-does-brandname-need-an-application-server-to-run.adoc[leveloffset=+1]
+
+include::modules/will-there-be-a-pojo-cache-replacement-in-brandname.adoc[leveloffset=+1]
+
+include::modules/how-come-brandnames-first-release-is-4-0-0-this-sounds-weird.adoc[leveloffset=+1]
+
+include::modules/how-is-this-related-to-jsr-107-the-jcache-specification.adoc[leveloffset=+1]
+
+include::modules/can-i-use-brandname-with-hibernate.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

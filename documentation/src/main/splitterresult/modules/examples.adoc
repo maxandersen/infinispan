@@ -1,0 +1,15 @@
+[id="examples_{context}"]
+= Examples
+
+If you want to use these or any other flags available, which by the way are described in detail the link:{javadocroot}/org/infinispan/context/Flag.html[Flag enumeration] , you simply need to get hold of the advanced cache and add the flags you need via the link:{javadocroot}/org/infinispan/AdvancedCache.html#withFlags-org.infinispan.context.Flag...-[withFlags()] method call. For example:
+
+[source,java]
+----
+link:code_examples/GetAdvancedCacheWithFlagsSkipCacheStore.java[]
+----
+
+It's worth noting that these flags are only active for the duration of the cache operation. If the same flags need to be used in several invocations, even if they're in the same transaction, link:{javadocroot}/org/infinispan/AdvancedCache.html#withFlags-org.infinispan.context.Flag...-[withFlags()] needs to be called repeatedly. Clearly, if the cache operation is to be replicated in another node, the flags are carried over to the remote nodes as well.
+
+[id="suppressing-return-values-from-a-put-or-remove_{context}"]
+== Suppressing return values from a put() or remove()
+:context: suppressing-return-values-from-a-put-or-remove

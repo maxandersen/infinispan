@@ -1,0 +1,12 @@
+[id="local-clusters-jgroups-xml-configuration_{context}"]
+= Local cluster&#8217;s jgroups .xml configuration
+
+This is the configuration file for the local (intra-site) {brandname} cluster. It is referred from the {brandname} configuration file, see "configurationFile" below:
+
+.infinispan.xml
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/config_external_jgroups.xml[]
+----
+
+In order to allow inter-site calls, the RELAY2 protocol needs to be added to the protocol stack defined in the jgroups configuration (see attached link:https://gist.github.com/maniksurtani/409fe5ece5fe4bcf679f[jgroups.xml] for an example).

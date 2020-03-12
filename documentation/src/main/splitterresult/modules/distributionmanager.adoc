@@ -1,0 +1,4 @@
+[id="distributionmanager_{context}"]
+= DistributionManager
+
+Manager that controls how entries are distributed across the cluster.

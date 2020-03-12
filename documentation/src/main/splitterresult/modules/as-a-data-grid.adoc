@@ -1,0 +1,5 @@
+[id="as-a-data-grid_{context}"]
+= As a data grid
+
+Data you place in {brandname} doesn't have to be temporary: use {brandname} as your primary store and use its powerful features
+such as transactions, notifications, queries, distributed execution, distributed streams, analytics to process data quickly.

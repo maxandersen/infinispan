@@ -1,0 +1,15 @@
+[id="hr_{context}"]
+= TransactionManagerLookup Interface
+
+`TransactionManagerLookup` provides an entry point to fetch a {tm}.
+
+Available implementations of `TransactionManagerLookup`:
+
+{gtml}:: A lookup class that locates {tm}s running in Java EE application servers. Defaults to the {rtm} if it cannot find a {tm}.
+
+[TIP,textlabel="Tip",name="tip"]
+====
+In most cases, {gtml} is suitable. However, you can implement the `TransactionManagerLookup` interface if you need to integrate a custom {tm}.
+====
+
+{rtml}:: A basic, and volatile, {tm} if no other implementation is available. Note that this implementation has significant limitations when handling concurrent transactions and recovery.

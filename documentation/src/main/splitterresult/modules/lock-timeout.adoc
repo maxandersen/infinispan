@@ -1,0 +1,20 @@
+[id="lock-timeout_{context}"]
+= Lock timeout
+
+The lock timeout specifies the amount of time, in milliseconds, to wait for a contented lock.
+
+*Configuration example:*
+
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/locking_acquire_timeout.xml[]
+----
+
+Or
+
+[source,java]
+----
+new ConfigurationBuilder().locking().lockAcquisitionTimeout(10000);
+//alternatively
+new ConfigurationBuilder().locking().lockAcquisitionTimeout(10, TimeUnit.SECONDS);
+----

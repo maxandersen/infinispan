@@ -1,0 +1,17 @@
+ifdef::context[:parent-context: {context}]
+[id="nosql_{context}"]
+= NoSQL
+:context: nosql
+
+A NoSQL database provides a mechanism for storage and retrieval of data that
+employs less constrained consistency models than traditional relational
+databases. Motivations for this approach include simplicity of design,
+horizontal scaling and finer control over availability. NoSQL databases are
+often highly optimized key–value stores intended for simple retrieval and
+appending operations, with the goal being significant performance benefits in
+terms of latency and throughput. NoSQL databases are finding significant and
+growing industry use in big data and real-time web applications.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

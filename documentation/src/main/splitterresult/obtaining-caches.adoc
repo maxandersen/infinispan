@@ -1,0 +1,43 @@
+ifdef::context[:parent-context: {context}]
+[id="obtaining-caches_{context}"]
+= Obtaining caches
+:context: obtaining-caches
+
+After you configure the `CacheManager`, you can obtain and control caches.
+
+Invoke the link:{javadocroot}/org/infinispan/manager/EmbeddedCacheManager.html#getCache--[`getCache()`] method to obtain caches, as follows:
+
+[source,java,nowrap-option=""]
+----
+link:code_examples/GetCache.java[]
+----
+
+The preceding operation creates a cache named `myCache`, if it does not already exist, and returns it.
+
+Using the `getCache()` method creates the cache only on the node where you invoke the method. In other words, it performs a local operation that must be invoked on each node across the cluster. Typically, applications deployed across multiple nodes obtain caches during initialization to ensure that caches are _symmetric_ and exist on each node.
+
+Invoke the link:{javadocroot}/org/infinispan/manager/EmbeddedCacheManagerAdmin.html#createCache--[`createCache()`] method to create caches dynamically across the entire cluster, as follows:
+
+[source,java]
+----
+link:code_examples/CreateCache.java[]
+----
+
+The preceding operation also automatically creates caches on any nodes that subsequently join the cluster.
+
+Caches that you create with the `createCache()` method are ephemeral by default. If the entire cluster shuts down, the cache is not automatically created again when it restarts.
+
+Use the +PERMANENT+ flag to ensure that caches can survive restarts, as follows:
+
+[source,java,nowrap-option=""]
+----
+link:code_examples/CreateCacheWithFlagsPermanent.java[]
+----
+
+For the +PERMANENT+ flag to take effect, you must enable global state and set a configuration storage provider.
+
+For more information about configuration storage providers, see link:{javadocroot}/org/infinispan/configuration/global/GlobalStateConfigurationBuilder.html#configurationStorage-org.infinispan.globalstate.ConfigurationStorage-[GlobalStateConfigurationBuilder#configurationStorage()].
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

@@ -1,0 +1,6 @@
+[id="mortal-and-immortal-data_{context}"]
+= Mortal and Immortal Data
+
+Further to simply storing entries, {brandname}'s cache API allows you to attach mortality information to data.  For example, simply using link:{jdkdocroot}/java/util/Map.html#put-K-V-[put(key, value)] would create an _immortal_ entry, i.e., an entry that lives in the cache forever, until it is removed (or evicted from memory to prevent running out of memory).  If, however, you put data in the cache using link:{javadocroot}/org/infinispan/commons/api/BasicCache.html#put-K-V-long-java.util.concurrent.TimeUnit-[put(key, value, lifespan, timeunit)] , this creates a _mortal_ entry, i.e., an entry that has a fixed lifespan and expires after that lifespan.
+
+In addition to _lifespan_ , {brandname} also supports _maxIdle_ as an additional metric with which to determine expiration.  Any combination of lifespans or maxIdles can be used.

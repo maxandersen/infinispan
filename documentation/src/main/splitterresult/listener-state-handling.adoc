@@ -1,0 +1,25 @@
+ifdef::context[:parent-context: {context}]
+[id="listener-state-handling_{context}"]
+= Listener State Handling
+:context: listener-state-handling
+
+Client listener annotation has an optional `includeCurrentState` attribute
+that specifies whether state will be sent to the client when the listener is
+added or when there's a failover of the listener.
+
+By default, `includeCurrentState` is false, but if set to true and a client
+listener is added in a cache already containing data, the server iterates over
+the cache contents and sends an event for each entry to the client as a
+`ClientCacheEntryCreated` (or custom event if configured). This allows clients
+to build some local data structures based on the existing content. Once the
+content has been iterated over, events are received as normal, as cache
+updates are received.  If the cache is clustered, the entire cluster wide
+contents are iterated over.
+
+`includeCurrentState` also controls whether state is received when the node
+where the client event listener is registered fails and it's moved to a
+different node. The next section discusses this topic in depth.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

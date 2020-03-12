@@ -1,0 +1,22 @@
+[id="suggestions-for-optimal-performance_{context}"]
+= Suggestions for optimal performance
+
+[id="jgroups-and-networking-stack_{context}"]
+== JGroups and networking stack
+:context: jgroups-and-networking-stack
+
+[id="using-a-cachestore_{context}"]
+== Using a CacheStore
+:context: using-a-cachestore
+
+[id="apply-standard-lucene-tuning_{context}"]
+== Apply standard Lucene tuning
+:context: apply-standard-lucene-tuning
+
+[id="disable-batching-and-transactions_{context}"]
+== Disable batching and transactions
+:context: disable-batching-and-transactions
+
+[id="set-the-right-chunk-size_{context}"]
+== Set the right chunk size
+:context: set-the-right-chunk-size

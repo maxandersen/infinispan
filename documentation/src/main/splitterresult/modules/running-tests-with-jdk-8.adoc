@@ -1,0 +1,15 @@
+[id="running-tests-with-jdk-8_{context}"]
+= Running tests with JDK 8
+
+While building requires at least JDK 11, the testsuite can be run with JDK 8. In order to do so, you should set the
+`JAVA8_HOME` environment variable to point to your JDK 8 installation, e.g.:
+
+....
+$ export JAVA8_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
+....
+
+And enable the `java8-test` maven profile:
+
+....
+$ mvn -Pjava8-test test
+....

@@ -1,0 +1,40 @@
+[id="jboss-marshalling_{context}"]
+= JBoss Marshalling
+
+JBoss Marshalling is a Serialization-based marshalling library and was the
+default marshaller in older {brandname} versions.
+
+[IMPORTANT,textlabel="Important",name="important"]
+====
+* JBoss Marshalling is deprecated and planned for removal in a future version of {brandname}.
+* {brandname} ignores implementations of the `AdvancedExternalizer` interface when persisting data unless you use JBoss Marshalling. However, `AdvancedExternalizer` is deprecated alongside JBoss Marshalling.
+====
+
+You should not plan to use serialization-based marshalling with {brandname}
+because it is deprecated functionality; however, the steps to do so are as
+follows:
+
+[arabic]
+. Add the `infinipsan-jboss-marshalling` dependency to your classpath.
+. Configure `JBossUserMarshaller` as follows:
+
+.Programmatic procedure
+[source,java]
+----
+link:code_examples/JBossUserMarshaller.java[]
+----
+
+.Declarative procedure
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/jboss_user_marshaller.xml[]
+----
+
+[IMPORTANT,textlabel="Important",name="important"]
+====
+
+====
+
+.Reference
+* link:#deserialization_whitelist[Adding Java Classes to Deserialization White Lists]
+* link:{javadocroot}/org/infinispan/commons/marshall/AdvancedExternalizer.html[AdvancedExternalizer]

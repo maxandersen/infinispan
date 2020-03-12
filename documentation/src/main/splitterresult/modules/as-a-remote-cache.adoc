@@ -1,0 +1,6 @@
+[id="as-a-remote-cache_{context}"]
+= As a remote cache
+
+If you want to be able to scale your caching layer independently from your application, or you need to make your data
+available to different applications, possibly even using different languages / platforms, use {brandname} Server and its
+various clients.

@@ -1,0 +1,12 @@
+ifdef::context[:parent-context: {context}]
+[id="relational-database-management-system-rdbms_{context}"]
+= Relational Database Management System (RDBMS)
+:context: relational-database-management-system-rdbms
+
+A relational database management system (RDBMS) is a database management system
+ that is based on the relational model. Many popular databases currently in use
+are based on the relational database model.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

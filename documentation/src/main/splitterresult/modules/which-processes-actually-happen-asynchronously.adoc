@@ -1,0 +1,12 @@
+[id="which-processes-actually-happen-asynchronously_{context}"]
+= Which processes actually happen asynchronously?
+
+There are 4 things in {brandname} that can be considered to be on the critical path of a typical write operation.
+These are, in order of cost:
+
+* network calls
+* marshalling
+* writing to a cache store (optional)
+* locking
+
+As of {brandname} 4.0, using the async methods will take the network calls and marshalling off the critical path.  For various technical reasons, writing to a cache store and acquiring locks, however, still happens in the caller's thread.  In future, we plan to take these offline as well.  See link:http://lists.jboss.org/pipermail/infinispan-dev/2010-January/002219.html[this developer mail list thread] about this topic.

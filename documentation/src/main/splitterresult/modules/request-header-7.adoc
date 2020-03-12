@@ -1,0 +1,10 @@
+[id="request-header-7_{context}"]
+= Request Header
+
+The request header has the following extra fields:
+
+[table,tablepcwidth="100",rowcount="3",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Key Format | MediaType | The MediaType to be used for keys during the operation. It applies to both the keys sent and received.
+| Value Format | MediaType | Analogous to Key Format, but applied for the values.
+|===

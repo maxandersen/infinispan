@@ -1,0 +1,9 @@
+[id="notifying-futures_{context}"]
+= Notifying futures
+
+Strictly, these methods do not return JDK Futures, but rather a sub-interface known as a link:{javadocroot}/org/infinispan/commons/util/concurrent/NotifyingFuture.html[NotifyingFuture] .  The main difference is that you can attach a listener to a NotifyingFuture such that you could be notified when the future completes.  Here is an example of making use of a notifying future:
+
+[source,java]
+----
+link:code_examples/ListenerFuture.java[]
+----

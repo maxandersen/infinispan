@@ -1,0 +1,22 @@
+ifdef::context[:parent-context: {context}]
+[id="hashing-configuration_{context}"]
+= Hashing Configuration
+:context: hashing-configuration
+
+This is how you configure hashing declaratively, via XML:
+
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/hashing_configuration.xml[]
+----
+
+And this is how you can configure it programmatically, in Java:
+
+[source,java]
+----
+link:code_examples/HashingConfiguration.java[]
+----
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

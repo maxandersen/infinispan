@@ -1,0 +1,4 @@
+[id="integrations_{context}"]
+= Directory Provider for Hibernate Search
+
+Hibernate Search applications can use {brandname} as a directory provider, taking advantage of {brandname}'s distribution and low latency capabilities to store the Lucene indexes.

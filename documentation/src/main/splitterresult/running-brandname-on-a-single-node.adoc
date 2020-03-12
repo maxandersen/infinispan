@@ -1,0 +1,29 @@
+ifdef::context[:parent-context: {context}]
+[id="running-brandname-on-a-single-node_{context}"]
+= Running {brandname} on a single node
+:context: running-brandname-on-a-single-node
+
+In order to run {brandname}, we're going to create a `main()` method in the `Quickstart` class.
+{brandname} comes configured to run out of the box; once you have set up your dependencies, all you need to do to start using {brandname} is to create a new cache manager and get a handle on the default cache.
+
+.Quickstart.java
+[source,java,nowrap-option=""]
+----
+link:code_examples/Quickstart.java[]
+----
+
+We now need a way to run the main method! To run the Quickstart main class:
+If you are using Maven:
+
+[source,bash,nowrap-option=""]
+----
+$ mvn compile exec:java -Dexec.mainClass="org.infinispan.quickstart.embeddedcache.Quickstart"
+----
+
+You should see {brandname} start up, and the version in use logged to the console.
+
+Congratulations, you now have {brandname} running as a local cache!
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

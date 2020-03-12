@@ -1,0 +1,10 @@
+ifdef::context[:parent-context: {context}]
+[id="x_{context}"]
+= Reference
+:context: x
+
+link:https://community.jboss.org/wiki/DesignForCrossSiteReplication[This document] describes the technical design of cross site replication in more detail.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

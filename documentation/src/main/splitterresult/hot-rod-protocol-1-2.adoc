@@ -1,0 +1,26 @@
+ifdef::context[:parent-context: {context}]
+[id="hot-rod-protocol-1-2_{context}"]
+= Hot Rod Protocol 1.2
+:context: hot-rod-protocol-1-2
+
+.Infinispan versions
+[WARNING,textlabel="Warning",name="warning"]
+====
+This version of the protocol was implemented since Infinispan 5.2.0.Final
+and is no longer supported since Infinispan 10.
+====
+
+[NOTE,textlabel="Note",name="note"]
+====
+Since Infinispan 5.3.0, HotRod supports encryption via SSL. However, since this only affects the transport, the version number of the protocol has not been incremented.
+====
+
+include::modules/request-header-3.adoc[leveloffset=+1]
+
+include::modules/response-header.adoc[leveloffset=+1]
+
+include::modules/operations-2.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

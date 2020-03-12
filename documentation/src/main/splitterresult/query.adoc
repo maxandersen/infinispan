@@ -1,0 +1,16 @@
+ifdef::context[:parent-context: {context}]
+[id="query_{context}"]
+= Performance Tuning
+:context: query
+
+include::modules/batch-writing-in-sync-mode.adoc[leveloffset=+1]
+
+include::modules/writing-using-async-mode.adoc[leveloffset=+1]
+
+include::modules/index-reader-async-strategy.adoc[leveloffset=+1]
+
+include::modules/lucene-options.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

@@ -1,0 +1,67 @@
+[id="how-do-i-use-the-grouping-api_{context}"]
+= How do I use the grouping API?
+
+First, you must enable groups. If you are configuring {brandname} programmatically, then call:
+
+[source,java]
+----
+link:code_examples/EnableGroups.java[]
+----
+
+Or, if you are using XML:
+
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/enable_groups.xml[]
+----
+
+If you have control of the key class (you can alter the class definition, it's not part of
+an unmodifiable library), then we recommend using an intrinsic group.
+The intrinsic group is specified by adding the `@Group` annotation to a method.
+Let's take a look at an example:
+
+[source,java]
+----
+link:code_examples/IntrinsicGroup.java[]
+----
+
+[NOTE,textlabel="Note",name="note"]
+====
+The group method must return a `String`
+====
+
+If you don't have control over the key class, or the determination of the group is an
+orthogonal concern to the key class, we recommend using an extrinsic group.
+An extrinsic group is specified by implementing the `Grouper` interface.
+
+[source,java]
+----
+link:code_examples/ExtrinsicGroup.java[]
+----
+
+If multiple `Grouper` classes are configured for the same key type, all of them will be
+called, receiving the value computed by the previous one.
+If the key class also has a `@Group` annotation, the first `Grouper` will receive the
+group computed by the annotated method.
+This allows you even greater control over the group when using an intrinsic group.
+Let's take a look at an example `Grouper` implementation:
+
+[source,java]
+----
+link:code_examples/GrouperImplementation.java[]
+----
+
+`Grouper` implementations must be registered explicitly in the cache configuration.
+If you are configuring {brandname} programmatically:
+
+[source,java]
+----
+link:code_examples/GrouperRegistration.java[]
+----
+
+Or, if you are using XML:
+
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/grouper_registration.xml[]
+----

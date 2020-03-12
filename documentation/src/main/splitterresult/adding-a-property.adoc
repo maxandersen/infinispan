@@ -1,0 +1,31 @@
+ifdef::context[:parent-context: {context}]
+[id="adding-a-property_{context}"]
+= Adding a property
+:context: adding-a-property
+
+[arabic]
+. Add the property to the relevant XXXConfiguration class.
+Add a private final field, add a parameter to the constructor, and assign the value to the field in the constructor body.
+Add a accessor for the property. If the property should be mutable at runtime, then add a mutator as well.
+Most configuration properties are not mutable at runtime - if the configuration is runtime mutable, then {brandname} needs to take notice of this update whilst the cache is running (you can't cache the value of the configuration in your implementation class).
+Mutators and accessors don't use the classic JavaBean pattern of prepending accessors with "get" and mutators with "set".
+Instead, the name of the property is used for an accessor.
+A mutator is an overloaded version of the accessor which takes a parameter, the new value.
+. Add the property to the matching XXXConfigurationBuilder.
+You'll need to add a mutable field to the class, and initialise it to it's default value in the field declaration.
+Add a mutator (following the above pattern).
+. The `create()` method is called by the parent object in order to instantiate the XXXConfiguration object from the builder.
+Therefore, make sure to pass the value of the field in the builder to the XXXConfiguration object's constructor here.
+Additionally, if you require a complex default (for example, the value of a configuration property is defaulted conditionally based on the value of some other configuration property), then this is the place to do this.
+. The `validate()` method is called by the parent object to validate the values the user has passed in.
+This method may also be called directly by user code, should they wish to manually validate a configuration object.
+You should place any validation logic here related to your configuration property.
+If you need to "cross-validate" properties (validate the value of your property conditionally upon the value of another property), and the other property is on another builder object, increase the visibility of that other property field to "default", and reference it from this builder, by calling the `getBuilder()` method, which will gives you a handle on the root configuration builder.
+. The final step is to add parsing logic to the `Parser` class.
+First, add the attribute to name to the `Attribute` enum (this class simply provides a mapping between the non-type-safe name of the attribute in XML and a type-safe reference to use in the parser).
+Locate the relevant `parseXXX()` method on the class, and add a case to the switch statement for the attribute.
+Call the builder mutator you created above, performing any XML related validation (you are unlikely to need this), and type conversion (using the static methods on the primitive wrapper classes, String class, or relevant enum class).
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

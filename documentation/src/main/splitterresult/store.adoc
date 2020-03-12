@@ -1,0 +1,28 @@
+ifdef::context[:parent-context: {context}]
+[id="store_{context}"]
+= Store As Binary
+:context: store
+
+Store as binary enables data to be stored in its serialized form. This can be useful to achieve lazy deserialization, which is the mechanism by which {brandname} by which serialization and deserialization of objects is deferred till the point in time in which they are used and needed. This typically means that any deserialization happens using the thread context class loader of the invocation that requires deserialization, and is an effective mechanism to provide classloader isolation. By default lazy deserialization is disabled but if you want to enable it, you can do it like this:
+
+.Programmatic procedure
+[source,java]
+----
+link:code_examples/StorageTypeBinary.java[]
+----
+
+.Declarative procedure
+* Via XML at the Cache level, either under `<*-cache />` element:
+
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/memory_binary.xml[]
+----
+
+include::modules/equality-considerations.adoc[leveloffset=+1]
+
+include::modules/store-by-value-via-defensive-copying.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

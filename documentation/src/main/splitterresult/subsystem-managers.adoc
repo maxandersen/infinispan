@@ -1,0 +1,26 @@
+ifdef::context[:parent-context: {context}]
+[id="subsystem-managers_{context}"]
+= Subsystem Managers
+:context: subsystem-managers
+
+The interceptors act as simple interception points and don’t contain a lot of
+logic themselves.  Most behavioural logic is encapsulated as managers in various
+subsystems, a small subset of which are:
+
+include::modules/distributionmanager.adoc[leveloffset=+1]
+
+include::modules/transactionmanager.adoc[leveloffset=+1]
+
+include::modules/rpcmanager.adoc[leveloffset=+1]
+
+include::modules/lockmanager.adoc[leveloffset=+1]
+
+include::modules/persistencemanager.adoc[leveloffset=+1]
+
+include::modules/datacontainer.adoc[leveloffset=+1]
+
+include::modules/configuration.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

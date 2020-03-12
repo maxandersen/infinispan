@@ -1,0 +1,20 @@
+[id="client-server-solution_{context}"]
+= Client-Server Solution
+
+In theory, Hot Rod could use the same p2p solution but sending the previous value would be not practical.  In this example, the previous value is just an integer but the value could be a lot bigger and hence forcing clients to send it to the server would be rather wasteful.  Instead, Hot Rod offers versioned operations to deal with this situation.
+
+Basically, together with each key/value pair, Hot Rod stores a version number which uniquely identifies each modification. So, using an operation called getVersioned or getWithVersion, clients can retrieve not only the value associated with a key, but also the current version. So, if we look at the previous example once again, the ATMs could call getVersioned and get the balance's version:
+
+.Get versioned
+[imagesdir="null",alt="server modules 9",align="center",default-alt="server modules 9",target="server_modules_9.png"]
+image::
+
+image::
+
+When the ATMs wanted to modify the balance, instead of just calling put, they could call replaceIfUnmodified operation passing the latest version number of which the clients are aware of.  The operation will only succeed if the version passed matches the version in the server.  So, the first modification by the ATM would be allowed since the client passes 1 as version and the server side version for the balance is also 1.  On the other hand, the second ATM would not be able to make the modification because after the first ATMs modification the version would have been incremented to 2, and now the passed version (1) and the server side version (2) would not match:
+
+.Replace if versions match
+[imagesdir="null",alt="server modules 10",align="center",default-alt="server modules 10",target="server_modules_10.png"]
+image::
+
+image::

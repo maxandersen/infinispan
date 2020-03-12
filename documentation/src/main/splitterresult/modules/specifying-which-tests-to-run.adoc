@@ -1,0 +1,23 @@
+[id="specifying-which-tests-to-run_{context}"]
+= Specifying which tests to run
+
+A single test can be executed using the test property.
+The value is the short name (not the fully qualified package name) of the test. For example:
+
+....
+$ mvn -Dtest=FqnTest test
+....
+
+Alternatively, if there is more than one test with a given classname in your test suite, you could provide the path to the test.
+
+....
+$ mvn -Dtest=org/infinispan/api/MixedModeTest test
+....
+
+Patterns are also supported:
+
+....
+$ mvn -Dtest=org/infinispan/api/* test
+....
+
+Also, you can always pass your own Log4j configuration file via `-Dlog4.configuration` with your own logging settings.

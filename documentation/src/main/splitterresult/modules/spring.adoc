@@ -1,0 +1,34 @@
+[id="spring_{context}"]
+= Adding Spring Cache Support
+
+The link:http://spring.io/[Spring Framework] offers a link:https://docs.spring.io/spring/docs/5.1.3.RELEASE/spring-framework-reference/integration.html#cache[cache abstraction] with two simple annotations:
+
+* `@Cacheable` adds entries to the cache.
+* `@CacheEvict` removes entries from the cache.
+
+To add caching support to your application, do the following:
+
+[arabic]
+. Enable cache annotations in your application context either declaratively or programmatically.
+* *Declaratively:* Add `<cache:annotation-driven/>` to your application context.
++
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/spring_annotation_driven.xml[]
+----
+* *Programmatically:* Enable cache support as follows:
++
+[source,java,nowrap-option=""]
+----
+link:code_examples/SpringEnableCaching.java[]
+----
+. Add {brandname} and the Spring integration module to your `pom.xml`.
+* Embedded mode: `infinispan-spring5-embedded`
+* Remote client-server mode: `infinispan-spring5-remote`
++
+The following is an example with embedded mode:
++
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:dependencies_maven/spring_integration.xml[]
+----

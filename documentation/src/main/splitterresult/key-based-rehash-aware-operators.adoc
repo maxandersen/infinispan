@@ -1,0 +1,43 @@
+ifdef::context[:parent-context: {context}]
+[id="key-based-rehash-aware-operators_{context}"]
+= Key based rehash aware operators
+:context: key-based-rehash-aware-operators
+
+The link:{javadocroot}/org/infinispan/CacheStream.html#iterator--[iterator],
+link:{javadocroot}/org/infinispan/CacheStream.html#spliterator--[spliterator]
+and link:{javadocroot}/org/infinispan/CacheStream.html#forEach-java.util.function.Consumer-[forEach]
+are unlike the other terminal operators in that the rehash awareness has to keep
+track of what keys per segment have been processed instead of just segments.  This is
+to guarantee an exactly once (iterator & spliterator) or at least once behavior (forEach)
+even under cluster membership changes.
+
+The `iterator` and `spliterator` operators when invoked on a remote node will return back batches
+of entries, where the next batch is only sent back after the last has been fully consumed.  This
+batching is done to limit how many entries are in memory at a given time.  The user node will hold
+onto which keys it has processed and when a given segment is completed it will release those keys from
+memory.  This is why sequential processing is preferred for the iterator method, so only a subset of segment
+keys are held in memory at once, instead of from all nodes.
+
+The `forEach()` method also returns batches, but it returns a batch of keys after it has finished processing
+at least a batch worth of keys.  This way the originating node can know what keys have been processed
+already to reduce chances of processing the same entry again.  Unfortunately this means it is possible
+to have an at least once behavior when a node goes down unexpectedly.  In this case that node could have
+been processing a batch and not yet completed one and those entries that were processed but not
+in a completed batch will be ran again when the rehash failure operation occurs.  Note that adding a
+node will not cause this issue as the rehash failover doesn't occur until all responses are received.
+
+These operations batch sizes are both controlled by the same value which can be configured by invoking
+link:{javadocroot}/org/infinispan/CacheStream.html#distributedBatchSize-int-[distributedBatchSize]
+method on the `CacheStream`.  This value will default to the `chunkSize` configured in state transfer.
+Unfortunately this value is a tradeoff with memory usage vs performance vs at least once and your
+mileage may vary.
+
+*Using `iterator` with replicated and distributed caches*
+
+When a node is the primary or backup owner of all requested segments for a distributed stream, {brandname} performs the `iterator` or `spliterator` terminal operations locally, which optimizes performance as remote iterations are more resource intensive.
+
+This optimization applies to both replicated and distributed caches. However, {brandname} performs iterations remotely when using cache stores that are both `shared` and have `write-behind` enabled. In this case performing the iterations remotely ensures consistency.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

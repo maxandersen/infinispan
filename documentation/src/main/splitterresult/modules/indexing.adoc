@@ -1,0 +1,37 @@
+[id="indexing_{context}"]
+= Indexing
+
+Indexing in {brandname} happens on a per-cache basis and by default a cache is not indexed. Enabling indexing is not mandatory but queries using an index will
+have a vastly superior performance. On the other hand, enabling indexing can impact negatively the write throughput of a cluster, so make sure to check the link:#query_performance[query performance guide] for some strategies to minimize this impact depending on the cache type and use case.
+
+[id="configuration_{context}"]
+== Configuration
+:context: configuration
+
+[id="query_{context}" id="query_index_manager"]
+== Index Managers
+:context: query_index_manager
+
+[id="query_{context}" id="query_shared_index"]
+== Shared indexes
+:context: query_shared_index
+
+[id="query_{context}" id="query_non_shared_index"]
+== Non-shared indexes
+:context: query_non_shared_index
+
+[id="external-indexes_{context}"]
+== External indexes
+:context: external-indexes
+
+[id="query_{context}" id="query_autoconfig"]
+== Automatic configuration
+:context: query_autoconfig
+
+[id="query_{context}" id="query_massindexer"]
+== Re-indexing
+:context: query_massindexer
+
+[id="mapping-entities_{context}"]
+== Mapping Entities
+:context: mapping-entities

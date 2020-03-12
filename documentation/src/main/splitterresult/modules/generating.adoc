@@ -1,0 +1,55 @@
+[id="generating_{context}"]
+= Generating SerializationContextInitializers
+
+The simplest way to create a SerializastionContextInitializer is to use the _org:infinispan.protostream:protostream-processor_
+artifact to automatically generate the following:
+
+* _.proto_ schema
+* All marshaller implementations
+* The SerializationContextInitializer implementation used to register the schemas and marshaller with a SerializationContext
+
+This requires Java annotations to be added to the Java object(s) that require marshalling, in addition to a class
+annotated with `@AutoProtoSchemaBuilder`.
+
+The protostream-processor then processes these objects at compile-time, using the meta data in the
+ProtoStream annotations to generate the required .proto schema and corresponding marshaller implementations.
+
+For example, let's reconsider the _Book_ and _Author_ messages which we manually defined link:#book_sample_proto[[previously]].
+The manual writing of the .proto file, can be replaced with the following Java annotations.
+
+.Book.java
+[source,java]
+----
+link:code_examples/Book.java[]
+----
+
+.Author.java
+[source,java]
+----
+link:code_examples/Author.java[]
+----
+
+We then define an interface which is annotated with `@AutoProtoSchemaBuilder` and extends `SerializationContextInitializer`.
+
+[source,java]
+----
+link:code_examples/LibraryInitializer.java[]
+----
+
+During compile-time, the protostream-processor generates a concrete implementation of the above interface which can then
+be used to initialize a ProtoStream SerializationContext. By default, the name of the implementation is the annotated class
+name plus the "Impl" suffix. The generated schema file can be found at `target/classes/proto/library.proto`, which is dictated
+by the provided `schemaFileName` and `schemaFilePath` values.
+
+The generated .proto file and `LibraryInitializerImpl.java` are shown below.
+
+.target/classes/proto/library.proto
+[source,protobuf]
+----
+link:config_examples/generated_library.proto[]
+----
+
+[source,java]
+----
+link:code_examples/LibraryInitializerImpl.java[]
+----

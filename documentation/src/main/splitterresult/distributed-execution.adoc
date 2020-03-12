@@ -1,0 +1,17 @@
+ifdef::context[:parent-context: {context}]
+[id="distributed-execution_{context}"]
+= Distributed execution
+:context: distributed-execution
+
+The following is a script which runs on all nodes.
+Each node will return its address, and the results from all nodes will be collected in a List and returned to the client.
+
+[source,javascript]
+----
+// mode:distributed,language=javascript
+cacheManager.getAddress().toString();
+----
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

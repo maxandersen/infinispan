@@ -1,0 +1,17 @@
+ifdef::context[:parent-context: {context}]
+[id="xa-resource_{context}"]
+= XA resource
+:context: xa-resource
+
+An XA resource is a participant in an XA transaction (also known as a
+link:http://en.wikipedia.org/wiki/X/Open_XA[distributed transaction]). For
+example, given a distributed transaction that operates over a database and
+{brandname}, XA defines both {brandname} and the database as XA resources.
+
+Java's API for XA transactions is
+link:http://en.wikipedia.org/wiki/Java_Transaction_API[JTA] and link:{jdkdocroot}/javax/transaction/xa/XAResource.html[XAResource]
+is the Java interface that describes an XA resource.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

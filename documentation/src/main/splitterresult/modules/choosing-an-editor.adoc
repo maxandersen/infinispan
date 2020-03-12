@@ -1,0 +1,14 @@
+[id="choosing-an-editor_{context}"]
+= Choosing an Editor
+
+You can customise the editor used by git editing `~/.gitconfig`.
+The following fires up link:http://code.google.com/p/macvim/[MacVIM] instead of the default vi editor:
+
+.~/.gitconfig
+[listing]
+----
+[core]
+     editor = mvim -f
+----
+
+Alternatively, you could fire up TextMate or another editors of your choice.

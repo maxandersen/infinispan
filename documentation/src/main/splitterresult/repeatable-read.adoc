@@ -1,0 +1,35 @@
+ifdef::context[:parent-context: {context}]
+[id="repeatable-read_{context}"]
+= REPEATABLE READ
+:context: repeatable-read
+
++REPEATABLE_READ+ is one of two isolation levels the {brandname}'s locking
+infrastructure provides (the other is +READ_COMMITTED+). Isolation levels
+link:http://en.wikipedia.org/wiki/Isolation_level#REPEATABLE_READ[have their origins]
+in relational databases.
+
+In {brandname}, +REPEATABLE_READ+ works slightly differently to databases.
++REPEATABLE_READ+ says that "data can be read as long as there are no writes,
+and vice versa". This avoids the
+link:http://en.wikipedia.org/wiki/Isolation_level#Non-repeatable_reads[non-repeatable reads]
+phenomenon, because once data has been written, no other transaction can read
+it, so there's no chance of re-reading the data and finding different data.
+
+Some definitions of +REPEATABLE_READ+ say that this isolation level places shared
+locks on read data; such lock could not be acquired when the entry is being written.
+However, {brandname} has an +MVCC+ concurrency model that allows it to have
+non-blocking reads. {brandname} provides +REPEATABLE_READ+ semantics by keeping
+the previous value whenever an entry is modified. This allows {brandname} to
+retrieve the previous value if a second read happens within the same transaction,
+but it allows following phenomena:
+
+[source,java]
+----
+link:code_examples/RepeatableReadNonBlockingRead.java[]
+----
+
+By default, {brandname} uses +REPEATABLE_READ+ as isolation level.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

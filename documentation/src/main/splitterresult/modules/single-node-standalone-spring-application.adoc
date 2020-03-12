@@ -1,0 +1,25 @@
+[id="single-node-standalone-spring-application_{context}"]
+= Single-Node Standalone Spring Application
+
+Using Hibernate within Spring applications is a very common use case.
+In this section you will learn what you need to do configure Hibernate within Spring to use {brandname} as second-level cache provider.
+
+As in the previous case, start by making sure that Hibernate {brandname} Cache provider is available in the classpath.
+Then, modify `application.properties` file to contain:
+
+....
+# Use Infinispan second level cache provider
+spring.jpa.properties.hibernate.cache.region.factory_class=infinispan
+#
+# Force using local configuration when only using a single node.
+# Otherwise a clustered configuration is loaded.
+spring.jpa.properties.hibernate.cache.infinispan.cfg=org/infinispan/hibernate/cache/commons/builder/infinispan-configs-local.xml
+....
+
+By default when running standalone, the {brandname} second-level cache provider uses an {brandname} configuration that’s designed for clustered environments.
+However, {brandname} also provides a configuration designed for local, single node, environments.
+To enable that configuration, set `spring.jpa.properties.hibernate.cache.infinispan.cfg` to `org/infinispan/hibernate/cache/commons/builder/infinispan-configs-local.xml` value.
+You can find more about the configuration check the link:#default_local_configuration_second_level[Default Local Configuration] section.
+
+A simple tutorial showing how to use {brandname} as Hibernate cache provider in a Spring application can be found
+link:https://github.com/infinispan/infinispan-simple-tutorials/tree/master/hibernate-cache/spring-local[here].

@@ -1,0 +1,12 @@
+[id="recovery-cache_{context}"]
+= Recovery cache
+
+In order to track in-doubt transactions and be able to reply them, {brandname} caches all transaction state for future use.
+This state is held only for in-doubt transaction, being removed for successfully completed transactions after when the commit/rollback phase completed.
+
+This in-doubt transaction data is held within a local cache: this allows one to configure swapping this info to disk through cache loader in the case it gets too big.
+This cache can be specified through the `recovery-cache` configuration attribute.
+If not specified {brandname} will configure a local cache for you.
+
+It is possible (though not mandated) to share same recovery cache between all the {brandname} caches that have recovery enabled.
+If the default recovery cache is overridden, then the specified recovery cache must use a {tm-lookup} that returns a different transaction manager than the one used by the cache itself.

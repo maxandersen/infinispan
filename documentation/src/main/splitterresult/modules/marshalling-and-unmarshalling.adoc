@@ -1,0 +1,18 @@
+[id="marshalling-and-unmarshalling_{context}"]
+= Marshalling and Unmarshalling
+
+[id="best-practices-implementing-java-io-externalizable_{context}"]
+== Best practices implementing java.io.Externalizable
+:context: best-practices-implementing-java-io-externalizable
+
+[id="do-externalizer-implementations-need-to-access-internal-externalizer-implementations_{context}"]
+== Do Externalizer implementations need to access internal Externalizer implementations?
+:context: do-externalizer-implementations-need-to-access-internal-externalizer-implementations
+
+[id="during-state-transfer-the-state-receiver-logs-an-eofexception-when-applying-state-saying-read-past-end-of-file-should-i-worry-about-this_{context}"]
+== During state transfer, the state receiver logs an EOFException when applying state saying "Read past end of file". Should I worry about this?
+:context: during-state-transfer-the-state-receiver-logs-an-eofexception-when-applying-state-saying-read-past-end-of-file-should-i-worry-about-this
+
+[id="why-am-i-getting-invalid-data-passed-to-readexternal_{context}"]
+== Why am I getting invalid data passed to readExternal?
+:context: why-am-i-getting-invalid-data-passed-to-readexternal

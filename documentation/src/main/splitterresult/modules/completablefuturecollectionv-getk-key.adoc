@@ -1,0 +1,5 @@
+[id="completablefuturecollectionv-getk-key_{context}"]
+= CompletableFuture&lt;Collection&lt;V&gt;&gt; get(K key)
+
+Asynchronous that returns a view collection of the values associated with key in this multimap cache, if any. Any changes to the retrieved collection won't change the values in this multimap cache.
+When this method returns an empty collection, it means the key was not found.

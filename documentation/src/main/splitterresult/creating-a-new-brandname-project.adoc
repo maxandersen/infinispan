@@ -1,0 +1,14 @@
+ifdef::context[:parent-context: {context}]
+[id="creating-a-new-brandname-project_{context}"]
+= Creating a new {brandname} project
+:context: creating-a-new-brandname-project
+
+The only thing you need to set up {brandname} is add it's dependencies to your project.
+
+include::modules/maven-users.adoc[leveloffset=+1]
+
+include::modules/ant-users.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

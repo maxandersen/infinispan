@@ -1,0 +1,11 @@
+ifdef::context[:parent-context: {context}]
+[id="deadlock_{context}"]
+= Deadlock
+:context: deadlock
+
+A deadlock is a situation in which two or more competing actions are each
+waiting for the other to finish, and thus neither ever does.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

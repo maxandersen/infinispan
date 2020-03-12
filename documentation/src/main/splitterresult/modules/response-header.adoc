@@ -1,0 +1,7 @@
+[id="response-header_{context}"]
+= Response Header
+
+Two new response operation codes have been added:
+
+* +0x1C+ = getWithMetadata response
+* +0x1E+ = bulkKeysGet response

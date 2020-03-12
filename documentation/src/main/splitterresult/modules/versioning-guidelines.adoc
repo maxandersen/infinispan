@@ -1,0 +1,30 @@
+[id="versioning-guidelines_{context}"]
+= Versioning Guidelines
+
+[WARNING,textlabel="Warning",name="warning"]
+====
+....
+Only {brandname} contributors should set the _Fix Version_ field.
+....
+====
+
+When setting the _Fix Version_ field for bugs and issues in JIRA, the following guidelines apply:
+Version numbers are defined as `${major}.${minor}.${micro}.${modifier}`.  For example, `4.1.0.Beta1` would be:
+
+[table,tablepcwidth="100",rowcount="4",colcount="2"]
+|===
+| major | 4
+| minor | 1
+| micro | 0
+| modifier | Beta1
+|===
+
+If the issue relates to a _Task_ or _Feature Request_, please ensure that the `.Final` version is included in the _Fixed In_ field.
+For example, a new feature should contain `4.1.0.Beta1`, `4.1.0.Final` if it is new for 4.1.0 and was first made public in beta1.
+For example, see link:https://issues.jboss.org/browse/ISPN-299[ISPN-299] .
+
+If the issue relates to a bug which affected a previous Final version, then the _Fixed In_ field should also contain the Final version which contains the fix, in addition to any Alpha, Beta or CR release.
+For example, see link:https://issues.jboss.org/browse/ISPN-546[ISPN-546].
+If the issue pertains to a bug in the current release, then the Final version should not be in the _Fixed In_ field.
+For example, a bug found in 4.1.0.Alpha2 (but not in 4.1.0.Alpha1) should be marked as fixed in 4.1.0.Alpha3, but not in 4.1.0.Final.
+For example, see link:https://issues.jboss.org/browse/ISPN-416[ISPN-416].

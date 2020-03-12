@@ -1,0 +1,19 @@
+ifdef::context[:parent-context: {context}]
+[id="consistent-hash_{context}"]
+= Consistent Hash
+:context: consistent-hash
+
+A technique of mapping keys to servers such that, given a stable cluster
+topology, any server in the cluster can locate where a given key is mapped
+to with minimal computational complexity.
+
+Consistent hashing is a purely algorithmic technique, and doesn't rely on
+any metadata or any network broadcasts to "search" for a key in a cluster.
+This makes it extremely efficient to use.
+
+.More resources
+* link:http://en.wikipedia.org/wiki/Consistent_hashing[Wikipedia]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

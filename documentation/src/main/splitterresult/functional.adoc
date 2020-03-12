@@ -1,0 +1,21 @@
+ifdef::context[:parent-context: {context}]
+[id="functional_{context}"]
+= Functional Listeners
+:context: functional
+
+The functional map offers a listener API, where clients can register for and
+get notified when events take place. These notifications are post-event, so
+that means the events are received after the event has happened.
+
+The listeners that can be registered are split into two categories:
+link:{javadocroot}/org/infinispan/commons/api/functional/Listeners.WriteListeners.html[write listeners]
+and
+link:{javadocroot}/org/infinispan/commons/api/functional/Listeners.ReadWriteListeners.html[read-write listeners].
+
+include::modules/write-listeners.adoc[leveloffset=+1]
+
+include::modules/read-write-listeners.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

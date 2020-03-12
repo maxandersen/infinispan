@@ -1,0 +1,16 @@
+ifdef::context[:parent-context: {context}]
+[id="sharing-jgroups-channels_{context}"]
+= Sharing JGroups channels
+:context: sharing-jgroups-channels
+
+By default all caches created from a single CacheManager share the same JGroups channel and multiplex RPC messages over it.
+In this example caches 1, 2 and 3 all use the same JGroups channel.
+
+[source,java]
+----
+link:code_examples/EmbeddedCacheManagerGetCache.java[]
+----
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

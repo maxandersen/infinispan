@@ -1,0 +1,36 @@
+[id="shell-prompt_{context}"]
+= Shell prompt
+
+You can change your bash shell prompt to print the current repository's branch name.
+Add the following to your `~/.bashrc`
+
+.~/.bashrc
+[listing]
+----
+function git_current_branch {
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/[\1]/'
+}
+
+if [ "$PS1" ]; then
+  PS1='[\u@\h:\W]$(git_current_branch)\$ '
+fi
+----
+
+The resulting shell prompt will look like:
+
+....
+trustin@matrix:infinispan-4.2][4.2.x]$
+....
+
+If you're a zsh user, you can get even more interesting branch information thanks to link:http://sebastiancelis.com/2009/nov/16/zsh-prompt-git-users/[this blog post] , such as:
+
+* whether your branch is dirty (_X_)
+* whether it's ahead of the remote(↑)
+* whether it diverges with the remote (↕)
+* whether it's behind (↓)
+
+For example, the following prompt indicates that the current branch is 't_ispn775_master' and that it is behind remote:
+
+....
+[~/Go/code/infinispan.git]% (t_ispn775_master ↓)
+....

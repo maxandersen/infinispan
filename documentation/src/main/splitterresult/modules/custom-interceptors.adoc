@@ -1,0 +1,4 @@
+[id="custom-interceptors_{context}"]
+= Custom Interceptors
+
+The AdvancedCache interface also offers advanced developers a mechanism with which to attach custom interceptors.  Custom interceptors allow developers to alter the behavior of the cache API methods, and the AdvancedCache interface allows developers to attach these interceptors programmatically, at run-time.  See the AdvancedCache Javadocs for more details.

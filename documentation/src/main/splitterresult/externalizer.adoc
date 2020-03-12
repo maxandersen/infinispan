@@ -1,0 +1,17 @@
+ifdef::context[:parent-context: {context}]
+[id="externalizer_{context}"]
+= Externalizer
+:context: externalizer
+
+An _Externalizer_ is a class that knows how to marshall a given object type to
+a byte array, and how to unmarshall the contents of a byte array into an
+instance of the object type. Externalizers are effectively an {brandname}
+extension that allows users to specify how their types are serialized. The
+underlying {brandname} marshalling infrastructure builds on
+link:http://www.jboss.org/jbossmarshalling[JBoss Marshalling] , and offers
+efficient payloads and stream caching. This provides much better performance
+than standard Java serialization.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

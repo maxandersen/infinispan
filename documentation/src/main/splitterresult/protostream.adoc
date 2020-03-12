@@ -1,0 +1,35 @@
+ifdef::context[:parent-context: {context}]
+[id="protostream_{context}"]
+= Usage
+:context: protostream
+
+ProtoStream is able to handle the following types, as well as their unboxed equivalent in the case of primitive types,
+without any additional configuration:
+
+* String
+* Integer
+* Long
+* Double
+* Float
+* Boolean
+* byte[]
+* Byte
+* Short
+* Character
+* java.util.Date
+* java.time.Instant
+
+Support for additional Java objects is possible by configuring the link:#protostream_ctx[SerializationContext] using `SerializationContextInitializer`
+implementations.
+
+{brandname} directly integrates with the ProtoStream library by allowing users to configure implementations of the ProtoStream
+SerializationContextInitializer interface. These implementations are then used to initialise the various `SerializationContext`
+instances used by {brandname} for marshalling, therefore allowing custom user objects to be marshalled for storage and cluster communication.
+
+include::modules/generating.adoc[leveloffset=+1]
+
+include::modules/manually-implementing-serializationcontextinitializers.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

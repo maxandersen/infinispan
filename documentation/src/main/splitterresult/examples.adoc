@@ -1,0 +1,154 @@
+ifdef::context[:parent-context: {context}]
+[id="examples_{context}"]
+= Examples
+:context: examples
+
+*Word Count*
+
+Word count is a classic, if overused, example
+of map/reduce paradigm. Assume we have a mapping of key -> sentence stored on
+{brandname} nodes. Key is a String, each sentence is also a String, and we have
+to count occurrence of all words in all sentences available. The implementation
+of such a distributed task could be defined as follows:
+
+[source,java]
+----
+public class WordCountExample {
+
+   /**
+    * In this example replace c1 and c2 with
+    * real Cache references
+    *
+    * @param args
+    */
+   public static void main(String[] args) {
+      Cache<String, String> c1 = ...;
+      Cache<String, String> c2 = ...;
+
+      c1.put("1", "Hello world here I am");
+      c2.put("2", "Infinispan rules the world");
+      c1.put("3", "JUDCon is in Boston");
+      c2.put("4", "JBoss World is in Boston as well");
+      c1.put("12","JBoss Application Server");
+      c2.put("15", "Hello world");
+      c1.put("14", "Infinispan community");
+      c2.put("15", "Hello world");
+
+      c1.put("111", "Infinispan open source");
+      c2.put("112", "Boston is close to Toronto");
+      c1.put("113", "Toronto is a capital of Ontario");
+      c2.put("114", "JUDCon is cool");
+      c1.put("211", "JBoss World is awesome");
+      c2.put("212", "JBoss rules");
+      c1.put("213", "JBoss division of RedHat ");
+      c2.put("214", "RedHat community");
+
+      Map<String, Long> wordCountMap = c1.entrySet().parallelStream()
+         .map(e -> e.getValue().split("\\s"))
+         .flatMap(Arrays::stream)
+         .collect(() -> Collectors.groupingBy(Function.identity(), Collectors.counting()));
+   }
+}
+
+----
+
+In this case it is pretty simple to do the word count from the previous example.
+
+However what if we want to find the most frequent word in the example?  If you take a second
+to think about this case you will realize you need to have all words counted  and available
+locally first. Thus we actually have a few options.
+
+We could use a finisher on the collector, which is invoked on the user thread
+after all the results have been collected.
+Some redundant lines have been removed from the previous example.
+
+[source,java]
+----
+public class WordCountExample {
+   public static void main(String[] args) {
+      // Lines removed
+
+      String mostFrequentWord = c1.entrySet().parallelStream()
+         .map(e -> e.getValue().split("\\s"))
+         .flatMap(Arrays::stream)
+         .collect(() -> Collectors.collectingAndThen(
+            Collectors.groupingBy(Function.identity(), Collectors.counting()),
+               wordCountMap -> {
+                  String mostFrequent = null;
+                  long maxCount = 0;
+                     for (Map.Entry<String, Long> e : wordCountMap.entrySet()) {
+                        int count = e.getValue().intValue();
+                        if (count > maxCount) {
+                           maxCount = count;
+                           mostFrequent = e.getKey();
+                        }
+                     }
+                     return mostFrequent;
+               }));
+
+}
+
+----
+
+Unfortunately the last step is only going to be ran in a single thread, which if we have a lot of
+words could be quite slow.  Maybe there is another way to parallelize this with Streams.
+
+We mentioned before we are in the local node after processing, so we could actually use
+a stream on the map results.  We can therefore use a parallel stream on the results.
+
+[source,java]
+----
+public class WordFrequencyExample {
+   public static void main(String[] args) {
+      // Lines removed
+
+      Map<String, Long> wordCount = c1.entrySet().parallelStream()
+              .map(e -> e.getValue().split("\\s"))
+              .flatMap(Arrays::stream)
+              .collect(() -> Collectors.groupingBy(Function.identity(), Collectors.counting()));
+      Optional<Map.Entry<String, Long>> mostFrequent = wordCount.entrySet().parallelStream().reduce(
+              (e1, e2) -> e1.getValue() > e2.getValue() ? e1 : e2);
+----
+
+This way you can still utilize all of the cores locally when calculating the most frequent element.
+
+*Remove specific entries*
+
+Distributed streams can also be used as a way to modify data where it lives.
+For example you may want to remove all entries in your cache that contain
+a specific word.
+
+[source,java]
+----
+public class RemoveBadWords {
+   public static void main(String[] args) {
+      // Lines removed
+      String word = ..
+
+      c1.entrySet().parallelStream()
+         .filter(e -> e.getValue().contains(word))
+         .forEach((c, e) -> c.remove(e.getKey());
+----
+
+If we carefully note what is serialized and what is not, we notice that only the word along
+with the operations are serialized across to other nods as it is captured by the lambda.
+However the real saving piece is that the cache operation is performed on the primary
+owner thus reducing the amount of network traffic required to remove these values from the
+cache. The cache is not captured by the lambda as we provide a special BiConsumer method
+override that when invoked on each node passes the cache to the BiConsumer
+
+One thing to keep in mind using the `forEach` command in this manner is that the underlying
+stream obtains no locks. The cache remove operation will still obtain locks naturally, but
+the value could have changed from what the stream saw. That means that the entry could
+have been changed after the stream read it but the remove actually removed it.
+
+We have specifically added a new variant which is called `LockedStream`.
+
+*Plenty of other examples*
+
+The `Streams` API is a JRE tool and there are lots of examples for using it.
+Just remember that your operations need to be Serializable in some way.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

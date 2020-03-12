@@ -1,0 +1,19 @@
+[id="concurrency-levels_{context}"]
+= Concurrency levels
+
+In addition to determining the size of the striped lock container, this concurrency level is also used to tune any JDK `ConcurrentHashMap` based collections where related, such as internal to ``DataContainer``s.
+Please refer to the JDK `ConcurrentHashMap` Javadocs for a detailed discussion of concurrency levels, as this parameter is used in exactly the same way in {brandname}.
+
+*Configuration example:*
+
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/locking_concurrency.xml[]
+----
+
+Or
+
+[source,java]
+----
+new ConfigurationBuilder().locking().concurrencyLevel(32);
+----

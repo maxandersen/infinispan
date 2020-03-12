@@ -1,0 +1,28 @@
+[id="protostuff-marshalling_{context}"]
+= Protostuff Marshalling
+
+{brandname} provides a marshalling implementation that uses Protostuff libraries.
+
+Do one of the following to register custom Protostuff schemas for object
+marshalling:
+
+* Call the `register()` method.
++
+[source,java]
+----
+link:code_examples/RegisterCustomProtostuffSchema.java[]
+----
+* Implement a service provider for the `SerializerRegistryService.java` interface that places all schema registrations in the `register()` method.
++
+You should then specify the full path of implementing classes in your deployment JAR file within:
++
+[listing]
+----
+META-INF/services/org/infinispan/marshaller/protostuff/SchemaRegistryService
+----
+
+{brandname} provides a link:http://central.maven.org/maven2/org/infinispan/infinispan-marshaller-protostuff-bundle/{infinispanversion}/infinispan-marshaller-protostuff-bundle-{infinispanversion}.jar[Protostuff Bundle JAR] that includes all runtime class files for the Protostuff marshalling implementation. Download the JAR and add it to the `server/lib` directory of your {brandname} servers.
+
+.Reference
+[]
+link:https://github.com/protostuff/protostuff[Protostuff on GitHub]

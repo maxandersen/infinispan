@@ -1,0 +1,150 @@
+[id="quick-example_{context}"]
+= Quick example
+
+We're going to store _Book_ instances in an {brandname} cache called "books". _Book_ instances will be indexed, so we enable indexing for the cache,
+letting {brandname} link:#query_autoconfig[configure the indexing automatically]:
+
+{brandname} configuration:
+
+.infinispan.xml
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/infinispan_distributed_cache_books.xml[]
+----
+
+Obtaining the cache:
+
+[source,java]
+----
+import org.infinispan.Cache;
+import org.infinispan.manager.DefaultCacheManager;
+import org.infinispan.manager.EmbeddedCacheManager;
+
+EmbeddedCacheManager manager = new DefaultCacheManager("infinispan.xml");
+Cache<String, Book> cache = manager.getCache("books");
+
+----
+
+Each _Book_ will be defined as in the following example; we have to choose which properties are indexed, and for each property we can optionally choose advanced indexing options using the annotations defined in the Hibernate Search project.
+
+.Book.java
+[source,java]
+----
+import org.hibernate.search.annotations.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+//Values you want to index need to be annotated with @Indexed, then you pick which fields and how they are to be indexed:
+@Indexed
+public class Book {
+   @Field String title;
+   @Field String description;
+   @Field @DateBridge(resolution=Resolution.YEAR) Date publicationYear;
+   @IndexedEmbedded Set<Author> authors = new HashSet<Author>();
+}
+
+----
+
+.Author.java
+[source,java]
+----
+
+public class Author {
+   @Field String name;
+   @Field String surname;
+   // hashCode() and equals() omitted
+}
+
+----
+
+Now assuming we stored several _Book_ instances in our {brandname} _Cache_ , we can search them for any matching field as in the following example.
+
+Using a Lucene Query:
+
+[source,java]
+----
+// get the search manager from the cache:
+SearchManager searchManager = org.infinispan.query.Search.getSearchManager(cache);
+
+// create any standard Lucene query, via Lucene's QueryParser or any other means:
+org.apache.lucene.search.Query fullTextQuery = //any Apache Lucene Query
+
+// convert the Lucene query to a CacheQuery:
+CacheQuery cacheQuery = searchManager.getQuery( fullTextQuery );
+
+// get the results:
+List<Object> found = cacheQuery.list();
+
+----
+
+A Lucene Query is often created by parsing a query in text format such as "title:infinispan AND authors.name:sanne", or by using the query builder provided by Hibernate Search.
+
+[source,java]
+----
+// get the search manager from the cache:
+SearchManager searchManager = org.infinispan.query.Search.getSearchManager( cache );
+
+// you could make the queries via Lucene APIs, or use some helpers:
+QueryBuilder queryBuilder = searchManager.buildQueryBuilderForClass(Book.class).get();
+
+// the queryBuilder has a nice fluent API which guides you through all options.
+// this has some knowledge about your object, for example which Analyzers
+// need to be applied, but the output is a fairly standard Lucene Query.
+org.apache.lucene.search.Query luceneQuery = queryBuilder.phrase()
+                  .onField("description")
+                  .andField("title")
+                  .sentence("a book on highly scalable query engines")
+                  .createQuery();
+
+// the query API itself accepts any Lucene Query, and on top of that
+// you can restrict the result to selected class types:
+CacheQuery query = searchManager.getQuery(luceneQuery, Book.class);
+
+// and there are your results!
+List objectList = query.list();
+
+for (Object book : objectList) {
+      System.out.println(book);
+}
+
+----
+
+Apart from _list()_ you have the option for streaming results, or use pagination.
+
+For searches that do not require Lucene or full-text capabilities and are mostly about aggregation and exact matches, we can use the {brandname} Query DSL API:
+
+[source,java]
+----
+import org.infinispan.query.dsl.QueryFactory;
+import org.infinispan.query.dsl.Query;
+import org.infinispan.query.Search;
+
+// get the query factory:
+QueryFactory queryFactory = Search.getQueryFactory(cache);
+
+Query q = queryFactory.from(Book.class)
+            .having("author.surname").eq("King")
+            .build();
+
+List<Book> list = q.list();
+
+----
+
+Finally, we can use an link:#query_ickle[Ickle] query directly, allowing for Lucene syntax in one or more predicates:
+
+[source,java]
+----
+import org.infinispan.query.dsl.QueryFactory;
+import org.infinispan.query.dsl.Query;
+
+// get the query factory:
+QueryFactory queryFactory = Search.getQueryFactory(cache);
+
+
+Query q = queryFactory.create("from Book b where b.author.name = 'Stephen' and " +
+                "b.description : (+'dark' -'tower')");
+
+List<Book> list = q.list();
+
+----

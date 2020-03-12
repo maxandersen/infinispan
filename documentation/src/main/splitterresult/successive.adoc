@@ -1,0 +1,38 @@
+ifdef::context[:parent-context: {context}]
+[id="successive_{context}"]
+= Successive nodes stopped
+:context: successive
+
+As mentioned in the previous section, {brandname} can't detect whether a node
+left the JGroups view because of a process/machine crash, or because of a
+network failure: whenever a node leaves the JGroups cluster abruptly, it is
+assumed to be because of a network problem.
+
+If the configured number of copies (`numOwners`) is greater than 1, the
+cluster can remain available and will try to make new replicas of the data
+on the crashed node. However, other nodes might crash during the rebalance process.
+If more than `numOwners` nodes crash in a short interval of time, there is a
+chance that some cache entries have disappeared from the cluster altogether.
+In this case, with the DENY_READ_WRITES or ALLOW_READS strategy enabled, {brandname}
+assumes (incorrectly) that there is a split brain and enters DEGRADED mode
+as described in the split-brain section.
+
+The administrator can also shut down more than `numOwners` nodes in
+rapid succession, causing the loss of the data stored only on those nodes.
+When the administrator shuts down a node gracefully, {brandname} knows that
+the node can't come back.
+However, the cluster doesn't keep track of how each node left, and the cache
+still enters DEGRADED mode as if those nodes had crashed.
+
+At this stage there is no way for the cluster to recover its state,
+except stopping it and repopulating it on restart with the data from an
+external source.
+Clusters are expected to be configured with an appropriate `numOwners` in
+order to avoid `numOwners` successive node failures, so this situation
+should be pretty rare.
+If the application can handle losing some of the data in the cache, the
+administrator can force the availability mode back to AVAILABLE via JMX.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

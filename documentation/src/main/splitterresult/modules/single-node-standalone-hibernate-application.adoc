@@ -1,0 +1,21 @@
+[id="single-node-standalone-hibernate-application_{context}"]
+= Single-Node Standalone Hibernate Application
+
+In standalone library mode, a JPA/Hibernate application runs inside a Java SE application or inside containers that don’t offer {brandname} integration.
+
+Enabling {brandname} second level cache provider inside a JPA/Hibernate application that runs in single node is very straightforward.
+First, make sure the Hibernate {brandname} cache provider is available in the classpath.
+Then, modify the persistence.xml to include these properties:
+
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/ispn_second_level_cache.xml[]
+----
+
+By default when running standalone, the {brandname} second-level cache provider uses an {brandname} configuration that’s designed for clustered environments.
+However, {brandname} also provides a configuration designed for local, single node, environments.
+To enable that configuration, set `hibernate.cache.infinispan.cfg` to `org/infinispan/hibernate/cache/commons/builder/infinispan-configs-local.xml` value.
+You can find more about the configuration check the link:#default_local_configuration_second_level[Default Local Configuration] section.
+
+A simple tutorial showing how to use {brandname} as Hibernate cache provider in a standalone application can be found
+link:https://github.com/infinispan/infinispan-simple-tutorials/tree/master/hibernate-cache/local[here].

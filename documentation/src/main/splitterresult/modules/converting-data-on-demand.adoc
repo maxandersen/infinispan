@@ -1,0 +1,8 @@
+[id="converting-data-on-demand_{context}"]
+= Converting Data On Demand
+
+If the cache is configured to store data in a binary format such as `application/x-protostream` or `application/x-jboss-marshalling`, you can configure your deployed code to perform cache operations using Java objects as the media type. See link:#mediatype_override[Overriding the MediaType Programmatically].
+
+This approach allows remote clients to use a binary format for storing cache entries, which is optimal. However, you must make entity classes available to the server so that it can convert between binary format and Java objects.
+
+Additionally, if the cache uses Protobuf (`application/x-protostream`) as the binary format, you must deploy protostream marshallers so that {ProductName} can unmarshall data from your custom code.

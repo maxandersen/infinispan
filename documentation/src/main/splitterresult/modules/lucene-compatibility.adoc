@@ -1,0 +1,4 @@
+[id="lucene-compatibility_{context}"]
+= Lucene compatibility
+
+Apache Lucene versions 5.5.x

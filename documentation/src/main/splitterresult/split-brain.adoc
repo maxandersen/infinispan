@@ -1,0 +1,10 @@
+ifdef::context[:parent-context: {context}]
+[id="split-brain_{context}"]
+= Split brain
+:context: split-brain
+
+A colloquial term for a _network partition_.  See _network partition_ for more details.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

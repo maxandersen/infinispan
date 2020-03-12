@@ -1,0 +1,55 @@
+ifdef::context[:parent-context: {context}]
+[id="hot-rod-protocol-3-0_{context}"]
+= Hot Rod Protocol 3.0
+:context: hot-rod-protocol-3-0
+
+.Infinispan versions
+[TIP,textlabel="Tip",name="tip"]
+====
+This version of the protocol is implemented since Infinispan 10.0
+====
+
+.Automatic protocol selection
+[]
+This version introduces changes to the `ping` operation which returns some additional information when called with
+a protocol version of 30 or higher. This allows the server to tell the client the highest supported protocol version as
+well as a list of supported operations. After obtaining the response from the server, the client should use the highest
+possible version understood by the server for all subsequent requests.
+
+.Expiration
+[]
+Expiration values larger than the number of milliseconds in 30 days are no longer treated as Unix time and are interpreted literally.
+
+.ping
+[]
+Request (0x17):
+
+[table,tablepcwidth="100",rowcount="2",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Request header
+|===
+
+.ping
+[]
+Response (0x18):
+
+[table,tablepcwidth="100",rowcount="10",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Response header
+| Response status | 1 byte | +0x00+ = success, if no errors +
+| Key Type | MediaType | Media Type of the key stored in the server
+| Value Type | MediaType | Media Type of the value stored in the server
+| Version | 1 byte | Hot Rod server version.
+| opCount | vInt | Number of supported operations
+| opRequestCode1 | 1 byte | Request opcode of the first operation
+| ... | ... | ...
+| opRequestCodeN | 1 short | Request opcode of the nth operation
+|===
+
+A new flag has been added:
+
++0x0020+  = used when an operation wants to skip notifications to the registered listeners
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

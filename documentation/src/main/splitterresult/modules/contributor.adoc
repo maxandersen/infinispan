@@ -1,0 +1,21 @@
+[id="contributor_{context}"]
+= Contributor
+
+A contributor will only ever submit patches via GitHub's _pull request_ mechanism.
+
+Contributors should _always_ fork the upstream project on GitHub and work off a clone of this fork.
+
+[NOTE,textlabel="Note",name="note"]
+====
+All {brandname} core developers are considered contributors and work off personal forks of the upstream repository.
+This allows for complex features to be developed in parallel without tripping up over one another.
+This process is certainly not restricted to just {brandname} core developers; any contributor should also participate in this manner.
+====
+
+[id="creating-a-pull-request-on-github_{context}"]
+== Creating a pull request on GitHub
+:context: creating-a-pull-request-on-github
+
+[id="multi-step-coordination-between-developers-using-forked-repositories_{context}"]
+== Multi-step coordination between developers using forked repositories
+:context: multi-step-coordination-between-developers-using-forked-repositories

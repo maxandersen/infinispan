@@ -1,0 +1,57 @@
+ifdef::context[:parent-context: {context}]
+[id="hot-rod-protocol-2-8_{context}"]
+= Hot Rod Protocol 2.8
+:context: hot-rod-protocol-2-8
+
+.Infinispan versions
+[TIP,textlabel="Tip",name="tip"]
+====
+This version of the protocol is implemented since Infinispan 9.3
+====
+
+.Events
+[]
+The protocol allows clients to send requests on the same connection that was previously used for Add Client Listener
+operation, and in protocol < 2.8 is reserved for sending events to the client. This includes registering additional
+listeners, therefore receiving events for multiple listeners.
+
+The binary format of requests/responses/events does not change but the previously meaningless `messageId` in events
+must be set to:
+
+* `messageId` of the Add Client Listener operation for the include-current-state events
+* `0` for the events sent after the Add Client Listener operation has been finished (response sent).
+
+The same holds for counter events: client can send further requests after Counter Add Listener.
+Previously meaningless `messageId` in counter event is always set to `0`.
+
+These modifications of the protocol do not require any changes on the client side (as the client simply
+won't send additional operations if it does not support that; the changes are more permissive to the clients)
+but the server has to handle load on the connection correctly.
+
+.MediaType
+[]
+This Hot Rod protocol version also adds support for specifying the MediaType of Keys and Values, allowing data
+to be read (and written) in different formats. This information is part of the Header.
+
+The data formats are described using a _MediaType_ object, that is represented as follows:
+
+[table,tablepcwidth="100",rowcount="10",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| type | 1 byte | +0x00+ = No MediaType supplied +
++0x01+ = Pre-defined MediaType supplied +
++0x02+ = Custom MediaType supplied +
+| id | vInt | (Optional) For a pre-defined MediaType (type=0x01), the Id of the MediaType. The currently supported Ids can be found at link:https://github.com/infinispan/infinispan/blob/master/commons/src/main/java/org/infinispan/commons/dataconversion/MediaTypeIds.java[MediaTypeIds]
+| customString | string | (Optional) If a custom MediaType is supplied (type=0x02), the custom MediaType of the key, including type and subtype. E.g.: _text/plain_, _application/json_, etc.
+| paramSize | vInt | The size of the parameters for the MediaType
+| paramKey1 | string | (Optional) The first parameter's key
+| paramValue1 | string | (Optional) The first parameter's value
+| ... | ... | ...
+| paramKeyN | string | (Optional) The nth parameter's key
+| paramValueN | string | (Optional) The nth parameter's value
+|===
+
+include::modules/request-header-7.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

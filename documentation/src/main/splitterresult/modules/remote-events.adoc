@@ -1,0 +1,73 @@
+[id="remote-events_{context}"]
+= Remote Events
+
+Starting with Hot Rod 2.0, clients can register listeners for remote events
+happening in the server. Sending these events commences the moment a client
+adds a client listener for remote events.
+
+Event Header:
+
+[table,tablepcwidth="100",rowcount="6",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Magic | 1 byte | +0xA1+ = response
+| Message ID | vLong | ID of event
+| Opcode | 1 byte | Event type: +
++0x60+ = cache entry created event +
++0x61+ = cache entry modified event +
++0x62+ = cache entry removed event +
++0x66+ = counter event +
++0x50+ = error +
+| Status | 1 byte | Status of the response, possible values: +
++0x00+ = No error +
+| Topology Change Marker | 1 byte | Since events are not associated with a
+particular incoming topology ID to be able to decide whether a new topology is
+required to be sent or not, new topologies will never be sent with events. Hence,
+this marker will always have `0` value for events.
+|===
+
+.Cache entry created event
+[table,tablepcwidth="100",rowcount="7",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Event header with `0x60` operation code
+| Listener ID | byte array | Listener for which this event is directed
+| Custom marker | byte | Custom event marker. For created events, this is `0`.
+| Command retried | byte | Marker for events that are result of retried commands.
+If command is retried, it returns `1`, otherwise `0`.
+| Key | byte array | Created key
+| Version | long | Version of the created entry. This version information can
+be used to make conditional operations on this cache entry.
+|===
+
+.Cache entry modified event
+[table,tablepcwidth="100",rowcount="7",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Event header with `0x61` operation code
+| Listener ID | byte array | Listener for which this event is directed
+| Custom marker | byte | Custom event marker. For created events, this is `0`.
+| Command retried | byte | Marker for events that are result of retried commands.
+If command is retried, it returns `1`, otherwise `0`.
+| Key | byte array | Modified key
+| Version | long | Version of the modified entry. This version information can
+be used to make conditional operations on this cache entry.
+|===
+
+.Cache entry removed event
+[table,tablepcwidth="100",rowcount="6",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Event header with `0x62` operation code
+| Listener ID | byte array | Listener for which this event is directed
+| Custom marker | byte | Custom event marker. For created events, this is `0`.
+| Command retried | byte | Marker for events that are result of retried commands.
+If command is retried, it returns `1`, otherwise `0`.
+| Key | byte array | Removed key
+|===
+
+.Custom event
+[table,tablepcwidth="100",rowcount="5",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Event header with event specific operation code
+| Listener ID | byte array | Listener for which this event is directed
+| Custom marker | byte | Custom event marker. For custom  events, this is `1`.
+| Event data | byte array | Custom event data, formatted according to the
+converter implementation logic.
+|===

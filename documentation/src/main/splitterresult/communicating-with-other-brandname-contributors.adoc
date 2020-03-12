@@ -1,0 +1,11 @@
+ifdef::context[:parent-context: {context}]
+[id="communicating-with-other-brandname-contributors_{context}"]
+= Communicating with other {brandname} contributors
+:context: communicating-with-other-brandname-contributors
+
+{brandname} contributors use a mix of technologies to communicate.
+Visit link:http://infinispan.org/community/[this page] to learn more.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

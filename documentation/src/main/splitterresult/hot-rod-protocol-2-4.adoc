@@ -1,0 +1,26 @@
+ifdef::context[:parent-context: {context}]
+[id="hot-rod-protocol-2-4_{context}"]
+= Hot Rod Protocol 2.4
+:context: hot-rod-protocol-2-4
+
+.Infinispan versions
+[TIP,textlabel="Tip",name="tip"]
+====
+This version of the protocol is implemented since Infinispan 8.1
+====
+
+This Hot Rod protocol version adds three new status code that gives the client
+hints on whether the server has compatibility mode enabled or not:
+
+* `0x06`: Success status and compatibility mode is enabled.
+* `0x07`: Success status and return previous value, with compatibility mode is enabled.
+* `0x08`: Not executed and return previous value, with compatibility mode is enabled.
+
+The Iteration Start operation can optionally send parameters if a custom filter is provided and
+it's parametrised:
+
+include::modules/operations-8.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

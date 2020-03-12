@@ -1,0 +1,12 @@
+ifdef::context[:parent-context: {context}]
+[id="api_{context}"]
+= API
+:context: api
+
+The `infinispan-api` module should only contain the public interfaces which can be used in any context (local, remote, etc).
+Any additions and/or modifications to this module _must_ be discussed and approved by the core team beforehand.
+Ideally it should not contain any concrete classes: rare exceptions may be made for small, self-contained classes which need to be referenced from the API interfaces and for which the introduction of an interface would be deemed cumbersome.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

@@ -1,0 +1,47 @@
+[id="read-write-listeners_{context}"]
+= Read-Write Listeners
+
+link:{javadocroot}/org/infinispan/commons/api/functional/Listeners.ReadWriteListeners.html[Read-write listeners]
+enable users to register listeners for cache entry created, modified
+and removed events, and also register listeners for any cache entry
+write events.
+
+Entry created, modified and removed events can only be fired when these
+originate on a read-write functional map, since this is the only one
+that guarantees that the previous value has been read, and hence the
+differentiation between create, modified and removed can be fully
+guaranteed.
+
+Adding a read-write listener is done via the
+link:{javadocroot}/org/infinispan/commons/api/functional/Listeners.ReadWriteListeners.html[`ReadWriteListeners`]
+interface which is accessible via
+link:{javadocroot}/org/infinispan/commons/api/functional/FunctionalMap.ReadWriteMap.html#listeners--[`ReadWriteMap.listeners()`]
+method.
+
+If interested in only one of the event types, the simplest way to add a
+listener is to pass a function to either
+link:{javadocroot}/org/infinispan/commons/api/functional/Listeners.ReadWriteListeners.ReadWriteListener.html#onCreate-org.infinispan.commons.api.functional.EntryView.ReadEntryView-[`onCreate`]
+,
+link:{javadocroot}/org/infinispan/commons/api/functional/Listeners.ReadWriteListeners.ReadWriteListener.html#onModify-org.infinispan.commons.api.functional.EntryView.ReadEntryView-org.infinispan.commons.api.functional.EntryView.ReadEntryView-[`onModify`]
+or
+link:{javadocroot}/org/infinispan/commons/api/functional/Listeners.ReadWriteListeners.ReadWriteListener.html#onRemove-org.infinispan.commons.api.functional.EntryView.ReadEntryView-[`onRemove`]
+methods. All these methods return an AutoCloseable instance that can be
+used to de-register the function listener:
+
+[source,java]
+----
+link:code_examples/ReadWriteMapAutoCloseable.java[]
+----
+
+If listening for two or more event types, it's better to pass in an
+implementation of
+link:{javadocroot}/org/infinispan/commons/api/functional/Listeners.WriteListeners.WriteListener.html[`ReadWriteListener`]
+interface via the
+link:{javadocroot}/org/infinispan/commons/api/functional/Listeners.ReadWriteListeners.html#add-org.infinispan.commons.api.functional.Listeners.ReadWriteListeners.ReadWriteListener-[`ReadWriteListeners.add()`]
+method. `ReadWriteListener` offers the same `onCreate`/`onModify`/`onRemove`
+callbacks with default method implementations that are empty:
+
+[source,java]
+----
+link:code_examples/ReadWriteMapListener.java[]
+----

@@ -1,0 +1,20 @@
+[id="remove-a-counter-via-countermanager_{context}"]
+= Remove a counter via CounterManager
+
+[WARNING,textlabel="Warning",name="warning"]
+====
+use with caution.
+====
+
+There is a difference between remove a counter via the `Strong/WeakCounter` interfaces and the `CounterManager`.
+The `CounterManager.remove(String)` removes the counter value from the cluster and removes all the listeners registered
+in the counter in the local counter instance.
+In addition, the counter instance is no longer reusable and it may return an invalid results.
+
+On the other side, the `Strong/WeakCounter` removal only removes the counter value.
+The instance can still be reused and the listeners still works.
+
+[NOTE,textlabel="Note",name="note"]
+====
+The counter is re-created if it is accessed after a removal.
+====

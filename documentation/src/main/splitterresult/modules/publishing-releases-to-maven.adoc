@@ -1,0 +1,18 @@
+[id="publishing-releases-to-maven_{context}"]
+= Publishing releases to Maven
+
+To be able to publish releases to Maven, you need to have the following in your `settings.xml` file:
+
+.settings.xml
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:../config_examples/settings_credentials.xml[]
+----
+
+[id="publishing-snapshots_{context}"]
+== Publishing snapshots
+:context: publishing-snapshots
+
+[id="publishing-releases_{context}"]
+== Publishing releases
+:context: publishing-releases

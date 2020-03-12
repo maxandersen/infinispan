@@ -1,0 +1,29 @@
+[id="admin-tasks_{context}"]
+= Admin tasks
+
+.@@cache@create
+[table,tablepcwidth="100",rowcount="5",header-option="",colcount="3",cols="3,10,2"]
+|===
+| name | The name of the cache to create. | Yes
+| template | The name of the cache configuration template to use for the new cache. | No
+| configuration | the XML declaration of a cache configuration to use. | No
+| flags | See the flags table above. | No
+|===
+
+.@@cache@remove
+[table,tablepcwidth="100",rowcount="3",header-option="",colcount="3",cols="3,10,2"]
+|===
+| name | The name of the cache to remove. | Yes
+| flags | See the flags table above. | No
+|===
+
+.@@cache@names
+[]
+Returns the cache names as a JSON array of strings, e.g. ["cache1", "cache2"]
+
+.@@cache@reindex
+[table,tablepcwidth="100",rowcount="3",header-option="",colcount="3",cols="3,10,2"]
+|===
+| name | The name of the cache to reindex. | Yes
+| flags | See the flags table above. | No, all flags will be ignored
+|===

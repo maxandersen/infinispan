@@ -1,0 +1,11 @@
+[id="architectural-limitations_{context}"]
+= Architectural limitations
+
+This Directory implementation makes it possible to have almost real-time reads across multiple nodes. A fundamental limitation of the Lucene design is that only a single IndexWriter is allowed to make changes on the index: a pessimistic lock is acquired by the writer; this is generally ok as a single IndexWriter _instance_ is very fast and accepts update requests from multiple threads. When sharing the Directory across {brandname} nodes the IndexWriter limitation is not lifted: since you can have only one instance, that reflects in your application as having to apply all changes on the same node. There are several strategies to write from multiple nodes on the same index:
+
+.Index write strategies
+* One node writes, the other delegate to it sending messages
+* Each node writes on turns
+* You application makes sure it will only ever apply index writes on one node
+
+The _{brandname} Lucene Directory_ protects its content by implementing a distributed locking strategy, though this is designed as a last line of defense and is not to be considered an efficient mechanism to coordinate multiple writes: if you don't apply one of the above suggestions and get high write contention from multiple nodes you will likely get timeout exception.

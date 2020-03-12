@@ -1,0 +1,10 @@
+ifdef::context[:parent-context: {context}]
+[id="trying-the-interoperability-demo_{context}"]
+= Trying the Interoperability Demo
+:context: trying-the-interoperability-demo
+
+Try the demo for protocol interoperability using the {brandname} Docker image at: https://github.com/infinispan-demos/endpoint-interop
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

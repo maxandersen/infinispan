@@ -1,0 +1,4 @@
+[id="further-reading_{context}"]
+= Further reading
+
+The Javadocs on the link:{javadocroot}/org/infinispan/Cache.html[Cache] interface has some examples on using the asynchronous API, as does link:http://infinispan.blogspot.com/2009/05/whats-so-cool-about-asynchronous-api.html[this article] by Manik Surtani introducing the API.

@@ -1,0 +1,8 @@
+[id="how-does-it-work-in-clustered-caches_{context}"]
+= How does it work in clustered caches?
+
+In clustered caches, each key has a node responsible to lock the key. This node is called primary owner.
+
+[id="non-transactional-caches_{context}"]
+== Non Transactional caches
+:context: non-transactional-caches

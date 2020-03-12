@@ -1,0 +1,18 @@
+[id="single-node-submission_{context}"]
+= Single Node Submission
+
+Cluster Executor can also run in single node submission mode instead of submitting the command
+to all nodes it will instead pick one of the nodes that would have normally received the command
+and instead submit it it to only one. Each submission will possibly use a different node to
+execute the task on. This can be very useful to use the ClusterExecutor as a
+`java.util.concurrent.Executor` which you may have noticed that ClusterExecutor implements.
+
+.SingleNode.java
+[source,java]
+----
+link:code_examples/SingleNode.java[]
+----
+
+[id="failover_{context}"]
+== Failover
+:context: failover

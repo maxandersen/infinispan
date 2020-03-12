@@ -1,0 +1,14 @@
+[id="can-i-use-brandname-with-hibernate_{context}"]
+= Can I use {brandname} with Hibernate?
+
+Yes, you can combine one or more of these integrations in the same application:
+
+* _Using {brandname} as a database replacement_: using Hibernate OGM you can replace the RDBMS and store your entities and relations directly in {brandname}, interacting with it through the well known JPA 2.1 interface, with some limitations in the query capabilities. Hibernate OGM also automates mapping, encoding and decoding of JPA entities to Protobuf.
+For more details see link:http://hibernate.org/ogm/[Hibernate OGM] .
+* _Caching database access_: Hibernate can cache frequently loaded entities and queries in {brandname}, taking advantage of state of the art eviction algorithms, and clustering if needed but it provides a good performance boost in non-clustered deployments too.
+* _Storing Lucene indexes_: When using Hibernate Search to provide full-text capabilities to your Hibernate/JPA enabled application, you need to store an Apache Lucene index separately from the database. You can store the index in {brandname}: this is ideal for clustered applications since it's otherwise tricky to share the index with correct locking on shared file systems, but is an interesting option for non-clustered deployments as well as it can combine the benefits of in-memory performance with reliability and write-through to any CacheStore supported by {brandname}.
+* _Using full-text queries on {brandname}_: If you liked the powerful full-text and data mining capabilities of Hibernate Search, but don't need JPA or a database, you can use the indexing and query engine only: the {brandname} Query module reuses Hibernate Search internally, depending on some Hibernate libraries but exposing the Search capabilities only.
+* A _combination of multiple such integrations_: you can use Hibernate OGM as an
+interface to perform CRUD operations on some {brandname} caches configured for resiliency, while also activating Hibernate 2nd level caching using some different
+caches configured for high performance read mostly access, and also use Hibernate
+Search to index your domain model while storing the indexes in {brandname} itself.

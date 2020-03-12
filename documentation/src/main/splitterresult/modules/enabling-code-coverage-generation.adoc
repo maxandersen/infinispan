@@ -1,0 +1,24 @@
+[id="enabling-code-coverage-generation_{context}"]
+= Enabling code coverage generation
+
+When you run tests, you can enable code coverage recorder for calculating and analysing the {brandname} code coverage.
+You can do this using `coverage` and `jacocoReport` profiles. As a code coverage evaluation tool, the JaCoCo is used.
+
+....
+$ mvn test -Pcoverage -Dmaven.test.failure.ignore=true
+....
+
+Please note, that `-Dmaven.test.failure.ignore=true` is used for generating JaCoCo code coverage report, even if there are test failures.
+
+Executing this will generate `jacoco.exec` file in each module's `target/` directory.
+These are the JaCoCo execution data files, which contain full data about the specific module's coverage.
+
+As soon as the coverage execution command is finished, you will need to generate the JaCoCo report, which will merge the generated `jacoco.exec` files as well as will create the code coverage report.
+
+For having the report in place, run the following command from your {brandname} home directory:
+
+....
+$ mvn install -pl parent -PjacocoReport
+....
+
+The `jacoco-html/` directory will be generated in {brandname} Home directory, which will contain the code coverage report.

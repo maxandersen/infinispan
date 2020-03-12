@@ -1,0 +1,19 @@
+ifdef::context[:parent-context: {context}]
+[id="match-host-strategy_{context}"]
+= Match Host Strategy
+:context: match-host-strategy
+
+Resolves the host name and selects one of the IP addresses that is assigned to
+any network interface.
+
+{brandname} servers enumerate all available operating system interfaces to
+locate IP addresses resolved from the host name in your configuration.
+
+[source,xml]
+----
+link:config_examples/server_network_matchhost.xml[]
+----
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

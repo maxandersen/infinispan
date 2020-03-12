@@ -1,0 +1,18 @@
+ifdef::context[:parent-context: {context}]
+[id="embedded_{context}"]
+= Custom Code Interoperability
+:context: embedded
+
+You can deploy custom code with {brandname}. For example, you can deploy scripts, tasks, listeners, converters, and merge policies. Because your custom code can access data directly in the cache, it must interoperate with clients that access data in the cache through different endpoints.
+
+For example, you might create a remote task to handle custom objects stored in the cache while other clients store data in binary format.
+
+To handle interoperability with custom code you can either convert data on demand or store data as Plain Old Java Objects (POJOs).
+
+include::modules/converting-data-on-demand.adoc[leveloffset=+1]
+
+include::modules/storing-data-as-pojos.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

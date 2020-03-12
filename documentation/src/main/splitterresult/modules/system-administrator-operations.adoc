@@ -1,0 +1,15 @@
+[id="system-administrator-operations_{context}"]
+= System Administrator Operations
+
+A set of operations can be performed to control the cross-site state transfer:
+
+* +pushState(String siteName)+ - It starts the cross-site state transfer to the site name specified;
+* +cancelPushState(String siteName)+ - It cancels the cross-site state transfer to the site name specified;
+* +getRunningStateTransfer()+ - It returns a list of site name to which this site is pushing the state;
+* +getSendingSiteName()+ - It returns the site name that is pushing state to this site;
+* +cancelReceiveState(String siteName)+ - It restores the site to normal state. Should be used when the link between
+the sites is broken during the state transfer (as described above);
+* +getPushStateStatus()+ - It returns the status of completed cross-site state transfer;
+* +clearPushStateStatus()+ - It clears the status of completed cross-site state transfer.
+
+For more technical information, you can check the Cross Site design document. See link:#x_site_reference[Reference].

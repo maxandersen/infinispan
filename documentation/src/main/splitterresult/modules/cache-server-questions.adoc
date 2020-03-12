@@ -1,0 +1,6 @@
+[id="cache-server-questions_{context}"]
+= Cache Server questions
+
+[id="is-there-a-way-to-do-a-bulk-get-on-a-remote-cache_{context}"]
+== Is there a way to do a Bulk Get on a remote cache?
+:context: is-there-a-way-to-do-a-bulk-get-on-a-remote-cache

@@ -1,0 +1,23 @@
+[id="request-header-5_{context}"]
+= Request Header
+
+The request header no longer contains `Transaction Type` and `Transaction ID`
+elements since they're not in use, and even if they were in use, there are
+several operations for which they would not make sense, such as `ping` or
+`stats` commands. Once transactions are implemented, the protocol version will
+be upped, with the necessary changes in the request header.
+
+The `version` field in the header is updated to `20`.
+
+Two new flags have been added:
+
+* +0x0008+  = operation skips loading from configured cache loader.
+* +0x0010+  = operation skips indexing. Only relevant when the query module is enabled for the cache
+
+The following new request operation codes have been added:
+
+* +0x21+ = auth mech list request
+* +0x23+ = auth request
+* +0x25+ = add client remote event listener request
+* +0x27+ = remove client remote event listener request
+* +0x29+ = size request

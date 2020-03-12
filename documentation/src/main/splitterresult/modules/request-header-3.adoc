@@ -1,0 +1,14 @@
+[id="request-header-3_{context}"]
+= Request Header
+
+The `version` field in the header is updated to `12`.
+
+Two new request operation codes have been added:
+
+* +0x1B+ = getWithMetadata request
+* +0x1D+ = bulkKeysGet request
+
+Two new flags have been added too:
+
+* +0x0002+	= use cache-level configured default lifespan
+* +0x0004+	= use cache-level configured default max idle

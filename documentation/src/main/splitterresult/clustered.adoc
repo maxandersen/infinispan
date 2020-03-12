@@ -1,0 +1,51 @@
+ifdef::context[:parent-context: {context}]
+[id="clustered_{context}"]
+= Notifications and Events
+:context: clustered
+
+Both strong and weak counter supports a listener to receive its updates events.
+The listener must implement `CounterListener` and it can be registered by the following method:
+
+[source,java]
+----
+link:code_examples/CounterListenerAdd.java[]
+----
+
+The `CounterListener` has the following interface:
+
+[source,java]
+----
+link:code_examples/CounterListener.java[]
+----
+
+The `Handle` object returned has the main goal to remove the `CounterListener` when it is not longer needed.
+Also, it allows to have access to the `CounterListener` instance that is it handling.
+It has the following interface:
+
+[source,java]
+----
+link:code_examples/CounterListenerHandle.java[]
+----
+
+Finally, the `CounterEvent` has the previous and current value and state.
+It has the following interface:
+
+[source,java]
+----
+link:code_examples/CounterEvent.java[]
+----
+
+[NOTE,textlabel="Note",name="note"]
+====
+The state is always `State.VALID` for unbounded strong counter and weak counter.
+`State.LOWER_BOUND_REACHED` and `State.UPPER_BOUND_REACHED` are only valid for bounded strong counters.
+====
+
+[WARNING,textlabel="Warning",name="warning"]
+====
+The weak counter `reset()` operation will trigger multiple notification with intermediate values.
+====
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

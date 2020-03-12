@@ -1,0 +1,6 @@
+[id="how-is-brandname-related-to-jboss-cache_{context}"]
+= How is {brandname} related to JBoss Cache?
+
+Certain design ideas and indeed some code have been borrowed from link:http://www.jboss.org/jbosscache/[JBoss Cache] 3.x, however JBoss Cache is in no way a dependency.
+{brandname} is a complete, separate and standalone project.
+Some may consider this a fork, but the people behind {brandname} and JBoss Cache see it as an evolution, since all future effort will be on {brandname} and not JBoss Cache.

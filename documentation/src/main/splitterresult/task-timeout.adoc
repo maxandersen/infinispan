@@ -1,0 +1,23 @@
+ifdef::context[:parent-context: {context}]
+[id="task-timeout_{context}"]
+= Task timeout
+:context: task-timeout
+
+It is possible to set a timeout value for the operation requests. This timeout is used only for remote requests timing out and
+it is on a per request basis. The former means the local execution will not timeout and the latter means if you have a failover
+scenario as described above the subsequent requests each have a new timeout.  If no timeout is specified it uses the
+replication timeout as a default timeout. You can set the timeout in your task by doing the following:
+
+[source,java]
+----
+CacheStream<Object, String> stream = cache.entrySet().stream();
+stream.timeout(1, TimeUnit.MINUTES);
+----
+
+For more information about this, please check the java doc in
+link:{javadocroot}/org/infinispan/CacheStream.html#timeout-long-java.util.concurrent.TimeUnit-[timeout]
+javadoc.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

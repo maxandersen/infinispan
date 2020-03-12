@@ -1,0 +1,86 @@
+ifdef::context[:parent-context: {context}]
+[id="filter-and-custom-events_{context}"]
+= Filter and Custom Events
+:context: filter-and-custom-events
+
+If you want to do both event filtering and customization, it's easier to
+implement `org.infinispan.notifications.cachelistener.filter.CacheEventFilterConverter`
+which allows both filter and customization to happen in a single step.
+For convenience, it's recommended to extend
+`org.infinispan.notifications.cachelistener.filter.AbstractCacheEventFilterConverter`
+instead of implementing `org.infinispan.notifications.cachelistener.filter.CacheEventFilterConverter`
+directly. For example:
+
+[source,java]
+----
+import org.infinispan.notifications.cachelistener.filter.CacheEventConverterFactory;
+import org.infinispan.notifications.cachelistener.filter.CacheEventConverter;
+
+@NamedFactory(name = "dynamic-filter-converter")
+class DynamicCacheEventFilterConverterFactory implements CacheEventFilterConverterFactory {
+   public CacheEventFilterConverter<Integer, String, CustomEvent> getFilterConverter(final Object[] params) {
+      return new DynamicCacheEventFilterConverter(params);
+   }
+}
+
+// Serializable, Externalizable or marshallable with Infinispan Externalizers needed when running in a cluster
+//
+class DynamicCacheEventFilterConverter extends AbstractCacheEventFilterConverter<Integer, String, CustomEvent>, Serializable {
+   final Object[] params;
+
+   DynamicCacheEventFilterConverter(Object[] params) {
+      this.params = params;
+   }
+
+   public CustomEvent filterAndConvert(Integer key, String oldValue, Metadata oldMetadata,
+         String newValue, Metadata newMetadata, EventType eventType) {
+      // If the key matches a key given via parameter, only send the key information
+      if (params[0].equals(key))
+         return new CustomEvent(key, null);
+
+      return new CustomEvent(key, newValue);
+   }
+}
+----
+
+Similar to filters and converters, to be able to register a listener with this
+combined filter/converter factory, the factory has to be given a unique name via the
+`@NamedFactory` annotation, and the Hot Rod server needs to be plugged with the
+name and the cache event converter factory instance. Plugging the {brandname}
+Server with an event converter involves the following steps:
+
+[arabic]
+. Create a JAR file with the converter implementation within it.
+. Optional: If the cache uses custom key/value classes, these must be
+included in the JAR so that the callbacks can be executed with the correctly
+unmarshalled key and/or value instances. If the client listener has `useRawData`
+enabled, this is not necessary since the callback key/value instances will be
+provided in binary format.
+. Create a `META-INF/services/org.infinispan.notifications.cachelistener.filter.CacheEventFilterConverterFactory` file
+within the JAR file and within it, write the fully qualified class name of the
+converter class implementation.
+. Deploy the JAR file in the {brandname} Server.
+
+From a client perspective, to be able to use the combined filter and
+converter class, the client listener must define the same filter factory and
+converter factory names, e.g.:
+
+[source,java]
+----
+@ClientListener(filterFactoryName = "dynamic-filter-converter", converterFactoryName = "dynamic-filter-converter")
+public class CustomEventPrintListener { ... }
+----
+
+The dynamic parameters required in the example above are provided when the
+listener is registered via either filter or converter parameters. If filter
+parameters are non-empty, those are used, otherwise, the converter parameters:
+
+[source,java]
+----
+RemoteCache<?, ?> cache = ...
+cache.addClientListener(new CustomEventPrintListener(), new Object[]{1}, null);
+----
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

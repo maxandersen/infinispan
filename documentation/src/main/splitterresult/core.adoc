@@ -1,0 +1,11 @@
+ifdef::context[:parent-context: {context}]
+[id="core_{context}"]
+= Core
+:context: core
+
+The `infinispan-core` module contains the actual implementation used for local/embedded mode.
+When adding new functionality to the APIs, it is generally safe to start by putting them in `infinispan-core` and promoting them to `infinispan-api` only when it is deemed mature enough to do so and it makes sense across the various use-cases.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

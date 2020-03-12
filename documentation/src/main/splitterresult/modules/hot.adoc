@@ -1,0 +1,64 @@
+[id="hot_{context}"]
+= Response Header
+
+The header for a response is composed of:
+
+.Response header
+[table,tablepcwidth="100",rowcount="6",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Magic | 1 byte | +0xA1+ = response
+| Message ID | vLong | ID of the message, matching the request
+for which the response is sent.
+| Opcode | 1 byte | Response operation code: +
++0x02+ = put (since 1.0) +
++0x04+ = get (since 1.0) +
++0x06+ = putIfAbsent (since 1.0) +
++0x08+ = replace (since 1.0) +
++0x0A+ = replaceIfUnmodified (since 1.0) +
++0x0C+ = remove (since 1.0) +
++0x0E+ = removeIfUnmodified (since 1.0) +
++0x10+ = containsKey (since 1.0) +
++0x12+ = getWithVersion (since 1.0) +
++0x14+ = clear (since 1.0) +
++0x16+ = stats (since 1.0) +
++0x18+ = ping (since 1.0) +
++0x1A+ = bulkGet (since 1.0) +
++0x1C+ = getWithMetadata (since 1.2) +
++0x1E+ = bulkGetKeys (since 1.2) +
++0x20+ = query (since 1.3) +
++0x22+ = authMechList (since 2.0) +
++0x24+ = auth (since 2.0) +
++0x26+ = addClientListener (since 2.0) +
++0x28+ = removeClientListener (since 2.0) +
++0x2A+ = size (since 2.0) +
++0x2C+ = exec (since 2.1) +
++0x2E+ = putAll (since 2.1) +
++0x30+ = getAll (since 2.1) +
++0x32+ = iterationStart (since 2.3) +
++0x34+ = iterationNext (since 2.3) +
++0x36+ = iterationEnd (since 2.3) +
++0x38+ = getStream (since 2.6) +
++0x3A+ = putStream (since 2.6) +
++0x50+ = error (since 1.0) +
+| Status | 1 byte | Status of the response, possible values: +
++0x00+ = No error +
++0x01+ = Not put/removed/replaced +
++0x02+ = Key does not exist +
++0x81+ = Invalid magic or message id +
++0x82+ = Unknown command +
++0x83+ = Unknown version +
++0x84+ = Request parsing error +
++0x85+ = Server Error +
++0x86+ = Command timed out +
+| Topology Change Marker | string | This is a marker byte that indicates
+whether the response is prepended with topology change information.
+When no topology change follows, the content of this byte is +0+.
+If a topology change follows, its contents are +1+.
+|===
+
+[CAUTION,textlabel="Caution",name="caution"]
+====
+Exceptional error status responses, those that start with 0x8 ...,
+are followed by the length of the error message (as a vInt ) and
+error message itself as String.
+====

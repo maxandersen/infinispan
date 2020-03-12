@@ -1,0 +1,6 @@
+[id="eviction_{context}"]
+= Eviction
+
+For now, the eviction works per key, and not per key-value pair.
+This means that whenever a key is evicted, all the values associated with the key will be evicted too.
+Eviction per key-value could be supported in the future.

@@ -1,0 +1,12 @@
+ifdef::context[:parent-context: {context}]
+[id="builds_{context}"]
+= Builds
+:context: builds
+
+{brandname} uses link:http://maven.apache.org/[Maven] for builds. Make sure you have Maven 3 installed, and properly configured.
+
+include::modules/continuous-integration.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

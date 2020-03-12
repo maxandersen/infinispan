@@ -1,0 +1,12 @@
+ifdef::context[:parent-context: {context}]
+[id="keeping-your-repo-in-sync-with-upstream_{context}"]
+= Keeping your repo in sync with upstream
+:context: keeping-your-repo-in-sync-with-upstream
+
+include::modules/if-you-have-cloned-upstream.adoc[leveloffset=+1]
+
+include::modules/link.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

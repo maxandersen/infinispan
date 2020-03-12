@@ -1,0 +1,4 @@
+[id="completablefuturelong-size_{context}"]
+= CompletableFuture&lt;Long&gt; size()
+
+Asynchronous that returns the number of key-value pairs in the multimap cache. It doesn't return the distinct number of keys.

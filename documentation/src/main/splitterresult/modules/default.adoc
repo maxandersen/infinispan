@@ -1,0 +1,19 @@
+[id="default_{context}"]
+= Default Local Configuration
+
+{brandname} second-level cache provider comes with a configuration designed for local, single node, environments.
+These are the characteristics of such configuration:
+
+Entities, collections, queries and timestamps are stored in non-transactional local caches.
+
+Entities and collections query caches are configured with the following eviction settings:
+
+* Eviction wake up interval is 5 seconds.
+* Max number of entries are 10,000.
+* Max idle time before expiration is 100 seconds.
+* Default eviction algorithm is LRU, least recently used.
+
+You can change these settings on a per entity or collection basis or per individual entity or collection type.
+More information in the link:#configuration_properties[Configuration Properties] section below.
+
+_No eviction/expiration is configured for timestamp caches_, nor it's allowed.

@@ -1,0 +1,64 @@
+ifdef::context[:parent-context: {context}]
+[id="distributed-stream-execution_{context}"]
+= Distributed Stream execution
+:context: distributed-stream-execution
+
+Distributed streams execution works in a fashion very similiar to map reduce.  Except in this case we are sending zero to many intermediate operations
+(map, filter etc.) and a single terminal operation to the various nodes.  The operation basically comes down to the following:
+
+[arabic]
+. The desired segments are grouped by which node is the primary owner of the given segment
+. A request is generated to send to each remote node that contains the intermediate and terminal operations including which segments it should process
+[loweralpha]
+.. The terminal operation will be performed locally if necessary
+.. Each remote node will receive this request and run the operations and subsequently send the response back
+. The local node will then gather the local response and remote responses together performing any kind of reduction required by the operations themselves.
+. Final reduced response is then returned to the user
+
+In most cases all operations are fully distributed, as in the operations are all fully applied on each remote node and usually only the last operation or something related may be
+reapplied to reduce the results from multiple nodes.  One important note is that intermediate values do not actually have to be serializable, it is the last value
+sent back that is the part desired (exceptions for various operations will be highlighted below).
+
+*Terminal operator distributed result reductions*
+The following paragraphs describe how the distributed reductions work for the various terminal operators.  Some of these are special in that an intermediate value may
+be required to be serializable instead of the final result.
+
+allMatch noneMatch anyMatch:: The link:{jdkdocroot}/java/util/stream/Stream.html#allMatch-java.util.function.Predicate-[allMatch]
+operation is ran on each node and then all the results are logically anded together locally
+to get the appropriate value.  The
+link:{jdkdocroot}/java/util/stream/Stream.html#noneMatch-java.util.function.Predicate-[noneMatch]
+and
+link:{jdkdocroot}/java/util/stream/Stream.html#anyMatch-java.util.function.Predicate-[anyMatch]
+operations use a logical or instead. These methods also have early termination support,
+stopping remote and local operations once the final result is known.
+collect:: The link:{jdkdocroot}/java/util/stream/Stream.html#collect-java.util.stream.Collector-[collect]
+method is interesting in that it can do a few extra steps.  The remote node performs
+everything as normal except it doesn't perform the final
+link:{jdkdocroot}/java/util/stream/Collector.html#finisher--[finisher]
+upon the result and instead sends back the fully combined results.  The local thread
+then link:{jdkdocroot}/java/util/stream/Collector.html#combiner--[combines]
+the remote and local result into a value which is then finally finished.  The key
+here to remember is that the final value doesn't have to be serializable but rather
+the values produced from the link:{jdkdocroot}/java/util/stream/Collector.html#supplier--[supplier]
+and link:{jdkdocroot}/java/util/stream/Collector.html#combiner--[combiner]
+methods.
+count:: The link:{jdkdocroot}/java/util/stream/Stream.html#count--[count]
+method just adds the numbers together from each node.
+findAny findFirst:: The link:{jdkdocroot}/java/util/stream/Stream.html#findAny--[findAny]
+operation returns just the first value they find, whether it was from a remote node
+or locally.  Note this supports early termination in that once a value is found it
+will not process others.  Note the findFirst method is special since it requires a sorted
+intermediate operation, which is detailed in the
+link:user_guide.html#intermediate_operation_exceptions[exceptions] section.
+max min:: The link:{jdkdocroot}/java/util/stream/Stream.html#max-java.util.Comparator-[max] and
+link:{jdkdocroot}/java/util/stream/Stream.html#min-java.util.Comparator-[min] methods find the respective min or max value on each node then a final
+reduction is performed locally to ensure only the min or max across all nodes is returned.
+reduce:: The various reduce methods link:{jdkdocroot}/java/util/stream/Stream.html#reduce-java.util.function.BinaryOperator-[1] ,
+link:{jdkdocroot}/java/util/stream/Stream.html#reduce-T-java.util.function.BinaryOperator-[2] ,
+link:{jdkdocroot}/java/util/stream/Stream.html#reduce-U-java.util.function.BiFunction-java.util.function.BinaryOperator-[3] will end up serializing
+the result as much as the accumulator can do.  Then it will accumulate the local and remote results together locally, before combining if you have provided that.  Note this means
+a value coming from the combiner doesn't have to be Serializable.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

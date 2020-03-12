@@ -1,0 +1,34 @@
+ifdef::context[:parent-context: {context}]
+[id="create-a-local-cache_{context}"]
+= Create a local cache
+:context: create-a-local-cache
+
+Creating a local cache, using default configuration options as defined by the
+JCache API specification, is as simple as doing the following:
+
+[source,java]
+----
+link:code_examples/JCacheCreateCache.java[]
+----
+
+[WARNING,textlabel="Warning",name="warning"]
+====
+By default, the JCache API specifies that data should be stored as
+`storeByValue`, so that object state mutations outside of operations to the
+cache, won't have an impact in the objects stored in the cache. {brandname}
+has so far implemented this using serialization/marshalling to make copies to
+store in the cache, and that way adhere to the spec. Hence, if using default
+JCache configuration with {brandname}, data stored must be marshallable.
+====
+
+Alternatively, JCache can be configured to store data by reference
+(just like {brandname} or JDK Collections work). To do that, simply call:
+
+[source,java]
+----
+link:code_examples/CreateCacheMutableConfiguration.java[]
+----
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

@@ -1,0 +1,21 @@
+ifdef::context[:parent-context: {context}]
+[id="hot-rod-protocol-1-1_{context}"]
+= Hot Rod Protocol 1.1
+:context: hot-rod-protocol-1-1
+
+.Infinispan versions
+[WARNING,textlabel="Warning",name="warning"]
+====
+This version of the protocol was implemented since Infinispan 5.1.0.FINAL
+and is no longer supported since Infinispan 10.
+====
+
+include::modules/request-header-2.adoc[leveloffset=+1]
+
+include::modules/distribution-aware-client-topology-change-header-2.adoc[leveloffset=+1]
+
+include::modules/server-node-hash-code-calculation.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

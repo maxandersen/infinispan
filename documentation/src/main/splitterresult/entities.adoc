@@ -1,0 +1,24 @@
+ifdef::context[:parent-context: {context}]
+[id="entities_{context}"]
+= Deploying Entity Classes
+:context: entities
+
+If you plan to store entries in the cache as custom Java objects or POJOs, you must deploy entity classes to {brandname}. Clients always exchange objects as `bytes[]`. The entity classes represent those custom objects so that {brandname} can serialize and deserialize them.
+
+To make entity classes available to the server, do the following:
+
+* Create a `JAR` file that contains the entities and dependencies.
+* Stop {brandname} if it is running.
++
+{brandname} loads entity classes during boot. You cannot make entity classes available to {brandname} if the server is running.
+* Copy the `JAR` file to the *_$INFINISPAN_HOME/standalone/deployments/_* directory.
+* Specify the `JAR` file as a module in the cache manager configuration, as in the following example:
+
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/custom_deployment_jar.xml[]
+----
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

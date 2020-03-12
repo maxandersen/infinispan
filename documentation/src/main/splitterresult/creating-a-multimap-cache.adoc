@@ -1,0 +1,13 @@
+ifdef::context[:parent-context: {context}]
+[id="creating-a-multimap-cache_{context}"]
+= Creating a Multimap Cache
+:context: creating-a-multimap-cache
+
+Currently the MultimapCache is configured as a regular cache. This can be done either by code or XML configuration.
+See how to configure a regular Cache in the section link to [configure a cache].
+
+include::modules/embedded-mode.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

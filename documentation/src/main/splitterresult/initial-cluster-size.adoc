@@ -1,0 +1,32 @@
+ifdef::context[:parent-context: {context}]
+[id="initial-cluster-size_{context}"]
+= Initial cluster size
+:context: initial-cluster-size
+
+{brandname}'s very dynamic nature in handling topology changes (i.e. nodes being added / removed
+at runtime) means that, normally, a node doesn't wait for the presence of other nodes before
+starting. While this is very flexible, it might not be suitable for applications which require
+a specific number of nodes to join the cluster before caches are started. For this reason,
+you can specify how many nodes should have joined the cluster before proceeding with cache
+initialization. To do this, use the `initialClusterSize` and `initialClusterTimeout` transport
+properties. The declarative XML configuration:
+
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/initial_cluster_size.xml[]
+----
+
+The programmatic Java configuration:
+
+[source,java]
+----
+link:code_examples/InitialClusterSize.java[]
+----
+
+The above configuration will wait for _4_ nodes to join the cluster before initialization. If
+the initial nodes do not appear within the specified timeout, the cache manager will fail to
+start.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

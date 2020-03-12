@@ -1,0 +1,27 @@
+ifdef::context[:parent-context: {context}]
+[id="basically-available-soft-state-eventually-consistent-base_{context}"]
+= Basically Available, Soft-state, Eventually-consistent (BASE)
+:context: basically-available-soft-state-eventually-consistent-base
+
+BASE, also known as link:http://en.wikipedia.org/wiki/Eventual_consistency[Eventual Consistency],
+is seen as the polar opposite of _ACID_, properties seen as desirable in
+traditional database systems.
+
+BASE essentially embraces the fact that true consistency cannot be achieved
+in the real world, and as such cannot be modelled in highly scalable
+distributed systems.  BASE has roots in Eric Brewer's _CAP Theorem_, and
+eventual consistency is the underpinning of any distributed system that aims to
+ provide high availability and partition tolerance.
+
+{brandname} has traditionally followed ACID principles as far as possible,
+however an eventually consistent mode embracing BASE is on the roadmap.
+
+.More resources
+* A link:http://queue.acm.org/detail.cfm?id=1394128[good article]
+on link:http://queue.acm.org/index.cfm[ACM] compares BASE versus ACID.
+* An link:http://www.infoq.com/presentations/Riak-Core[excellent talk] on
+eventual consistency and BASE in Riak is also available on InfoQ.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

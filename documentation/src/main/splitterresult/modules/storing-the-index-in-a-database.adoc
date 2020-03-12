@@ -1,0 +1,9 @@
+[id="storing-the-index-in-a-database_{context}"]
+= Storing the index in a database
+
+It might be useful to store the Lucene index in a relational database; this would be very slow but {brandname} can act as a cache between the application and the JDBC interface, making this configuration useful in both clustered and non-clustered configurations. When storing indexes in a JDBC database, it's suggested to use the _JdbcStringBasedCacheStore_ , which will need the `key-to-string-mapper` attribute to be set to `org.infinispan.lucene.LuceneKey2StringMapper`:
+
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/lucene_key_string_mapper.xml[]
+----

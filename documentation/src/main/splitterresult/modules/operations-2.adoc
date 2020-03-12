@@ -1,0 +1,87 @@
+[id="operations-2_{context}"]
+= Operations
+
+.GetWithMetadata
+[]
+Request (0x1B):
+
+[table,tablepcwidth="100",rowcount="4",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Request header
+| Key Length | vInt | Length of key. Note that the size of a
+vint can be up to 5 bytes which in theory can produce bigger numbers than
+Integer.MAX_VALUE. However, Java cannot create a single array that’s bigger
+than Integer.MAX_VALUE, hence the protocol is limiting vint array lengths to
+Integer.MAX_VALUE.
+| Key | byte array | Byte array containing the key whose value is being requested.
+|===
+
+Response (0x1C):
+
+[table,tablepcwidth="100",rowcount="11",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Response header
+| Response status | 1 byte | +0x00+ = success, if key retrieved +
++0x02+ = if key does not exist +
+| Flag | 1 byte | A flag indicating whether the response
+contains expiration information. The value of the flag is obtained as a
+bitwise OR operation between +INFINITE_LIFESPAN (0x01)+ and
+`INFINITE_MAXIDLE (0x02)`.
+| Created | Long | (optional) a Long representing the
+timestamp when the entry was created on the server. This value is returned
+only if the flag's +INFINITE_LIFESPAN+ bit is not set.
+| Lifespan | vInt | (optional) a vInt representing the
+lifespan of the entry in seconds. This value is returned only if the flag's
++INFINITE_LIFESPAN+ bit is not set.
+| LastUsed | Long | (optional) a Long representing the
+timestamp when the entry was last accessed on the server. This value is
+returned only if the flag's `INFINITE_MAXIDLE` bit is not set.
+| MaxIdle | vInt | (optional) a vInt representing the
+maxIdle of the entry in seconds. This value is returned only if the flag's
+`INFINITE_MAXIDLE` bit is not set.
+| Entry Version | 8 bytes | Unique value of an existing entry's modification.
+The protocol does not mandate that entry_version values are sequential.
+They just need to be unique per update at the key level.
+| Value Length | vInt | If success, length of value
+| Value | byte array | If success, the requested value
+|===
+
+.BulkKeysGet
+[]
+Request (0x1D):
+
+[table,tablepcwidth="100",rowcount="3",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Request header
+| Scope | vInt | +0+ = Default Scope - This scope is used by RemoteCache.keySet() method.
+If the remote cache is a distributed cache, the server launch a stream
+operation to retrieve all keys from all of the nodes. (Remember, a
+topology-aware Hot Rod Client could be load balancing the request to any
+one node in the cluster). Otherwise, it'll get keys from the cache instance
+local to the server receiving the request (that is because the keys should
+be the same across all nodes in a replicated cache). +
++1+ = Global Scope - This scope behaves the same to Default Scope. +
++2+ = Local Scope - In case when remote cache is a distributed cache,
+the server will not launch a stream operation to retrieve keys from
+all nodes. Instead, it'll only get keys local from the cache instance local
+to the server receiving the request. +
+|===
+
+Response (0x1E):
+
+[table,tablepcwidth="100",rowcount="10",header-option="",colcount="3",cols="3,^2,10"]
+|===
+| Header | variable | Response header
+| Response status | 1 byte | +0x00+ = success, data follows +
+| More | 1 byte | One byte representing whether more
+keys need to be read from the stream. So, when it's set to 1, it means
+that an entry follows, whereas when it's set to 0, it's the end of stream and
+no more entries are left to read. For more information on BulkGet look
+link:http://community.jboss.org/docs/DOC-15592[here]
+| Key 1 Length | vInt | Length of key
+| Key 1 | byte array | Retrieved key
+| More | 1 byte | 
+| Key 2 Length | vInt | 
+| Key 2 | byte array | 
+| ... etc |  | 
+|===

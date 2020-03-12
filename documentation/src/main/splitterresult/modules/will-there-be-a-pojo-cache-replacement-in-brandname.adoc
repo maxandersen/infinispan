@@ -1,0 +1,4 @@
+[id="will-there-be-a-pojo-cache-replacement-in-brandname_{context}"]
+= Will there be a POJO Cache replacement in {brandname}?
+
+Yes, and this is called link:http://hibernate.org/ogm/[Hibernate OGM] .

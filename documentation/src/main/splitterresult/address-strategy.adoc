@@ -1,0 +1,22 @@
+ifdef::context[:parent-context: {context}]
+[id="address-strategy_{context}"]
+= Address Strategy
+:context: address-strategy
+
+Uses an `inet-address` strategy that maps a single `public` interface to the
+IPv4 loopback address (`127.0.0.1`).
+
+[source,xml]
+----
+link:config_examples/server_network_default.xml[]
+----
+
+[TIP,textlabel="Tip",name="tip"]
+====
+You can use the CLI `-b` argument or the `infinispan.bind.address` property to select a specific address from the
+command-line. See link:#changing_bind_address-server[Changing the Default Bind Address].
+====
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

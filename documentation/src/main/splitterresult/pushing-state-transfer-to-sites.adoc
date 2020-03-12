@@ -1,0 +1,44 @@
+ifdef::context[:parent-context: {context}]
+[id="pushing-state-transfer-to-sites_{context}"]
+= Pushing State Transfer to Sites
+:context: pushing-state-transfer-to-sites
+
+Transferring state from one site to another synchronizes the data between the two sites.
+
+You should always transfer state from the currently active site, which contains the most up-to-date data, to another site. The site to which you push state transfer can be online or offline. If you push state transfer to an offline site, it brings that site back online.
+
+Caches on sites to which you transfer state from another site do not need to be empty. However, state transfer only overwrites existing keys on receiving sites and does not delete keys.
+
+For example, key +K+ exists on site A and site B. You transfer state from site A to site B. In this case, {brandname} overwrites key +K+. However, key +Y+ exists on site B but not site A. After you transfer state from site A to site B, key +Y+ still exists on site B.
+
+[NOTE,textlabel="Note",name="note"]
+====
+You can receive state transfer from only one site at a time. Likewise, if you invoke a state transfer operation on a site, {brandname} ignores subsequent invocations on that site.
+====
+
+Invoke the `pushState(String)` operation via the following JMX MBeans to bring sites back online:
+
+* `XSiteAdminOperations` synchronizes state for caches between the site on which you invoke the operation and a remote site. Brings the site online if it is offline.
+* `GlobalXSiteAdminOperations` synchronizes state for cache containers between the site on which you invoke the operation and a remote site. Brings the site online if it is offline.
+
+When you invoke the `pushState(String)` operation on the site that transfers state, you specify the name of the site that receives the state.
+
+The following figure shows the +pushState(String)+ operation in JConsole:
+
+.Pushing state via JConsole
+[imagesdir="null",alt="xsite state transfer",align="center",default-alt="xsite state transfer",target="xsite-state-transfer.png"]
+image::
+
+image::
+
+include::modules/handling-joinleave-nodes.adoc[leveloffset=+1]
+
+include::modules/handling-broken-link-between-sites.adoc[leveloffset=+1]
+
+include::modules/system-administrator-operations.adoc[leveloffset=+1]
+
+include::modules/x.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

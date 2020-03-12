@@ -1,0 +1,25 @@
+ifdef::context[:parent-context: {context}]
+[id="conflict_{context}"]
+= Usage
+:context: conflict
+
+During a partition merge the ConflictManager automatically attempts to resolve conflicts utilising the configured
+EntryMergePolicy, however it is also possible to manually search for/resolve conflicts as required by your application.
+
+The code below shows how to retrieve an EmbeddedCacheManager's ConflictManager, how to retrieve all versions of a given
+key and how to check for conflicts across a given cache.
+
+[source,java]
+----
+link:code_examples/EmbeddedConflictManager.java[]
+----
+
+[NOTE,textlabel="Note",name="note"]
+====
+Although the `ConflictManager::getConflicts` stream is processed per entry, the underlying spliterator is in
+fact lazily-loading cache entries on a per segment basis.
+====
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

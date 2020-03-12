@@ -1,0 +1,8 @@
+[id="maven-dependencies-2_{context}"]
+= Maven dependencies
+
+.pom.xml
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:dependencies_maven/hibernate_directory_provider.xml[]
+----

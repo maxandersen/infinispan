@@ -1,0 +1,15 @@
+ifdef::context[:parent-context: {context}]
+[id="non-loopback-strategy_{context}"]
+= Non-Loopback Strategy
+:context: non-loopback-strategy
+
+Selects a non-loopback address.
+
+[source,xml]
+----
+link:config_examples/server_network_nonloopback.xml[]
+----
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

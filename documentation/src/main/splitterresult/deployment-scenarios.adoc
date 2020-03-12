@@ -1,0 +1,22 @@
+ifdef::context[:parent-context: {context}]
+[id="deployment-scenarios_{context}"]
+= Deployment Scenarios
+:context: deployment-scenarios
+
+How to configure {brandname} to be the second level cache provider varies slightly depending on the deployment scenario:
+
+include::modules/single-node-standalone-hibernate-application.adoc[leveloffset=+1]
+
+include::modules/single-node-standalone-spring-application.adoc[leveloffset=+1]
+
+include::modules/single-node-wildfly-application.adoc[leveloffset=+1]
+
+include::modules/multi-node-standalone-hibernate-application.adoc[leveloffset=+1]
+
+include::modules/multi-node-standalone-spring-application.adoc[leveloffset=+1]
+
+include::modules/multi-node-wildfly-application.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

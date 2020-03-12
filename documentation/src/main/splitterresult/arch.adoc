@@ -1,0 +1,22 @@
+ifdef::context[:parent-context: {context}]
+[id="arch_{context}"]
+= Commands
+:context: arch
+
+Internally, each and every cache operation is encapsulated by a command.  These
+command objects represent the type of operation being performed, and also hold
+references to necessary parameters.  The actual logic of a given command, for
+example a ReplaceCommand, is encapsulated in the command’s perform() method.
+Very object-oriented and easy to test.
+
+All of these commands implement the VisitableCommand interface which allow a
+Visitor (described in next section) to process them accordingly.
+
+[source,java]
+----
+link:code_examples/VisitableCommand.java[]
+----
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

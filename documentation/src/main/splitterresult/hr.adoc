@@ -1,0 +1,32 @@
+ifdef::context[:parent-context: {context}]
+[id="hr_{context}"]
+= Overriding the Transaction Mode
+:context: hr
+
+The following example shows how to override `TransactionMode` with the `getCache` method:
+
+[source,java]
+----
+//Configure the transaction manager and transaction mode.
+org.infinispan.client.hotrod.configuration.ConfigurationBuilder cb = new org.infinispan.client.hotrod.configuration.ConfigurationBuilder();
+cb.transaction().transactionManagerLookup(RemoteTransactionManagerLookup.getInstance());
+cb.transaction().transactionMode(TransactionMode.NON_XA);
+
+RemoteCacheManager rcm = new RemoteCacheManager(cb.build());
+
+//Override the transaction mode for the my-cache instance.
+RemoteCache<String, String> cache = rcm.getCache("my-cache", TransactionMode.NON_DURABLE_XA, null);
+
+//Return the transaction manager that the cache uses.
+TransactionManager tm = cache.getTransactionManager();
+
+//Perform a simple transaction.
+tm.begin();
+cache.put("k1", "v1");
+System.out.println("K1 value is " + cache.get("k1"));
+tm.commit();
+----
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

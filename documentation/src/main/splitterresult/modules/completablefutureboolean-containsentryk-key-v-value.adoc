@@ -1,0 +1,4 @@
+[id="completablefutureboolean-containsentryk-key-v-value_{context}"]
+= CompletableFuture&lt;Boolean&gt; containsEntry(K key, V value)
+
+Asynchronous that returns true if this multimap contains at least one key-value pair with the value.

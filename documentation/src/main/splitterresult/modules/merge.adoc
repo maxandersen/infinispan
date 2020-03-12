@@ -1,0 +1,43 @@
+[id="merge_{context}"]
+= Merge Policies
+
+In the event of conflicts arising between one or more replicas of a given CacheEntry, it is necessary for a conflict
+resolution algorithm to be defined, therefore we provide the
+link:{javadocroot}/org/infinispan/conflict/EntryMergePolicy.html[EntryMergePolicy] interface. This interface consists
+of a single method, "merge", whose returned CacheEntry is utilised as the "resolved" entry for a given key. When a non-null
+CacheEntry is returned, this entries value is "put" to all replicas in the cache. However when the merge implementation
+returns a null value, all replicas associated with the conflicting key are removed from the cache.
+
+The merge method takes two parameters: the "preferredEntry" and "otherEntries". In the context of a partition merge,
+the preferredEntry is the primary replica of a CacheEntry stored in the partition that contains the most nodes or if
+partitions are equal the one with the largest topologyId. In the event of overlapping partitions, i.e. a node A is
+present in the topology of both partitions {A}, {A,B,C}, we pick {A} as the preferred partition as it will have the higher
+topologId as the other partition's topology is behind. When a partition merge is not occurring, the "preferredEntry" is
+simply the primary replica of the CacheEntry. The second parameter, "otherEntries" is simply a list of all other entries
+associated with the key for which a conflict was detected.
+
+[NOTE,textlabel="Note",name="note"]
+====
+EntryMergePolicy::merge is only called when a conflict has been detected, it is not called if all CacheEntrys are
+the same.
+====
+
+Currently {brandname} provides the following implementations of EntryMergePolicy:
+
+[table,tablepcwidth="100",rowcount="6",header-option="",colcount="2"]
+|===
+| MergePolicy.NONE (default) | No attempt is made to resolve conflicts. Entries hosted on the minority partition are removed and the nodes
+  in this partition do not hold any data until the rebalance starts. Note, this behaviour is equivalent to prior Infinispan
+  versions which did not support conflict resolution.
+  Note, in this case all changes made to entries hosted on the minority partition are lost, but once the rebalance has
+  finished all entries will be consistent.
+| MergePolicy.PREFERRED_ALWAYS | Always utilise the "preferredEntry". MergePolicy.NONE is almost equivalent to PREFERRED_ALWAYS, albeit without the
+  performance impact of performing conflict resolution, therefore MergePolicy.NONE should be chosen unless the following
+  scenario is a concern. When utilising the DENY_READ_WRITES or DENY_READ strategy, it is possible for a write operation
+  to only partially complete when the partitions enter DEGRADED mode, resulting in replicas containing inconsistent values.
+  MergePolicy.PREFERRED_ALWAYS will detect said inconsistency and resolve it, whereas with MergePolicy.NONE the CacheEntry
+  replicas will remain inconsistent after the cluster has rebalanced.
+| MergePolicy.PREFERRED_NON_NULL | Utilise the "preferredEntry" if it is non-null, otherwise utilise the first entry from "otherEntries".
+| MergePolicy.REMOVE_ALL | Always remove a key from the cache when a conflict is detected.
+| Fully qualified class name | The custom implementation for merge will be used link:#partition_handling_custom_merge_policy[Custom merge policy]
+|===

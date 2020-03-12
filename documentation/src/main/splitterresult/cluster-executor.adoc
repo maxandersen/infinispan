@@ -1,0 +1,42 @@
+ifdef::context[:parent-context: {context}]
+[id="cluster-executor_{context}"]
+= Cluster Executor
+:context: cluster-executor
+
+Since you have a group of machines, it makes sense to leverage their combined
+computing power for executing code on all of them them.
+The cache manager comes with a nice utility that allows you to
+execute arbitrary code in the cluster. Note this feature requires no Cache to be used.  This
+link:{javadocroot}/org/infinispan/manager/ClusterExecutor.html[Cluster Executor]
+can be retrieved by calling +executor()+ on the `EmbeddedCacheManager`. This executor is retrievable
+in both clustered and non clustered configurations.
+
+[NOTE,textlabel="Note",name="note"]
+====
+The ClusterExecutor is specifically designed for executing code where the code is not reliant
+upon the data in a cache and is used instead as a way to help users to execute code easily
+in the cluster.
+====
+
+This manager was built specifically using Java 8 and such has functional APIs in mind, thus all methods take a functional
+inteface as an argument. Also since these arguments will be sent to other nodes they need to be serializable.  We even
+used a nice trick to ensure our lambdas are immediately Serializable.  That is by having the arguments implement both
+Serializable and the real argument type (ie. Runnable or Function).  The JRE will pick the most specific class when
+determining which method to invoke, so in that case your lambdas will always be serializable.
+It is also possible to use an Externalizer to possibly reduce message size further.
+
+The manager by default will submit a given command to all nodes in the cluster including the node
+where it was submitted from. You can control on which nodes the task is executed on
+by using the `filterTargets` methods as is explained in the section.
+
+include::modules/filtering-execution-nodes.adoc[leveloffset=+1]
+
+include::modules/timeout.adoc[leveloffset=+1]
+
+include::modules/single-node-submission.adoc[leveloffset=+1]
+
+include::modules/example-pi-approximation.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

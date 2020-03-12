@@ -1,0 +1,10 @@
+ifdef::context[:parent-context: {context}]
+[id="total-order-transaction-protocol-removed_{context}"]
+= Total Order transaction protocol removed
+:context: total-order-transaction-protocol-removed
+
+Total Order transaction protocol was deprecated in 10.0 and now it is removed.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

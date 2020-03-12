@@ -1,0 +1,22 @@
+ifdef::context[:parent-context: {context}]
+[id="member-information_{context}"]
+= Member Information
+:context: member-information
+
+When you are using a cluster it is very important to be able to find information
+about membership in the cluster including who is the owner of the cluster.
+
+.<a href="{javadocroot}/org/infinispan/manager/EmbeddedCacheManager.html#getMembers--">getMembers()</a>
+[]
+The +getMembers()+ method returns all of the nodes in the current cluster.
+
+.<a href="{javadocroot}/org/infinispan/manager/EmbeddedCacheManager.html#getCoordinator--">getCoordinator()</a>
+[]
+The +getCoordinator()+ method will tell you which one of the members is the coordinator
+of the cluster.  For most intents you shouldn't need to care who the coordinator is.
+You can use link:{javadocroot}/org/infinispan/manager/EmbeddedCacheManager.html#isCoordinator--[isCoordinator()]
+method directly to see if the local node is the coordinator as well.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

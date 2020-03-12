@@ -1,0 +1,8 @@
+[id="what-do-i-need-pessimistic-or-optimistic-transactions_{context}"]
+= What do I need - pessimistic or optimistic transactions?
+
+From a use case perspective, optimistic transactions should be used when there is _not_ a lot of contention between multiple transactions running at the same time.
+That is because the optimistic transactions rollback if data has changed between the time it was read and the time it was committed (with write skew check enabled).
+
+On the other hand, pessimistic transactions might be a better fit when there is high contention on the keys and transaction rollbacks are less desirable.
+Pessimistic transactions are more costly by their nature: each write operation potentially involves a RPC for lock acquisition.

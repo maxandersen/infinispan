@@ -1,0 +1,10 @@
+[id="timeout_{context}"]
+= Timeout
+
+Cluster Executor allows for a timeout to be set per invocation. This defaults to the distributed sync timeout
+as configured on the Transport Configuration. This timeout works in both a clustered and non clustered
+cache manager. The executor may or may not interrupt the threads executing a task when the timeout expires. However
+when the timeout occurs any `Consumer` or `Future` will be completed passing back a `TimeoutException`.
+This value can be overridden by ivoking the
+link:{javadocroot}/org/infinispan/manager/ClusterExecutor.html#timeout-long-java.util.concurrent.TimeUnit-[timeout]
+method and supplying the desired duration.

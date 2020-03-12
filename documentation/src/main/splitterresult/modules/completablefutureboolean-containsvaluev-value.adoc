@@ -1,0 +1,4 @@
+[id="completablefutureboolean-containsvaluev-value_{context}"]
+= CompletableFuture&lt;Boolean&gt; containsValue(V value)
+
+Asynchronous that returns true if this multimap contains the value in at least one key.

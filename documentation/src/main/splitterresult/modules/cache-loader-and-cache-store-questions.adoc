@@ -1,0 +1,18 @@
+[id="cache-loader-and-cache-store-questions_{context}"]
+= Cache Loader and Cache Store questions
+
+[id="are-modifications-to-asynchronous-cache-stores-coalesced-or-aggregated_{context}"]
+== Are modifications to asynchronous cache stores coalesced or aggregated?
+:context: are-modifications-to-asynchronous-cache-stores-coalesced-or-aggregated
+
+[id="what-does-the-passivation-flag-do_{context}"]
+== What does the passivation flag do?
+:context: what-does-the-passivation-flag-do
+
+[id="what-if-i-get-ioexception-unsupported-protocol-version-48-with-jdbcstringbasedcachestore_{context}"]
+== What if I get IOException "Unsupported protocol version 48" with JdbcStringBasedCacheStore?
+:context: what-if-i-get-ioexception-unsupported-protocol-version-48-with-jdbcstringbasedcachestore
+
+[id="is-there-any-way-i-can-boost-cache-stores-performance_{context}"]
+== Is there any way I can boost cache store&#8217;s performance?
+:context: is-there-any-way-i-can-boost-cache-stores-performance

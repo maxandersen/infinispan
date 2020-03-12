@@ -1,0 +1,6 @@
+[id="continuous-integration_{context}"]
+= Continuous Integration
+
+{brandname} uses link:http://www.jetbrains.com/teamcity[TeamCity] for continuous integration.
+TeamCity polls GitHub for updates and runs whenever updates are available.
+You can check the status of the latest builds link:http://ci.infinispan.org/overview.html[here] .

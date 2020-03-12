@@ -1,0 +1,13 @@
+[id="performance-concerns-of-certain-map-methods_{context}"]
+= Performance Concerns of Certain Map Methods
+
+Certain methods exposed in Map have certain performance consequences when used with {brandname}, such as
+link:{javadocroot}/org/infinispan/Cache.html#size--[size()] ,
+link:{javadocroot}/org/infinispan/Cache.html#values--[values()] ,
+link:{javadocroot}/org/infinispan/Cache.html#keySet--[keySet()] and
+link:{javadocroot}/org/infinispan/Cache.html#entrySet--[entrySet()] .
+Specific methods on the `keySet`, `values` and `entrySet` are fine for use please see their Javadoc for further details.
+
+Attempting to perform these operations globally would have large performance impact as well as become a scalability bottleneck.  As such, these methods should only be used for informational or debugging purposes only.
+
+It should be noted that using certain flags with the link:{javadocroot}/org/infinispan/AdvancedCache.html#withFlags-org.infinispan.context.Flag...-[withFlags] method can mitigate some of these concerns, please check each method's documentation for more details.

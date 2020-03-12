@@ -1,0 +1,18 @@
+ifdef::context[:parent-context: {context}]
+[id="default-encoders_{context}"]
+= Default encoders
+:context: default-encoders
+
+{brandname} automatically picks the Encoder depending on the cache configuration. The table below shows which internal Encoder is used for several configurations:
+
+[table,tablepcwidth="100",rowcount="5",header-option="",colcount="4",cols="4"]
+|===
+| Embedded/Server | Default | IdentityEncoder | Passthrough encoder, no conversion done
+| Embedded | StorageType.OFF_HEAP | GlobalMarshallerEncoder | Use the {brandname} internal marshaller to convert to byte[]. May delegate to the configured marshaller in the cache manager.
+| Embedded | StorageType.BINARY | BinaryEncoder | Use the {brandname} internal marshaller to convert to byte[], except for primitives and String.
+| Server | StorageType.OFF_HEAP | IdentityEncoder | Store byte[]s directly as received by remote clients
+|===
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

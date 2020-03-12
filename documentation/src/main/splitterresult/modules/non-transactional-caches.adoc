@@ -1,0 +1,4 @@
+[id="non-transactional-caches_{context}"]
+= Non transactional caches
+
+In the case of non-transactional caches the replication happens during each operation. Given that data is sent in parallel to backups and local caches, it is possible for the operations to succeed locally and fail remotely, or the other way, causing inconsistencies

@@ -1,0 +1,13 @@
+ifdef::context[:parent-context: {context}]
+[id="jdk_{context}"]
+= JDK
+:context: jdk
+
+Choose your Java runtime, and follow their installation instructions. For example, you could choose one of:
+
+* link:http://openjdk.java.net/install/[OpenJDK]
+* link:http://www.java.com/en/download/manual.jsp[Oracle Java SE]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

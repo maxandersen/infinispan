@@ -1,0 +1,4 @@
+[id="as-a-geographical-backup-for-your-data_{context}"]
+= As a geographical backup for your data
+
+{brandname} supports replication between clusters, allowing you to backup your data across geographically remote sites.

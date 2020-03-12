@@ -1,0 +1,13 @@
+[id="multi-node-standalone-spring-application_{context}"]
+= Multi-Node Standalone Spring Application
+
+If interested in running a Spring application that uses Hibernate and {brandname} as second level cache, the cache needs to be clustered.
+Clustering the {brandname} second-level cache provider is as simple as adding the following property to the `application.properties` file:
+
+....
+# Use Infinispan second level cache provider
+spring.jpa.properties.hibernate.cache.region.factory_class=infinispan
+....
+
+The default {brandname} configuration used by the second-level cache provider is already configured to work in a cluster environment, so no need to add any extra properties.
+You can find more about the configuration check the link:#default_cluster_configuration_second_level[Default Cluster Configuration] section.

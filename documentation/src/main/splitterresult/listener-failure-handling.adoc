@@ -1,0 +1,37 @@
+ifdef::context[:parent-context: {context}]
+[id="listener-failure-handling_{context}"]
+= Listener Failure Handling
+:context: listener-failure-handling
+
+When a Hot Rod client registers a client listener, it does so in a single
+node in a cluster. If that node fails, the Java Hot Rod client detects that
+transparently and fails over all listeners registered in the node that failed
+to another node.
+
+During this fail over the client might miss some events. To avoid missing
+these events, the client listener annotation contains an optional parameter
+called `includeCurrentState` which if set to true, when the failover happens,
+the cache contents can iterated over and `ClientCacheEntryCreated` events
+(or custom events if configured) are generated. By default,
+`includeCurrentState` is set to false.
+
+Java Hot Rod clients can be made aware of such fail over event by adding a
+callback to handle it:
+
+[source,java]
+----
+@ClientCacheFailover
+public void handleFailover(ClientCacheFailoverEvent e) {
+  ...
+}
+----
+
+This is very useful in use cases where the client has cached some data, and
+as a result of the fail over, taking in account that some events could be
+missed, it could decide to clear any locally cached data when the fail over
+event is received, with the knowledge that after the fail over event, it will
+receive events for the contents of the entire cache.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

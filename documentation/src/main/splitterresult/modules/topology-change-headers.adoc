@@ -1,0 +1,8 @@
+[id="topology-change-headers_{context}"]
+= Topology Change Headers
+
+The following section discusses how the response headers look for
+topology-aware or hash-distribution-aware clients when there's been a cluster
+or view formation change. Note that it's the server that makes the decision on
+whether it sends back the new topology based on the current topology id and
+the one the client sent. If they're different, it will send back the new topology.

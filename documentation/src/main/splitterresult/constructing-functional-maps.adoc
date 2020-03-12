@@ -1,0 +1,33 @@
+ifdef::context[:parent-context: {context}]
+[id="constructing-functional-maps_{context}"]
+= Constructing Functional Maps
+:context: constructing-functional-maps
+
+To construct any of the read-only, write-only or read-write map
+instances, an {brandname}
+link:{javadocroot}/org/infinispan/AdvancedCache.html[`AdvancedCache`]
+is required, which is retrieved from the Cache Manager, and using the
+link:{javadocroot}/org/infinispan/AdvancedCache.html[`AdvancedCache`]
+, static method
+factory methods are used to create
+link:{javadocroot}/org/infinispan/commons/api/functional/FunctionalMap.ReadOnlyMap.html[`R​eadOnlyMap`]
+,
+link:{javadocroot}/org/infinispan/commons/api/functional/FunctionalMap.ReadWriteMap.html[`R​eadWriteMap`]
+or
+link:{javadocroot}/org/infinispan/commons/api/functional/FunctionalMap.WriteOnlyMap.html[`W​riteOnlyMap`]
+
+[source,java]
+----
+link:code_examples/FunctionalMap.java[]
+----
+
+[WARNING,textlabel="Warning",name="warning"]
+====
+At this stage, the Functional Map API is experimental and hence the
+way FunctionalMap, ReadOnlyMap, WriteOnlyMap and ReadWriteMap are constructed
+is temporary.
+====
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

@@ -1,0 +1,10 @@
+ifdef::context[:parent-context: {context}]
+[id="verbosity-command_{context}"]
+= Verbosity Command
+:context: verbosity-command
+
+The verbosity command is not supported since {brandname} logging cannot be simplified to defining the logging level alone.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

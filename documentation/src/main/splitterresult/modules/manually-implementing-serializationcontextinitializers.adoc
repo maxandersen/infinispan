@@ -1,0 +1,40 @@
+[id="manually-implementing-serializationcontextinitializers_{context}"]
+= Manually Implementing SerializationContextInitializers
+
+Although link:#generating_proto_marshallers[generating resources] is the easiest and most performant way to utilise
+ProtoStream, this method might not always be viable. For example, if you are not able to modify the Java object classes
+to add the required annotations. For such use cases, it's possible to manually define the .proto schema and create a manual
+marshaller implementation.
+
+Continuing with the Book and Author examples, first we need to manually create a `library.proto` file with our message
+schemas.
+
+.library.proto
+[source,proto]
+----
+link:config_examples/library.proto[]
+----
+
+Then, we need to implement a marshaller for both the Book and Author classes using the `org.infinispan.protostream.MessageMarshaller`
+interface.
+
+.BookMarshaller.java
+[source,java]
+----
+link:code_examples/BookMarshaller.java[]
+----
+
+.AuthorMarshaller.java
+[source,java]
+----
+link:code_examples/AuthorMarshaller.java[]
+----
+
+Finally, we need to create a `SerializationContextInitializer` implementation that registers the `library.proto` file
+and the two marshallers with a ProtoStream `SerializationContext`.
+
+.ManualSerializationContextInitializer.java
+[source,java]
+----
+link:code_examples/ManualSerializationContextInitializer.java[]
+----

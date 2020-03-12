@@ -1,0 +1,27 @@
+ifdef::context[:parent-context: {context}]
+[id="read-committed_{context}"]
+= READ COMMITTED
+:context: read-committed
+
++READ_COMMITTED+ is one of two isolation levels the {brandname}'s locking
+infrastructure provides (the other is +REPEATABLE_READ+). Isolation levels
+link:http://en.wikipedia.org/wiki/Isolation_level#READ_COMMITTED[have their origins]
+in relational databases.
+
+In {brandname}, +READ_COMMITTED+ works slightly differently to databases.
++READ_COMMITTED+ says that "data can be read as long as there is no write",
+however in {brandname}, reads can happen anytime thanks to _MVCC_. MVCC allows
+writes to happen on copies of data, rather than on the data itself. Thus, even
+in the presence of a write, reads can still occur, and all read operations in
+{brandname} are non-blocking (resulting in increased performance for the end
+user). On the other hand, write operations are exclusive in {brandname}, (and so
+work the same way as +READ_COMMITTED+ does in a database).
+
+With +READ_COMMITTED+, multiple reads of the same key within a transaction can
+return different results, and this phenomenon is known as
+link:http://en.wikipedia.org/wiki/Isolation_level#Non-repeatable_reads[non-repeatable reads].
+This issue is avoided with +REPETEABLE_READ+ isolation level.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

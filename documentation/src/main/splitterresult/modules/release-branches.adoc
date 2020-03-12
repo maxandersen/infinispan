@@ -1,0 +1,6 @@
+[id="release-branches_{context}"]
+= Release branches
+
+{brandname} has several main release branches. These are master (ongoing work on the current unstable release),
+and maintenance branches for previous minor releases (e.g., `5.0.x`, `4.2.x`, `4.1.x`).
+Work should never be committed directly to any of these release branches directly; topic branches should always be used for work, and these topic branches should be merged in using the process outlined above.

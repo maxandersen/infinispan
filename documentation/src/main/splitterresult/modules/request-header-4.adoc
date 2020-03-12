@@ -1,0 +1,8 @@
+[id="request-header-4_{context}"]
+= Request Header
+
+The `version` field in the header is updated to `13`.
+
+A new request operation code has been added:
+
+* +0x1F+ = query request

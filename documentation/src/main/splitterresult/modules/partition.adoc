@@ -1,0 +1,19 @@
+[id="partition_{context}"]
+= Implement a custom merge policy
+
+It's also possible to provide custom implementations of the EntryMergePolicy
+
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/custom_merge_policy.xml[]
+----
+
+[source,java]
+----
+link:code_examples/CustomMergePolicy.java[]
+----
+
+[source,java]
+----
+link:code_examples/CustomMergePolicyEntryMerge.java[]
+----

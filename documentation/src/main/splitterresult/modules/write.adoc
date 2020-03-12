@@ -1,0 +1,16 @@
+[id="write_{context}"]
+= Write-Only Entry View
+
+The function parameters for write-only maps provide the user with a
+link:{javadocroot}/org/infinispan/commons/api/functional/EntryView.WriteEntryView.html[write-only entry view]
+to modify the data in the cache, which include these
+operations:
+
+* link:{javadocroot}/org/infinispan/commons/api/functional/EntryView.WriteEntryView.html#set-V-org.infinispan.commons.api.functional.MetaParam.Writable...-[`set(V, MetaParam.Writable...)`]
+method allows for a new value to be
+associated with the cache entry for which this function is executed, and it
+optionally takes zero or more metadata parameters to be stored along with
+the value. See link:#meta_parameter[Metadata Parameter Handling] for more information.
+* link:{javadocroot}/org/infinispan/commons/api/functional/EntryView.WriteEntryView.html#remove--[`remove()`]
+method removes the cache entry, including both value and metadata
+parameters associated with this key.

@@ -1,0 +1,16 @@
+[id="multi-node-wildfly-application_{context}"]
+= Multi-Node WildFly Application
+
+As mentioned in the single node WildFly case, {brandname} is the default second level cache provider for JPA/Hibernate when running inside WildFly.
+This means that when using JPA in WildFly, region factory is already set to `infinispan`.
+
+When running WildFly multi-node clusters, it is recommended that you start off by using `clustered.xml` configuration file.
+Within this file you can find Hibernate {brandname} caches configured with the correct settings to work in a clustered environment.
+You can find more about the configuration check the link:#default_cluster_configuration_second_level[Default Cluster Configuration] section.
+
+Several aspects of the {brandname} second level cache provider can be configured directly in `persistence.xml`.
+This means that some of those tweaks do not require changing WildFly's `standalone-ha.xml` file.
+You can find out more about these changes in the link:#configuration_properties[Configuration Properties] section.
+
+So, to enable Hibernate to use {brandname} as second-level cache, all you need to do is enable second-level cache.
+Enabling second-level cache is explained in detail in the introduction of this chapter.

@@ -1,0 +1,10 @@
+ifdef::context[:parent-context: {context}]
+[id="dealing-with-exceptions_{context}"]
+= Dealing with exceptions
+:context: dealing-with-exceptions
+
+If a link:{javadocroot}/org/infinispan/commons/CacheException.html[CacheException] (or a subclass of it) is thrown by a cache method within the scope of a JTA transaction, then the transaction is automatically marked for rollback.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

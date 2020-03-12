@@ -1,0 +1,13 @@
+[id="index-reader-async-strategy_{context}"]
+= Index reader async strategy
+
+Lucene internally works with snapshots of the index: once an _IndexReader_ is opened, it will only see the index changes up to the point it was opened;
+further index changes will not be visible until the _IndexReader_ is refreshed. The Index Managers used in {brandname} by default will check the
+freshness of the index readers before every query and refresh them if necessary.
+
+It is possible to tune this strategy to relax this freshness checking to a pre-configured interval by using the `reader.strategy` configuration set as `async`:
+
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/indexing_async_reader_strategy.xml[]
+----

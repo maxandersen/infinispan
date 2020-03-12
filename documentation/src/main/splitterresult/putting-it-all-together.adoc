@@ -1,0 +1,19 @@
+ifdef::context[:parent-context: {context}]
+[id="putting-it-all-together_{context}"]
+= Putting it all together
+:context: putting-it-all-together
+
+So how does this all come together?  Invocations on the cache cause the cache
+to first create an invocation context for the call.  Invocation contexts
+contain, among other things, transactional characteristics of the call.  The
+cache then creates a command for the call, making use of a command factory which
+initialises the command instance with parameters and references to other subsystems.
+
+The cache then passes the invocation context and command to the InterceptorChain,
+which calls each and every registered interceptor in turn to visit the command,
+adding behaviour to the call.  Finally, the command’s perform() method is invoked
+and the return value, if any, is propagated back to the caller.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

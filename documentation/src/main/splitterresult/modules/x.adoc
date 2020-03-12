@@ -1,0 +1,29 @@
+[id="x_{context}"]
+= Configuration
+
+State transfer between sites cannot be enabled or disabled but it allows to tune some parameters. The values shown
+below are the default values:
+
+.infinispan.xml
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/state_transfer_xsite.xml[]
+----
+
+The equivalent programmatic configuration is:
+
+[source,java]
+----
+link:code_examples/StateTransferXsite.java[]
+----
+
+Below, it is the parameters description:
+
+* _chunk-size_ - The number of keys to batch before sending them to the consumer site. A negative or a zero value is
+*not* a valid value. Default value is 512 keys.
+* _timeout_ - The time (in milliseconds) to wait for the consumer site acknowledge the reception and appliance of a
+state chunk. A negative or zero value is *not* a valid value. Default value is 20 minutes.
+* _max-retries_ - The maximum number of retries when a push state command fails. A negative or a zero value means that
+the command will not retry in case of failure. Default value is 30.
+* _wait-time_ - The waiting time (in milliseconds) between each retry. A negative or a zero value is *not* a valid
+value. Default value is 2 seconds.

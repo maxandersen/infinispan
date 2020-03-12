@@ -1,0 +1,8 @@
+[id="reentrancy_{context}"]
+= Reentrancy
+
+When a `ClusteredLock` is configured reentrant, the owner of the lock can reacquire the lock as many consecutive
+times as it wants while holding the lock.
+
+Currently, only non reentrant locks are supported. This means that when two consecutive `lock` calls are sent for the same
+owner, the first call will acquire the lock if it's available, and the second call will block.

@@ -1,0 +1,4 @@
+[id="want-to-know-more_{context}"]
+= Want to know more?
+
+The link:https://community.jboss.org/wiki/TransactionRecoveryDesign[recovery design document] describes in more detail the insides of transaction recovery implementation.

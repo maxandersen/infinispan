@@ -1,0 +1,6 @@
+[id="debugging-questions_{context}"]
+= Debugging questions
+
+[id="how-can-i-get-brandname-to-show-the-full-byte-array-the-log-only-shows-partial-contents-of-byte-arrays_{context}"]
+== How can I get {brandname} to show the full byte array? The log only shows partial contents of byte arrays&#8230;&#8203;
+:context: how-can-i-get-brandname-to-show-the-full-byte-array-the-log-only-shows-partial-contents-of-byte-arrays

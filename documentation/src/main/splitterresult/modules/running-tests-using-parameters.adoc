@@ -1,0 +1,4 @@
+[id="running-tests-using-parameters_{context}"]
+= Running tests using <code>@Parameters</code>
+
+If you want to execute tests relying on TestNG's `@Parameters` from an IDE (such as Eclipse or IntelliJ IDEA), please read link:http://infinispan.blogspot.com/2009/06/executing-testng-tests-relying-on.html[this blog entry] .

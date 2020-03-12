@@ -1,0 +1,12 @@
+ifdef::context[:parent-context: {context}]
+[id="bridging-to-the-old-configuration_{context}"]
+= Bridging to the old configuration
+:context: bridging-to-the-old-configuration
+
+Until we entirely swap out the old configuration you will need to add your property to the old configuration (no need to worry about JAXB mappings though!), and then add some code to the `LegacyConfigurationAdaptor` to adapt both ways.
+It's fairly straightforward, just locate the relevant point in the `adapt()` method (near the configuration group you are using) and map from the legacy configuration to the new configuration, or vs versa.
+You will need to map both ways, in both adapt methods.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

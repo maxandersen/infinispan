@@ -1,0 +1,30 @@
+[id="lock-striping_{context}"]
+= Lock striping
+
+Lock striping entails the use of a fixed-size, shared collection of locks for the entire cache, with locks being allocated to entries based on the entry's key's hash code.
+Similar to the way the JDK's `ConcurrentHashMap` allocates locks, this allows for a highly scalable, fixed-overhead locking mechanism in exchange for potentially unrelated entries being blocked by the same lock.
+
+The alternative is to disable lock striping - which would mean a _new_ lock is created per entry.
+This approach _may_ give you greater concurrent throughput, but it will be at the cost of additional memory usage, garbage collection churn, etc.
+
+.Default lock striping settings
+[IMPORTANT,textlabel="Important",name="important"]
+====
+lock striping is disabled by default, due to potential deadlocks that can happen if locks for different keys end up in the same lock stripe.
+====
+
+The size of the shared lock collection used by lock striping can be tuned using the `concurrencyLevel` attribute of the `<locking /> configuration element.
+
+*Configuration example:*
+
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/locking_striping.xml[]
+----
+
+Or
+
+[source,java]
+----
+new ConfigurationBuilder().locking().useLockStriping(false|true);
+----

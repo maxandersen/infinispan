@@ -1,0 +1,9 @@
+[id="why-use-such-an-api_{context}"]
+= Why use such an API?
+
+Non-blocking APIs are powerful in that they provide all of the guarantees of synchronous communications - with the ability to handle communication failures and exceptions - with the ease of not having to block until a call completes.  This allows you to better harness parallelism in your system.  For example:
+
+[source,java]
+----
+link:code_examples/NonBlocking.java[]
+----

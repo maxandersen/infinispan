@@ -1,0 +1,15 @@
+ifdef::context[:parent-context: {context}]
+[id="adding-custom-interceptors-declaratively_{context}"]
+= Adding custom interceptors declaratively
+:context: adding-custom-interceptors-declaratively
+
+Custom interceptors can be added on a per named cache basis. This is because each named cache have its own interceptor stack. Following xml snippet depicts the ways in which a custom interceptor can be added.
+
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/cache_with_custom_interceptors.xml[]
+----
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

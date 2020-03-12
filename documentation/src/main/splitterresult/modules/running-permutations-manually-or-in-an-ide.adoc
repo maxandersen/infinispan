@@ -1,0 +1,8 @@
+[id="running-permutations-manually-or-in-an-ide_{context}"]
+= Running permutations manually or in an IDE
+
+Sometimes you want to run a test using settings other than the defaults (such as UDP for `jgroups` group tests or the EmbeddedTransactionManager for `transaction` group tests).
+This can be achieved by referring to the Maven POM file to figure out which system properties are passed in to the test when doing something different.
+For example to run a `jgroups` group test in your IDE using TCP instead of the default UDP, set `-Dinfinispan.cluster.stack=tcp`.
+Or, to use JBoss JTA (Arjuna TM) instead of the EmbeddedTransactionManager in a `transaction` group test, set `-Dinfinispan.test.jta.tm=jbosstm`.
+Please refer to the POM file for more properties and permutations.

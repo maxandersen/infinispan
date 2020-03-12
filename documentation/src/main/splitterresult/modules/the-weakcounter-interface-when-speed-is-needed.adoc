@@ -1,0 +1,35 @@
+[id="the-weakcounter-interface-when-speed-is-needed_{context}"]
+= The <code>WeakCounter</code> interface: when speed is needed
+
+The `WeakCounter` stores the counter's value in multiple keys in {brandname} cache.
+The number of keys created is configured by the `concurrency-level` attribute.
+Each key stores a partial state of the counter's value and it can be updated concurrently.
+It main advantage over the `StrongCounter` is the lower contention in the cache.
+On other hand, the read of its value is more expensive and bounds are not allowed.
+
+[WARNING,textlabel="Warning",name="warning"]
+====
+The reset operation should be handled with caution.
+It is *not* atomic and it produces intermediates values.
+These value may be seen by a read operation and by any listener registered.
+====
+
+A `WeakCounter` can be retrieved from the `CounterManager` by using the `getWeakCounter()` method.
+As an example:
+
+[source,java]
+----
+link:code_examples/CounterGetWeak.java[]
+----
+
+[id="weak-counter-interface_{context}"]
+== Weak Counter Interface
+:context: weak-counter-interface
+
+[id="uses-cases-2_{context}"]
+== Uses cases
+:context: uses-cases-2
+
+[id="examples_{context}"]
+== Examples
+:context: examples

@@ -1,0 +1,22 @@
+ifdef::context[:parent-context: {context}]
+[id="style-requirements_{context}"]
+= Style Requirements
+:context: style-requirements
+
+{brandname} uses the link:http://en.wikipedia.org/wiki/Indent_style#K.26R_style[K&amp;R code style] for all Java source files, with two exceptions:
+
+[arabic]
+. use 3 spaces instead of a tab character for indentations.
+. braces start on the same line for class, interface and method declarations as well as code blocks.
+
+In addition, sure all link:http://en.wikipedia.org/wiki/Newline[new line characters] used must be LF (UNIX style line feeds). Most good IDEs allow you to set this, regardless of operating system used.
+
+All patches or code committed must adhere to this style. Code style settings which can be imported into IntelliJ IDEA and Eclipse are committed in the project sources, in link:https://github.com/infinispan/infinispan/blob/master/ide-settings/[ide-settings] .
+
+include::modules/spelling.adoc[leveloffset=+1]
+
+include::modules/check-in-comments.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

@@ -1,0 +1,41 @@
+ifdef::context[:parent-context: {context}]
+[id="configuring-a-distributed-data-grid_{context}"]
+= Configuring a distributed data-grid
+:context: configuring-a-distributed-data-grid
+
+In distributed mode, {brandname} will store every entry on a subset of the nodes in the grid (the parameter numOwners
+controls how many owners each entry will have). Compared to replication, distribution offers increased storage capacity,
+but with increased latency to access data from non-owner nodes, and durability (data may be lost if all the owners are
+stopped in a short time interval).
+Adjusting the number of owners allows you to obtain the trade off between space, durability, and latency.
+
+{brandname} also offers a _topology aware consistent hash_ which will ensure that the owners of entries are located in
+different data centers, racks, or physical machines, to offer improved durability in case of node crashes or network
+outages.
+
+The cache should be configured to work in distributed mode (either synchronous or asynchronous), and can otherwise
+be configured as normal. For example, if you want to configure the cache programmatically:
+
+[source,java]
+----
+link:code_examples/ConfigDistributedCacheMode.java[]
+----
+
+You can configure an identical cache using XML:
+
+.infinispan-distribution.xml:
+[source,xml,subs="attributes+",nowrap-option=""]
+----
+link:config_examples/config_cache_distributed.xml[]
+----
+
+along with
+
+[source,java]
+----
+link:code_examples/ConfigEmbeddedCacheManagerDistribution.java[]
+----
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

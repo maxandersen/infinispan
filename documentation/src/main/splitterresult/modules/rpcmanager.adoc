@@ -1,0 +1,4 @@
+[id="rpcmanager_{context}"]
+= RpcManager
+
+Manager that handles replicating commands between nodes in the cluster.

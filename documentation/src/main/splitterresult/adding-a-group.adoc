@@ -1,0 +1,37 @@
+ifdef::context[:parent-context: {context}]
+[id="adding-a-group_{context}"]
+= Adding a group
+:context: adding-a-group
+
+In some situations you may additionally want to add a configuration grouping object, represented in XML as an element.
+You might want to do this if you are adding a new area of functionality to {brandname}.
+Identify the location of the new configuration grouping object.
+It might be added to the root Configuration object, or it might be added to one it's children, children's children.
+We'll call the parent YYY in the steps below. Create the XXXConfiguration object.
+Add any properties required following the guide for adding properties.
+The constructors visibility should be "default".
+
+[arabic]
+. Create the XXXConfigurationBuilder object.
+It should subclass the relevant configuration child builder – use the YYYConfigurationChildBuilder as the superclass.
+This will ensure that all builder methods that allow the user to "escape" are provided correctly (i.e provide access to other grouping elements), and also require you to provide a `create()` and `validate()` method.
+The constructor needs to take the the YYYConfigurationBuilder as an argument, and pass this to the superclass (this simply allows access to the root of the builder tree using the `getBuilder()` method).
+. Follow the property adding guide to add any properties you need to the builder.
+The `create()` method needs to return a new instance of the XXXConfiguration object.
+Implement any validation needed in the `validate()` method.
+. In the YYYConfiguration object, add your new configuration class as a private final field, add an accessor, and add initialiser assignment in the constructor
+
+` In the YYYConfigurationBuilder, add your new configuration builder as a private final field, and initialise it in the constructor with a new instance.
+Finally, add an accessor for it following the standard pattern discussed in the guide.
+
+[arabic]
+. In the YYYConfigurationBuilder ensure that your validate method is called in it's validate method, and that result of the XXXConfiguration instances' create method is passed to the constructor of YYYConfiguration.
+. Finally, add this to the parser.
+First, add the element to the `Element` class, which provides a type safe representation of the element name in XML.
+In the `Parser` class, add a new `parseXXX` method, copying one of the others that most matches your requirements (parse methods either parse elements only - look for `ParseUtils.requireNoAttributes()`, attributes only – look for `ParseUtils.requireNoContent()` or a combination of both – look for an iterator over both elements and attributes).
+Add any attributes as discussed in the adding a property guide.
+Finally, wire this in by locating the `parseYYY()` method, and adding an element to the switch statement, that calls your new `parseXXX()` method.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

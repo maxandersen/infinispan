@@ -1,0 +1,14 @@
+[id="loading-an-existing-lucene-index_{context}"]
+= Loading an existing Lucene Index
+
+The _org.infinispan.lucene.cachestore.LuceneCacheLoader_ is an {brandname} CacheLoader able to have {brandname} directly load data from an existing Lucene index into the grid. Currently this supports reading only.
+
+[table,tablepcwidth="100",rowcount="3",header-option="",colcount="3"]
+|===
+| _location_ | The path where the indexes are stored. Subdirectories (of first level only) should contain the indexes to be loaded, each directory matching the index name attribute of the {brandname} Directory constructor. | none (mandatory)
+| _autoChunkSize_ | A threshold in bytes: if any segment is larger than this, it will be transparently chunked in smaller cache entries up to this size. | 32MB
+|===
+
+It's worth noting that the IO operations are delegated to Lucene's standard _org.apache.lucene.store.FSDirectory_ , which will select an optimal approach for the running platform.
+
+Implementing write-through should not be hard: you're welcome to try implementing it.

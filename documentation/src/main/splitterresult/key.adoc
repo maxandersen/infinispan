@@ -1,0 +1,29 @@
+ifdef::context[:parent-context: {context}]
+[id="key_{context}"]
+= Key affinity service
+:context: key
+
+In a distributed cache, a key is allocated to a list of nodes with an opaque algorithm.
+There is no easy way to reverse the computation and generate a key that maps to a
+particular node.
+However, we can generate a sequence of (pseudo-)random keys, see what their primary
+owner is, and hand them out to the application when it needs a key mapping to a
+particular node.
+
+include::modules/api.adoc[leveloffset=+1]
+
+include::modules/lifecycle.adoc[leveloffset=+1]
+
+include::modules/topology-changes.adoc[leveloffset=+1]
+
+include::modules/grouping.adoc[leveloffset=+1]
+
+include::modules/how-does-it-work.adoc[leveloffset=+1]
+
+include::modules/how-do-i-use-the-grouping-api.adoc[leveloffset=+1]
+
+include::modules/advanced-interface.adoc[leveloffset=+1]
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

@@ -1,0 +1,20 @@
+ifdef::context[:parent-context: {context}]
+[id="fallback-strategy_{context}"]
+= Fallback Strategy
+:context: fallback-strategy
+
+Interface configurations can include multiple strategies. {brandname} servers
+try each strategy in the declared order.
+
+For example, with the following configuration, {brandname} servers first
+attempt to match a host, then an IP address, and then fall back to the
+`INADDR_ANY` wildcard address:
+
+[source,xml]
+----
+link:config_examples/server_network_fallback.xml[]
+----
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

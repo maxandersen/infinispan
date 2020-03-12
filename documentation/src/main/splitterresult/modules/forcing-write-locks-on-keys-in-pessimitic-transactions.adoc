@@ -1,0 +1,37 @@
+[id="forcing-write-locks-on-keys-in-pessimitic-transactions_{context}"]
+= Forcing write locks on keys in pessimitic transactions
+
+To avoid write-skews with pessimistic transactions, lock keys at read-time with `Flag.FORCE_WRITE_LOCK`.
+
+[NOTE,textlabel="Note",name="note"]
+====
+* In non-transactional caches, `Flag.FORCE_WRITE_LOCK` does not work. The `get()` call reads the key value but does not acquire locks remotely.
+* You should use `Flag.FORCE_WRITE_LOCK` with transactions in which the entity is updated later in the same transaction.
+====
+
+Compare the following code snippets for an example of `Flag.FORCE_WRITE_LOCK`:
+
+[source,java]
+----
+// begin the transaction
+if (!cache.getAdvancedCache().lock(key)) {
+   // abort the transaction because the key was not locked
+} else {
+   cache.get(key);
+   cache.put(key, value);
+   // commit the transaction
+}
+----
+
+[source,java]
+----
+// begin the transaction
+try {
+   // throws an exception if the key is not locked.
+   cache.getAdvancedCache().withFlags(Flag.FORCE_WRITE_LOCK).get(key);
+   cache.put(key, value);
+} catch (CacheException e) {
+   // mark the transaction rollback-only
+}
+// commit or rollback the transaction
+----

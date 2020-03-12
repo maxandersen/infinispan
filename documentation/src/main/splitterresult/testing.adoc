@@ -1,0 +1,11 @@
+ifdef::context[:parent-context: {context}]
+[id="testing_{context}"]
+= Testing
+:context: testing
+
+{brandname} uses link:http://testng.org/doc/index.html[TestNG] for unit and functional tests, and all {brandname} tests are run in parallel.
+For more information see the chapter on the test suite; this chapter gives advice on writing tests which can safely execute in parallel.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

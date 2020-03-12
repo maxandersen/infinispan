@@ -1,0 +1,21 @@
+[id="which-group-should-i-use_{context}"]
+= Which group should I use?
+
+The following test groups are used by {brandname}.
+
+[TIP,textlabel="Tip",name="tip"]
+====
+If your test does not fit into one of these groups, a new group should be added.
+====
+
+[table,tablepcwidth="100",rowcount="7",header-option="",colcount="2"]
+|===
+| _unit_ | Unit tests using stubs to isolate and test each major class in {brandname}. This is the default group run if no test group is specified
+| _functional_ | Tests which test the general functionality of {brandname}
+| _jgroups_ | Tests which need to send data on a JGroups Channel
+| _transaction_ | Tests which use a transaction manager
+| _profiling_ | Tests used for manual profiling, not meant for automated test runs
+| _manual_ | Other tests that are run manually
+|===
+
+Every test (except those not intended to be run by continuous integration) should at least be in the *functional* or *unit* groups, since these are the default test groups executed by Maven, and are run when preparing a release.

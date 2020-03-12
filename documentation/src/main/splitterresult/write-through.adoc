@@ -1,0 +1,15 @@
+ifdef::context[:parent-context: {context}]
+[id="write-through_{context}"]
+= Write-through
+:context: write-through
+
+_Write-through_ is a cache store update mode. When this mode is used, clients
+update a cache entry, e.g. via a +Cache.put()+ invocation, the call will not
+return until {brandname} has updated the underlying cache store. Normally this
+means that updates to the cache store are done in the client thread.
+
+An alternative mode in which cache stores can be updated is _write-behind_.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

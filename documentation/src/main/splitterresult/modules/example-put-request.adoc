@@ -1,0 +1,43 @@
+[id="example-put-request_{context}"]
+= Example - Put request
+
+* Coded request
+
+[table,tablepcwidth="100",rowcount="5",header-option="",colcount="9"]
+|===
+| 8 | 0xA0 | 0x09 | 0x41 | 0x01 | 0x07 | 0x4D ('M') | 0x79 ('y') | 0x43 ('C')
+| 16 | 0x61 ('a') | 0x63 ('c') | 0x68 ('h') | 0x65 ('e') | 0x00 | 0x03 | 0x00 | 0x00
+| 24 | 0x00 | 0x05 | 0x48 ('H') | 0x65 ('e') | 0x6C ('l') | 0x6C ('l') | 0x6F ('o') | 0x00
+| 32 | 0x00 | 0x05 | 0x57 ('W') | 0x6F ('o') | 0x72 ('r') | 0x6C ('l') | 0x64 ('d') | 
+|===
+
+* Field explanation
+
+[table,tablepcwidth="100",rowcount="10",header-option="",colcount="4"]
+|===
+| Magic (0) | 0xA0 | Message Id (1) | 0x09
+| Version (2) | 0x41 | Opcode (3) | 0x01
+| Cache name length (4) | 0x07 | Cache name(5-11) | 'MyCache'
+| Flag (12) | 0x00 | Client Intelligence (13) | 0x03
+| Topology Id (14) | 0x00 | Transaction Type (15) | 0x00
+| Transaction Id (16) | 0x00 | Key field length (17) | 0x05
+| Key (18 - 22) | 'Hello' | Lifespan (23) | 0x00
+| Max idle (24) | 0x00 | Value field length (25) | 0x05
+| Value (26-30) | 'World' |  | 
+|===
+
+* Coded response
+
+[table,tablepcwidth="100",rowcount="2",header-option="",colcount="9"]
+|===
+| 8 | 0xA1 | 0x09 | 0x01 | 0x00 | 0x00 |  |  | 
+|===
+
+* Field Explanation
+
+[table,tablepcwidth="100",rowcount="4",header-option="",colcount="4"]
+|===
+| Magic (0) | 0xA1 | Message Id (1) | 0x09
+| Opcode (2) | 0x01 | Status (3) | 0x00
+| Topology change marker (4) | 0x00 |  | 
+|===

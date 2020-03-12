@@ -1,0 +1,56 @@
+[id="the-strongcounter-interface-when-the-consistency-or-bounds-matters_{context}"]
+= The <code>StrongCounter</code> interface: when the consistency or bounds matters.
+
+The strong counter provides uses a single key stored in {brandname} cache to provide the consistency needed.
+All the updates are performed under the key lock to updates its values.
+On other hand, the reads don't acquire any locks and reads the current value.
+Also, with this scheme, it allows to bound the counter value and provide atomic operations like compare-and-set/swap.
+
+A `StrongCounter` can be retrieved from the `CounterManager` by using the `getStrongCounter()` method.
+As an example:
+
+[source,java]
+----
+link:code_examples/CounterGetStrong.java[]
+----
+
+[WARNING,textlabel="Warning",name="warning"]
+====
+Since every operation will hit a single key, the `StrongCounter` has a higher contention rate.
+====
+
+The `StrongCounter` interface adds the following method:
+
+[source,java]
+----
+link:code_examples/CounterStrongMethod.java[]
+----
+
+* `incrementAndGet()` increments the counter by one and returns the new value.
+* `decrementAndGet()` decrements the counter by one and returns the new value.
+* `addAndGet()` adds a delta to the counter's value and returns the new value.
+* `compareAndSet()` and `compareAndSwap()` atomically set the counter's value if the current value is the expected.
+
+[NOTE,textlabel="Note",name="note"]
+====
+A operation is considered completed when the ``CompletableFuture`` is completed.
+====
+
+[NOTE,textlabel="Note",name="note"]
+====
+The difference between compare-and-set and compare-and-swap is that the former returns true if the operation succeeds
+while the later returns the previous value.
+The compare-and-swap is successful if the return value is the same as the expected.
+====
+
+[id="bounded-strongcounter_{context}"]
+== Bounded <code>StrongCounter</code>
+:context: bounded-strongcounter
+
+[id="uses-cases_{context}"]
+== Uses cases
+:context: uses-cases
+
+[id="usage-examples_{context}"]
+== Usage Examples
+:context: usage-examples
